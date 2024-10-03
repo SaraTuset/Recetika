@@ -11,14 +11,19 @@ registerForm.addEventListener('submit', function(e) {
     e.preventDefault();
     const email = document.getElementById('register-email').value;
     const password = document.getElementById('register-password').value;
+    const userExists = users.some(user => user.email === email);
 
-    // Guardar usuario en el array
-    users.push({ email, password });
-    alert("¡Registro exitoso!");
+    if (userExists) {
+        alert("Este correo ya está registrado. Por favor, utiliza otro.");
+    } else {
+        // Guardar usuario en el array si no existe
+        users.push({ email, password });
+        alert("¡Registro exitoso!");
 
-    // Limpiar campos de registro
-    document.getElementById('register-email').value = '';
-    document.getElementById('register-password').value = '';
+        // Limpiar campos de registro
+        document.getElementById('register-email').value = '';
+        document.getElementById('register-password').value = '';
+    }
 });
 
 // Cambiar al formulario de inicio de sesión
