@@ -42,16 +42,6 @@ loginLink.addEventListener('click', function(e) {
         e.preventDefault();
         const email = document.getElementById('login-email').value;
         const password = document.getElementById('login-password').value;
-
-        // Validar si el usuario existe en el array
-        const user = users.find(user => user.email === email && user.password === password);
-
-        if (user) {
-            // Redirige a YouTube si las credenciales son correctas
-            window.location.href = "https://www.youtube.com";
-        } else {
-            alert("Correo electrónico o contraseña incorrectos");
-        }
     });
 
     // Regresar al formulario de registro
@@ -83,6 +73,7 @@ function addEventListeners() {
             const email = document.getElementById('login-email').value;
             const password = document.getElementById('login-password').value;
 
+            // Validar si el usuario existe en el array
             const user = users.find(user => user.email === email && user.password === password);
 
             if (user) {
