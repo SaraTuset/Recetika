@@ -1,1 +1,30 @@
 <!--Hay que mirar plantillas-->
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Registro e Inicio de Sesión</title>
+    <!--Dividirlo en un CSS y linkearlo-->
+    <link rel="stylesheet" href="login.css">
+</head>
+<body>
+    <div class="container" id="form-container">
+        <!-- Formulario de registro por defecto -->
+        <h2>Registrarse</h2>
+        <form id="register-form">
+            <input type="email" id="register-email" placeholder="Correo electrónico" required>
+            <input type="password" id="register-password" placeholder="Contraseña" required>
+            <button type="submit">Registrarse</button>
+        </form>
+        <div class="toggle">
+            ¿Ya tienes una cuenta? <a href="#" id="login-link">Iniciar sesión</a>
+        </div>
+    </div>
+
+
+
+    <!--Dividirlo en un js y linkearlo-->
+    <script src="login.js"></script>
+</body>
+</html>
