@@ -1,0 +1,29 @@
+{
+  "name": "recetika",
+  "version": "1.0.0",
+  "type": "module",
+  "description": "",
+  "main": "src/app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "deploy": "firebase deploy --only hosting,functions:api"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/SaraTuset/Recetika.git"
+  },
+  "author": "saborANosotros",
+  "dependencies": {
+    "express": "^4.18.2",
+    "firebase-functions": "^6.0.1",
+    "jquery": "^3.6.3",
+    "jsdom": "^20.0.3",
+    "mustache-express": "^1.3.2",
+    "path": "^0.12.7"
+  },
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/SaraTuset/Recetika/issues"
+  },
+  "homepage": "https://github.com/SaraTuset/Recetika#readme"
+}

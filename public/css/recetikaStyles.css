@@ -1,0 +1,16 @@
+.navbarRecetika {
+    background-color: #c1bf76;
+}
+
+#navbarIsologo {
+    height: 50px;
+    cursor: pointer
+}
+
+.recipeDetails {
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    align-content: center;
+    align-items: center;
+}
