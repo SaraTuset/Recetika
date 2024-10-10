@@ -4,9 +4,10 @@ body {
   width: 100%;
 }
 
+/* ---------------------header--------------------- */
 header {
   width: 100%;
-  background-color: black;
+  background-color: #212529;
   display: flex;
   justify-content: center;
   align-content: center;
@@ -20,4 +21,44 @@ header {
   flex-direction: column;
   justify-content: center;
   align-items: center;
+}
+
+.maintext_header,
+.subtext_header {
+  margin-block: 0;
+  padding: 5px;
+}
+
+.maintext_header {
+  font-size: 48px;
+  font-weight: bold;
+  font-family: "Inter", sans-serif;
+}
+
+.subtext_header {
+  font-size: 32px;
+  font-weight: bold;
+  font-family: "Inter", sans-serif;
+  color: #909294;
+}
+
+/* ---------------------recipes--------------------- */
+.recipe_container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-wrap: wrap;
+  flex-direction: column;
+  gap: 1rem;
+  padding: 1rem;
+  border: 1px solid black;
+  border-radius: 10px;
+  width: 10%;
+}
+
+.recipe_image {
+  width: 50px;
+  height: 50px;
+  object-fit: cover;
+  border-radius: 10px;
 }
