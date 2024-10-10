@@ -20,27 +20,28 @@
     margin: 1rem;
 }
 
-.navbar_login {
+.navbar_account {
     display: flex;
     justify-content: flex-end;
     gap: 1rem;
     width: 100%;
 }
 
-.login_button {
+.login_button,
+.register_button {
     padding: 10px;
-    background-color: white;
-    color: black;
+    height: 50px;
     border: none;
     border-radius: 5px;
     cursor: pointer;
 }
 
+.login_button {
+    background-color: white;
+    color: black;
+}
+
 .register_button {
-    padding: 10px;
     background-color: black;
     color: white;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
 }
