@@ -1,16 +1,46 @@
-.navbarRecetika {
+.navbar {
     background-color: #c1bf76;
+    width: 100%;
+    padding: 0;
 }
 
-#navbarIsologo {
+#navbar_logo {
     height: 50px;
     cursor: pointer
 }
 
-.recipeDetails {
+.navbar {
     display: flex;
     justify-content: center;
-    flex-direction: column;
-    align-content: center;
-    align-items: center;
+}
+
+.navbar_container {
+    display: flex;
+    width: 95%;
+    margin: 1rem;
+}
+
+.navbar_login {
+    display: flex;
+    justify-content: flex-end;
+    gap: 1rem;
+    width: 100%;
+}
+
+.login_button {
+    padding: 10px;
+    background-color: white;
+    color: black;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.register_button {
+    padding: 10px;
+    background-color: black;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
 }
