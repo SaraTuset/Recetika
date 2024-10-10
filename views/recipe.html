@@ -1,0 +1,52 @@
+{{#recipe}}
+<div class="col mb-5">
+	<div class="card h-100">
+		<!-- Product image-->
+		<img class="card-img-top" src="{{image}}" alt="..." />
+		<!-- Product details-->
+		<div class="card-body p-4">
+			<div class="text-center">
+				<!-- Product name-->
+				<h5 class="fw-bolder">{{label}}</h5>
+			</div>
+		</div>
+		<!-- Product actions-->
+		<div class="card-footer p-4 pt-0 border-top-0 bg-transparent">
+			<div class="text-center"><a class="btn btn-outline-dark mt-auto" href="#">Ver detalles</a></div>
+		</div>
+		<!-- Recipe details-->
+		<div class="recipeDetails">
+			<div>
+				<i class="fa-regular fa-clock"></i>
+				<span>{{totalTime}}</span>
+			</div>
+			<div>
+				<i class="fa-solid fa-people-group"></i>
+				<span><!--{{people}}--></span>
+			</div>
+			<div>
+				<i class="fa-solid fa-utensils"></i>
+				<span>Dificultad: </span>
+				<i class="fa-solid fa-circle"></i>
+				<i class="fa-solid fa-circle"></i>
+				<i class="fa-solid fa-circle"></i>
+				<i class="fa-regular fa-circle"></i>
+				<i class="fa-regular fa-circle"></i>
+				<span><!--{{difficulty}}--></span>
+			</div>
+			<div>
+				<i class="fa-solid fa-leaf"></i>
+				<span><!--{{vegetarian}}--></span>
+			</div>
+			<div>
+				<i class="fa-solid fa-wheat-awn"></i>
+				<span><!--{{glutenfree}}--></span>
+			</div>
+			<div>
+				<i class="fa-solid fa-fire"></i>
+				<span>{{calories}}</span>
+			</div>
+		</div>
+	</div>
+</div>
+{{/recipe}}
