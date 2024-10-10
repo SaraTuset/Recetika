@@ -1,0 +1,23 @@
+body {
+  padding: 0;
+  margin: 0;
+  width: 100%;
+}
+
+header {
+  width: 100%;
+  background-color: black;
+  display: flex;
+  justify-content: center;
+  align-content: center;
+}
+
+.text_header {
+  width: 50%;
+  color: white;
+  height: 30vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
