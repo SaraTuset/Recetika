@@ -1,5 +1,6 @@
 import express from 'express';
 import { recipesMap, getRecipes, getRandomRecipes } from './recipeService.js';
+import { getPeople, setPerson } from './caloriesPeopleService.js';
 
 const router = express.Router();
 const TOTAL_RECIPES = 422;
@@ -37,6 +38,22 @@ router.get("/randomrecipes", (req, res) => {
     res.render("recipe", {
         recipe: recipes
     });
+});
+
+router.get("/caloriePeople", (req, res) => {
+
+    const people = getPeople()
+
+        res.render("calories", {
+            people: people
+        });
+});
+
+router.post("/NewCalorie", (req, res) => {
+
+    let {name, calories} = req.body
+    setPerson(name,calories)
+    
 });
 
 export default router;

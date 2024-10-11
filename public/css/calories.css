@@ -1,0 +1,48 @@
+body {
+    font-family: Arial, sans-serif;
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 20px;
+}
+h1, h2 {
+    color: #333;
+}
+label, input, select, button {
+    display: block;
+    margin-bottom: 10px;
+}
+input, select {
+    width: 100%;
+    padding: 5px;
+}
+button {
+    background-color: #4CAF50;
+    color: white;
+    padding: 10px 15px;
+    border: none;
+    cursor: pointer;
+    margin-right: 10px;
+}
+#savedPeople, #mealCalculator {
+    margin-bottom: 30px;
+}
+#savedPeople div, #mealResults div {
+    background-color: #f0f0f0;
+    padding: 10px;
+    margin-bottom: 5px;
+    border-radius: 5px;
+}
+#result {
+    font-weight: bold;
+    margin-top: 20px;
+    padding: 10px;
+    background-color: #e6f7ff;
+    border-radius: 5px;
+}
+.checkbox-list {
+    max-height: 200px;
+    overflow-y: auto;
+    border: 1px solid #ccc;
+    padding: 10px;
+    margin-bottom: 20px;
+}
