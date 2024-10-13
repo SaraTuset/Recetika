@@ -43,6 +43,14 @@ header {
 }
 
 /* ---------------------recipes--------------------- */
+.recipes_section {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-wrap: wrap;
+  padding: 1rem;
+}
+
 .recipe_container {
   display: flex;
   justify-content: center;
@@ -54,6 +62,13 @@ header {
   border: 1px solid black;
   border-radius: 10px;
   width: 10%;
+}
+
+.recipe_info {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-wrap: wrap;
 }
 
 .recipe_image {
