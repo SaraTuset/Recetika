@@ -19,13 +19,3 @@ export function getRecipes(from, to) {
     console.log(recipesArray.slice(from, to))
     return recipesArray.slice(from, to);
 }
-
-// Función para obtener recetas aleatorias para la landing page
-export function getRandomRecipes(amount) {
-    const randomRecipes = [];
-    for (let i = 0; i < amount; i++) {
-        const randomIndex = Math.floor(Math.random() * MAX_RECIPES);
-        randomRecipes.push(recipesMap.get(randomIndex));
-    }
-    return randomRecipes;
-}

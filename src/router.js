@@ -1,10 +1,31 @@
 import express from 'express';
-import { recipesMap, getRecipes, getRandomRecipes } from './recipeService.js';
+import { recipesMap, getRecipes } from './recipeService.js';
 import { getPeople, setPerson } from './caloriesPeopleService.js';
 
 const router = express.Router();
 const TOTAL_RECIPES = 422;
 const MAX_RECIPES_PER_PAGE = 4;
+
+// Set para almacenar los IDs de las recetas ya enviadas
+const sentRecipeIds = new Set();
+
+// Función para obtener recetas aleatorias sin repetición
+function getUniqueRandomRecipes(count) {
+    const allRecipes = Array.from(recipesMap.values());
+    const uniqueRecipes = [];
+
+    while (uniqueRecipes.length < count && sentRecipeIds.size < allRecipes.length) {
+        const randomIndex = Math.floor(Math.random() * allRecipes.length);
+        const recipe = allRecipes[randomIndex];
+
+        if (!sentRecipeIds.has(recipe.id)) {
+            uniqueRecipes.push(recipe);
+            sentRecipeIds.add(recipe.id);
+        }
+    }
+
+    return uniqueRecipes;
+}
 
 // Definir rutas
 router.get('/login', (req, res) => {
@@ -33,7 +54,7 @@ router.get("/recipes", (req, res) => {
 });
 
 router.get("/randomrecipes", (req, res) => {
-    const recipes = getRandomRecipes(MAX_RECIPES_PER_PAGE);
+    const recipes = getUniqueRandomRecipes(MAX_RECIPES_PER_PAGE);
 
     res.render("recipe", {
         recipe: recipes
