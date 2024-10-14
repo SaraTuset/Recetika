@@ -26,51 +26,11 @@ registerForm.addEventListener('submit', function(e) {
     }
 });
 
-// Cambiar al formulario de inicio de sesión
-loginLink.addEventListener('click', function(e) {
-    e.preventDefault();
-    formContainer.innerHTML = `
-        <h2>Iniciar sesión</h2>
-        <form id="login-form">
-            <input type="email" id="login-email" placeholder="Correo electrónico" required>
-            <input type="password" id="login-password" placeholder="Contraseña" required>
-            <button type="submit">Iniciar sesión</button>
-        </form>
-        <div class="toggle">
-            ¿No tienes una cuenta? <a href="#" id="register-link">Registrarse</a>
-        </div>
-    `;
 
-    // Manejar inicio de sesión
-    const loginForm = document.getElementById('login-form');
-    loginForm.addEventListener('submit', function(e) {
-        e.preventDefault();
-        const email = document.getElementById('login-email').value;
-        const password = document.getElementById('login-password').value;
-    });
-
-    // Regresar al formulario de registro
-    document.getElementById('register-link').addEventListener('click', function(e) {
-        e.preventDefault();
-        formContainer.innerHTML = registerForm.outerHTML + '<div class="toggle">¿Ya tienes una cuenta? <a href="#" id="login-link">Iniciar sesión</a></div>';
-        addEventListeners();
-    });
-});
 
 function addEventListeners() {
     loginLink.addEventListener('click', function(e) {
         e.preventDefault();
-        formContainer.innerHTML = `
-            <h2>Iniciar sesión</h2>
-            <form id="login-form">
-                <input type="email" id="login-email" placeholder="Correo electrónico" required>
-                <input type="password" id="login-password" placeholder="Contraseña" required>
-                <button type="submit">Iniciar sesión</button>
-            </form>
-            <div class="toggle">
-                ¿No tienes una cuenta? <a href="#" id="register-link">Registrarse</a>
-            </div>
-        `;
 
         const loginForm = document.getElementById('login-form');
         loginForm.addEventListener('submit', function(e) {

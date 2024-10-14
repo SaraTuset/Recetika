@@ -2,6 +2,9 @@ import express from 'express';
 import { recipesMap, getRecipes } from './recipeService.js';
 import { getPeople, setPerson } from './caloriesPeopleService.js';
 
+// Array temporal para almacenar usuarios
+let users = [];
+
 const router = express.Router();
 const TOTAL_RECIPES = 422;
 const MAX_RECIPES_PER_PAGE = 4;
@@ -30,6 +33,14 @@ function getUniqueRandomRecipes(count) {
 // Definir rutas
 router.get('/login', (req, res) => {
     res.render('login');
+});
+
+router.get('/register', (req, res) => {
+    res.render('register');
+});
+
+router.get('/password', (req, res) => {
+    res.render('password');
 });
 
 //Ruta temporal a la calculadora de calorías
@@ -76,5 +87,37 @@ router.post("/NewCalorie", (req, res) => {
     setPerson(name,calories)
     
 });
+
+// *** Nuevo código para el registro y el login de usuarios *** //
+
+// Ruta para manejar el registro de usuarios
+router.post('/register', (req, res) => {
+    const { email, password } = req.body;
+
+    // Verificar si el usuario ya está registrado
+    const userExists = users.some(user => user.email === email);
+    if (userExists) {
+        return res.send('Este correo ya está registrado. Intenta con otro.');
+    }
+
+    // Guardar el nuevo usuario
+    users.push({ email, password });
+    res.send('¡Registro exitoso! <a href="/login">Inicia sesión aquí</a>');
+});
+
+// Ruta para manejar el login de usuarios
+router.post('/login', (req, res) => {
+    const { email, password } = req.body;
+
+    // Buscar el usuario en el array de usuarios registrados
+    const user = users.find(user => user.email === email && user.password === password);
+
+    if (user) {
+        res.send('¡Inicio de sesión exitoso! Bienvenido.');
+    } else {
+        res.send('Correo o contraseña incorrectos.');
+    }
+});
+
 
 export default router;

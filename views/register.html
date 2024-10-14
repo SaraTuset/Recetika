@@ -12,15 +12,14 @@
 <body>
     <div class="container" id="form-container">
         <!-- Formulario de registro por defecto -->
-        <h2>Iniciar sesión</h2>
-        <form id="login-form" action="/login" method="POST">
-            <input type="email" id="login-email" placeholder="Correo electrónico" required>
-            <input type="password" id="login-password" placeholder="Contraseña" required>
-            <button type="submit">Iniciar sesión</button>
+        <h2>Registrarse</h2>
+        <form id="register-form" action="/register" method="POST">
+            <input type="email" id="register-email" placeholder="Correo electrónico" required>
+            <input type="password" id="register-password" placeholder="Contraseña" required>
+            <button type="submit">Registrarse</button>
         </form>
         <div class="toggle">
-            <a href="/password" id="password">He olvidado mi contraseña</a>
-
+            ¿Ya tienes una cuenta? <a href="/login">Iniciar sesión</a>
         </div>
     </div>
 </body>
