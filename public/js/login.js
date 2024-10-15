@@ -29,31 +29,31 @@ registerForm.addEventListener('submit', function(e) {
 
 
 function addEventListeners() {
-    loginLink.addEventListener('click', function(e) {
-        e.preventDefault();
-
-        const loginForm = document.getElementById('login-form');
-        loginForm.addEventListener('submit', function(e) {
+    const loginLink = document.getElementById('login-link');
+    if (loginLink) {
+        loginLink.addEventListener('click', function(e) {
             e.preventDefault();
-            const email = document.getElementById('login-email').value;
-            const password = document.getElementById('login-password').value;
 
-            // Validar si el usuario existe en el array
-            const user = users.find(user => user.email === email && user.password === password);
+            const loginForm = document.getElementById('login-form');
+            if (loginForm) {
+                loginForm.addEventListener('submit', function(e) {
+                    e.preventDefault();
+                    const email = document.getElementById('login-email').value;
+                    const password = document.getElementById('login-password').value;
 
-            if (user) {
-                window.location.href = "https://www.youtube.com";
-            } else {
-                alert("Correo electrónico o contraseña incorrectos");
+                    // Validar si el usuario existe en el array
+                    const user = users.find(user => user.email === email && user.password === password);
+
+                    if (user) {
+                        window.location.href = "https://www.youtube.com"; // Cambiar URL a tu página de bienvenida
+                    } else {
+                        alert("Correo electrónico o contraseña incorrectos");
+                    }
+                });
             }
         });
-
-        document.getElementById('register-link').addEventListener('click', function(e) {
-            e.preventDefault();
-            formContainer.innerHTML = registerForm.outerHTML + '<div class="toggle">¿Ya tienes una cuenta? <a href="#" id="login-link">Iniciar sesión</a></div>';
-            addEventListeners();
-        });
-    });
+    }
 }
+
 
 addEventListeners();

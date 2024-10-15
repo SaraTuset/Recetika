@@ -1,6 +1,6 @@
 import express from 'express';
 import { recipesMap, getRecipes } from './recipeService.js';
-import { firebase } from './firebaseConfig.js';
+/*import { firebase } from './firebaseConfig.js';*/
 
 // Array temporal para almacenar usuarios
 let users = [];
@@ -35,35 +35,14 @@ router.get('/login', (req, res) => {
     res.render('login');
 });
 
-// Ruta para iniciar sesión
-router.post('/login', async (req, res) => {
-    const { email, password } = req.body;
-    try {
-        const userCredential = await firebase.auth().signInWithEmailAndPassword(email, password);
-        res.status(200).send(userCredential.user);
-    } catch (error) {
-        res.status(400).send(error.message);
-    }
-});
+
 
 router.get('/register', (req, res) => {
     res.render('register');
 });
 
-// Ruta para registrar un nuevo usuario
-router.post('/register', async (req, res) => {
-    console.log(req.body)
-    const { email, password } = req.body;
-    try {
-        console.log(email)
-        console.log(password)
-        const userCredential = await firebase.auth().createUserWithEmailAndPassword(email, password);
-        console.log(userCredential)
-        res.status(201).send(userCredential.user);
-    } catch (error) {
-        res.status(400).send(error.message);
-    }
-});
+
+
 
 router.get('/password', (req, res) => {
     res.render('password');
@@ -71,14 +50,14 @@ router.get('/password', (req, res) => {
 
 // Ruta para restablecer la contraseña
 router.post('/reset-password', async (req, res) => {
-    const { email } = req.body;
+    /*const { email } = req.body;
     console.log(email)
     try {
       await firebase.auth().sendPasswordResetEmail(email);
       res.status(200).send('Password reset email sent');
     } catch (error) {
       res.status(400).send(error.message);
-    }
+    }*/
   });
 
 //Ruta temporal a la calculadora de calorías
@@ -136,8 +115,8 @@ router.post("/NewCalorie", (req, res) => {
 // Ruta para manejar el registro de usuarios
 router.post('/register', (req, res) => {
     const { email, password } = req.body;
+    console.log(req.body);  // Verifica los datos enviados en la solicitud
 
-    // Verificar si el usuario ya está registrado
     const userExists = users.some(user => user.email === email);
     if (userExists) {
         return res.send('Este correo ya está registrado. Intenta con otro.');
@@ -147,6 +126,7 @@ router.post('/register', (req, res) => {
     users.push({ email, password });
     res.send('¡Registro exitoso! <a href="/login">Inicia sesión aquí</a>');
 });
+
 
 // Ruta para manejar el login de usuarios
 router.post('/login', (req, res) => {
