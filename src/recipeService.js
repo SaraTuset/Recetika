@@ -3,6 +3,7 @@ import fs from "fs";
 const MAX_RECIPES = 110;
 
 export let recipesMap = new Map();
+let nextId = 0
 
 // Leer el archivo JSON
 const data = fs.readFileSync('./public/assets/recetas.json', 'utf8');
@@ -19,3 +20,4 @@ export function getRecipes(from, to) {
     console.log(recipesArray.slice(from, to))
     return recipesArray.slice(from, to);
 }
+

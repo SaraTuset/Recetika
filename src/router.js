@@ -43,9 +43,12 @@ router.get('/register', (req, res) => {
 
 
 
-
 router.get('/password', (req, res) => {
     res.render('password');
+});
+
+router.get('/newrecipe', (req, res) => {
+    res.render('newrecipe');
 });
 
 // Ruta para restablecer la contraseña
@@ -58,7 +61,7 @@ router.post('/reset-password', async (req, res) => {
     } catch (error) {
       res.status(400).send(error.message);
     }*/
-  });
+});
 
 //Ruta temporal a la calculadora de calorías
 router.get('/calculator', (req, res) => {
@@ -110,6 +113,7 @@ router.post("/NewCalorie", (req, res) => {
 
 });
 
+
 // *** Nuevo código para el registro y el login de usuarios *** //
 
 // Ruta para manejar el registro de usuarios
@@ -136,9 +140,9 @@ router.post('/login', (req, res) => {
     const user = users.find(user => user.email === email && user.password === password);
 
     if (user) {
-        res.render("landing");
+        res.send('¡Inicio de sesión exitoso! Bienvenido.');
     } else {
-        res.send('Correo o contraseña incorrectos. Vuelva a intentarlo <a href="/login">Inténtelo de nuevo</a>');
+        res.send('Correo o contraseña incorrectos.');
     }
 });
 

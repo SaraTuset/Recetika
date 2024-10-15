@@ -20,6 +20,8 @@ app.use(express.static(path.join(__dirname, '/../public')));
 // Usar el router para manejar todas las rutas
 app.use('/', router);
 
+
+
 // Puerto de escucha del servidor
 app.listen(3000, () => console.log('Listening on port 3000!'));
 console.log('Server is running on http://localhost:3000');
