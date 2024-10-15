@@ -1,5 +1,5 @@
 {{#recipe}}
-<div class="col mb-5">
+<div class="col mb-5 recipe">
 	<div class="card h-100">
 		<!-- Product image-->
 		<img class="card-img-top" src="{{image}}" alt="..." />
@@ -12,38 +12,39 @@
 		</div>
 		<!-- Product actions-->
 		<div class="card-footer p-4 pt-0 border-top-0 bg-transparent">
-			<div class="text-center"><a class="btn btn-outline-dark mt-auto" href="#">Ver detalles</a></div>
+			<div class="text-center"><button class="viewDetailsBut" href="#" style="font-family: Inter">
+				<i class="fa-solid fa-circle-info" style="margin-right: 5px"></i>
+				Ver detalles</a></div>
 		</div>
 		<!-- Recipe details-->
 		<div class="recipeDetails">
 			<div>
-				<i class="fa-regular fa-clock"></i>
+				<i class="fa-regular fa-clock field"></i>
 				<span>{{totalTime}}</span>
 			</div>
 			<div>
-				<i class="fa-solid fa-people-group"></i>
-				<span><!--{{people}}--></span>
+				<i class="fa-solid fa-people-group field"></i>
+				<span>{{people}}</span>
 			</div>
 			<div>
-				<i class="fa-solid fa-utensils"></i>
-				<span>Dificultad: </span>
+				<i class="fa-solid fa-utensils field"></i>
 				<i class="fa-solid fa-circle"></i>
 				<i class="fa-solid fa-circle"></i>
 				<i class="fa-solid fa-circle"></i>
 				<i class="fa-regular fa-circle"></i>
 				<i class="fa-regular fa-circle"></i>
-				<span><!--{{difficulty}}--></span>
+				<span>{{difficulty}}</span>
 			</div>
 			<div>
-				<i class="fa-solid fa-leaf"></i>
-				<span><!--{{vegetarian}}--></span>
+				<i class="fa-solid fa-leaf field"></i>
+				<span>{{vegetarian}}</span>
 			</div>
 			<div>
-				<i class="fa-solid fa-wheat-awn"></i>
-				<span><!--{{glutenfree}}--></span>
+				<i class="fa-solid fa-wheat-awn field"></i>
+				<span>{{glutenFree}}</span>
 			</div>
 			<div>
-				<i class="fa-solid fa-fire"></i>
+				<i class="fa-solid fa-fire field"></i>
 				<span>{{calories}}</span>
 			</div>
 		</div>

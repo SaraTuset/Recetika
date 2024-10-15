@@ -1,6 +1,6 @@
 import express from 'express';
 import { recipesMap, getRecipes } from './recipeService.js';
-import { getPeople, setPerson } from './caloriesPeopleService.js';
+import { firebase } from './firebaseConfig.js';
 
 // Array temporal para almacenar usuarios
 let users = [];
@@ -35,13 +35,51 @@ router.get('/login', (req, res) => {
     res.render('login');
 });
 
+// Ruta para iniciar sesión
+router.post('/login', async (req, res) => {
+    const { email, password } = req.body;
+    try {
+        const userCredential = await firebase.auth().signInWithEmailAndPassword(email, password);
+        res.status(200).send(userCredential.user);
+    } catch (error) {
+        res.status(400).send(error.message);
+    }
+});
+
 router.get('/register', (req, res) => {
     res.render('register');
+});
+
+// Ruta para registrar un nuevo usuario
+router.post('/register', async (req, res) => {
+    console.log(req.body)
+    const { email, password } = req.body;
+    try {
+        console.log(email)
+        console.log(password)
+        const userCredential = await firebase.auth().createUserWithEmailAndPassword(email, password);
+        console.log(userCredential)
+        res.status(201).send(userCredential.user);
+    } catch (error) {
+        res.status(400).send(error.message);
+    }
 });
 
 router.get('/password', (req, res) => {
     res.render('password');
 });
+
+// Ruta para restablecer la contraseña
+router.post('/reset-password', async (req, res) => {
+    const { email } = req.body;
+    console.log(email)
+    try {
+      await firebase.auth().sendPasswordResetEmail(email);
+      res.status(200).send('Password reset email sent');
+    } catch (error) {
+      res.status(400).send(error.message);
+    }
+  });
 
 //Ruta temporal a la calculadora de calorías
 router.get('/calculator', (req, res) => {
@@ -50,7 +88,7 @@ router.get('/calculator', (req, res) => {
 
 router.get('/', (req, res) => {
     res.render("landing");
-    
+
 });
 
 router.get("/recipes", (req, res) => {
@@ -59,13 +97,18 @@ router.get("/recipes", (req, res) => {
 
     const recipes = getRecipes(from, to);
 
-        res.render("recipe", {
-            recipe: recipes
-        });
+    res.render("recipe", {
+        recipe: recipes
+    });
 });
 
 router.get("/randomrecipes", (req, res) => {
     const recipes = getUniqueRandomRecipes(MAX_RECIPES_PER_PAGE);
+
+    //check if all recipes are now displayed
+    if (sentRecipeIds.size === TOTAL_RECIPES) {
+        return res.json({ noMoreRecipes: true });
+    }
 
     res.render("recipe", {
         recipe: recipes
@@ -76,16 +119,16 @@ router.get("/caloriePeople", (req, res) => {
 
     const people = getPeople()
 
-        res.render("calories", {
-            people: people
-        });
+    res.render("calories", {
+        people: people
+    });
 });
 
 router.post("/NewCalorie", (req, res) => {
 
-    let {name, calories} = req.body
-    setPerson(name,calories)
-    
+    let { name, calories } = req.body
+    setPerson(name, calories)
+
 });
 
 // *** Nuevo código para el registro y el login de usuarios *** //
