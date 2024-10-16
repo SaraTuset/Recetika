@@ -15,7 +15,7 @@ async function loadRecipes() {
     $(".calories").each((index, element) => {
         let calories = parseFloat($(element).attr("alt"));
         calories = (calories / 1000 ).toFixed(2);
-        $(element).append(calories + " KCal");
+        $(element).find("#formattedCalories").text(calories + " KCal");
     });
 }
 
@@ -38,7 +38,7 @@ function putDifficulties() {
         switch (difficulty) {
             case "1":
                 // Text
-                $(element).append("Fácil");
+                $(element).find("#difficultyGrade").text("Fácil");
 
                 // Dif 1
                 $(element).find(".diff1").addClass("fa-solid");
@@ -63,7 +63,7 @@ function putDifficulties() {
                 break;
             case "2":
                 // Text
-                $(element).append("Fácil");
+                $(element).find("#difficultyGrade").text("Fácil");
 
                 // Dif 1
                 $(element).find(".diff1").addClass("fa-solid");
@@ -88,7 +88,7 @@ function putDifficulties() {
                 break;
             case "3":
                 // Text
-                $(element).append("Medio");
+                $(element).find("#difficultyGrade").text("Medio");
 
                 // Dif 1
                 $(element).find(".diff1").addClass("fa-solid");
@@ -113,7 +113,7 @@ function putDifficulties() {
                 break;
             case "4":
                 // Text
-                $(element).append("Difícil");
+                $(element).find("#difficultyGrade").text("Difícil");
 
                 // Dif 1
                 $(element).find(".diff1").addClass("fa-solid");
@@ -138,7 +138,7 @@ function putDifficulties() {
                 break;
             default: {
                 // Text
-                $(element).append("Difícil");
+                $(element).find("#difficultyGrade").text("Difícil");
 
                 // Dif 1
                 $(element).find(".diff1").addClass("fa-solid");
