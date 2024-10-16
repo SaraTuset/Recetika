@@ -1,11 +1,26 @@
+<head>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css"
+        integrity="sha512-Kc323vGBEqzTmouAECnVceyQqyqdsSiqLQISBL29aUW4U/M7pSPA/gEUZQqv1cwx4OnYxTxve5UMg5GT6L4JJg=="
+        crossorigin="anonymous" referrerpolicy="no-referrer" />
+</head>
+
 <nav class="navbar">
     <div class="navbar_container">
         <img title="recetika_image" id="navbar_logo" src="../../assets/Recetika_Iconologo.svg" href="#" />
         <!-- aqui irian todas las opciones de navegacion -->
         <div class="navbar_account">
+            <div id="options_nav">
+                    <button class="calories_button" onclick="location.href='./calculator'">
+                        <i class="fa-solid fa-weight-scale" style="margin-right: 5px;"></i>
+                        Calcula Calorias
+                    </button>
+                    <button class="newrecipe_button" onclick="location.href='./newrecipe'">
+                        <i class="fa-solid fa-spoon" style="margin-right: 5px;"></i>
+                        Subir Receta
+                    </button>
+            </div>
+
             <div id="login_nav"></div>
-            <button class="calories_button" onclick="location.href='./calculator'">Calcula Calorias</button>
-            <button class="calories_button" onclick="location.href='./newrecipe'">Subir receta</button>
         </div>
     </div>
 </nav>
@@ -13,7 +28,7 @@
 <link href="../css/nav.css" rel="stylesheet" />
 
 <script>
-    window.onload = function() {
+    window.onload = function () {
         const username = '{{username}}';
         const loginNav = document.getElementById("login_nav");
 
@@ -23,8 +38,14 @@
             `;
         } else {
             loginNav.innerHTML = `
-                <button class="login_button" onclick="location.href='/login'">Iniciar Sesión</button>
-                <button class="register_button" onclick="location.href='/register'">Registrarse</button>
+                <button class="login_button" onclick="location.href='/login'">
+                    <i class="fa-solid fa-arrow-right-to-bracket" style="margin-right: 5px;"></i>
+                    Iniciar Sesión
+                </button>
+                <button class="register_button" onclick="location.href='/register'">
+                    <i class="fa-solid fa-user-plus" style="margin-right: 5px;"></i>
+                    Registrarse
+                </button>
             `;
         }
     }

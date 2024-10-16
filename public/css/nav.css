@@ -28,7 +28,9 @@
 }
 
 .login_button,
-.register_button {
+.register_button,
+.calories_button,
+.newrecipe_button {
     padding: 10px;
     height: 50px;
     border: none;
@@ -44,6 +46,12 @@
 .register_button {
     background-color: black;
     color: white;
+}
+
+.calories_button,
+.newrecipe_button {
+    background-color: rgb(196, 196, 196);
+    color: black;
 }
 
 .navbar_username {
