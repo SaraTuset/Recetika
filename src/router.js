@@ -51,6 +51,38 @@ router.get('/newrecipe', (req, res) => {
     res.render('newrecipe');
 });
 
+router.post('/newrecipe',(req, res) =>{
+    const{title, image, totalTime, people, difficulty, vegetarian, glutenFree, calories} = req.body;
+    //validar que todos los campos estan llenos
+    if (!title || !image || !totalTime || !people || !difficulty || !vegetarian || !glutenFree || !calories){
+        return res.status(400).send(`
+            <h3>Por favor complete el formulario para poder guardar.</h3>
+            <button onclick="window.history.back()">seguir configurando la receta</button>
+            <button onclick="window.location.href='/'">Volver a la página principal</button>
+        `);
+    }
+    //crear eel objeto receta
+    const saveRecipe = {
+        id: Date.now(),//para generar un id unico
+        title:req.body.title,
+        image:req.body.image,
+        totalTime:parseInt(req.body.totalTime),
+        people:parseInt(req.body.people),
+        difficulty:parseInt(req.body.difficulty),
+        vegetarian:req.body.vegetarian === 'true',
+        glutenFree:req.body.glutenFree === 'true',
+        calories:parseInt(req.body.calories),
+    };
+    //mostrar por consola la informacion guardada en localStorage
+    console.log('nueva receta guardada: ', saveRecipe);
+    
+    res.status(201).send(`
+        <h3>Receta guardada correctamente.</h3>
+        <button onclick="window.location.href='/'">Volver a la página principal</button>
+        `);
+    
+});
+
 // Ruta para restablecer la contraseña
 router.post('/reset-password', async (req, res) => {
     /*const { email } = req.body;
