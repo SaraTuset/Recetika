@@ -271,6 +271,8 @@ footer .social-icons a:hover {
   width: 100%;
   height: auto;
   border-radius: 8px;
+  object-fit: cover;
+  aspect-ratio: 1 / 1;
 }
 
 /*Add a small enlarge animation on hover*/
