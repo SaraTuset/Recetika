@@ -1,5 +1,5 @@
 <h1 align="center">    
-🍲 Recetika    
+🍲 Recetika
 </h1>    
 
 <p align="center">    
@@ -20,27 +20,37 @@
    <img src="https://img.shields.io/badge/Adobe%20Illustrator-FF9A00?style=for-the-badge&logo=adobe%20illustrator&logoColor=white"/> 
    <img src="https://img.shields.io/badge/Miro-050038?style=for-the-badge&logo=Miro&logoColor=white"/> 
    <img src="https://img.shields.io/badge/Jira-0052CC.svg?style=for-the-badge&logo=Jira&logoColor=white"/>
+   <img src="https://img.shields.io/badge/Postman-FF6C37.svg?style=for-the-badge&logo=Postman&logoColor=white"/> 
    <img src="https://img.shields.io/badge/Markdown-000000?style=for-the-badge&logo=markdown&logoColor=white"/> 
+   <img src="https://img.shields.io/badge/JSON-000000.svg?style=for-the-badge&logo=JSON&logoColor=white"/> 
    <img src="https://img.shields.io/badge/UML-FABD14.svg?style=for-the-badge&logo=UML&logoColor=black"/>
    <img src="https://img.shields.io/badge/github-%23121011.svg?style=for-the-badge&logo=github&logoColor=white"/>
+   <img src="https://img.shields.io/badge/GitHub%20Copilot-000000.svg?style=for-the-badge&logo=GitHub-Copilot&logoColor=white"/> 
+   <img src="https://img.shields.io/badge/Microsoft_Word-2B579A?style=for-the-badge&logo=microsoft-word&logoColor=white"/> 
    <img src="https://img.shields.io/badge/NPM-%23CB3837.svg?style=for-the-badge&logo=npm&logoColor=white"/>
 </p>  
 
 ## ✅ Tabla de Contenido
 
-- Autores
-- Instalación
-- Despliegue
+- [Autores](https://github.com/SaraTuset/Recetika?tab=readme-ov-file#-autores)
+- [Instalación](https://github.com/SaraTuset/Recetika?tab=readme-ov-file#%EF%B8%8F-instalaci%C3%B3n)
+- [Despliegue](https://github.com/SaraTuset/Recetika?tab=readme-ov-file#%EF%B8%8F-instalaci%C3%B3n)
 - [Acceso a la aplicación](#%EF%B8%8F-acceso-a-la-aplicación)
-- Organización
-- Participación
+- [Organización](https://github.com/SaraTuset/Recetika?tab=readme-ov-file#%EF%B8%8F-instalaci%C3%B3n)
+- [Participación](https://github.com/SaraTuset/Recetika?tab=readme-ov-file#%EF%B8%8F-instalaci%C3%B3n)
 
 ## 💻 Autores:
 | Nombre                                          | Correo             | Cuenta                              |
 | ----------------------------------------------- | ------------------ | ----------------------------------- |
-| [Nombre del Autor 1](mailto:autor1@example.com) | autor1@example.com | [GitHub](https://github.com/autor1) |
-| [Nombre del Autor 2](mailto:autor2@example.com) | autor2@example.com | [GitHub](https://github.com/autor2) |
-| [Nombre del Autor 3](mailto:autor3@example.com) | autor3@example.com | [GitHub](https://github.com/autor3) |
+| [Cristian Teijeiro Parga](mailto:c.teijeiro.2022@alumnos.urjc.es) | c.teijeiro.2022@alumnos.urjc.es | [teijeiro7](https://github.com/teijeiro7) |
+| [Elena Tordesillas Fernández](mailto:e.tordesillas.2022@alumnos.urjc.es) | e.tordesillas.2022@alumnos.urjc.es | [elenxt7](https://github.com/elenxt4) |
+| [Alejandro Triguero Ruiz](mailto:a.trigueror.2020@alumnos.urjc.es) | a.trigueror.2020@alumnos.urjc.es | [A-Trigue](https://github.com/A-Trigue) |
+| [Sara Tuset Villoria](mailto:s.tuset.2020@alumnos.urjc.es) | s.tuset.2020@alumnos.urjc.es | [SaraTuset](https://github.com/SaraTuset) |
+| [César Valero Bueno](mailto:c.valerob@alumnos.urjc.es) | c.valerob@alumnos.urjc.es | [Ccsar1](https://github.com/Ccsar1) |
+| [Alejandro Valor González](mailto:a.valor.2022@alumnos.urjc.es) | a.valor.2022@alumnos.urjc.es | [AtilaVG](https://github.com/AtilaVG) |
+| [Marco Vellisca Broncano](mailto:m.vellisca.2022@alumnos.urjc.es) | m.vellisca.2022@alumnos.urjc.es | [velliscamarco](https://github.com/velliscamarco) |
+| [Pablo Villamayor Iglesias](mailto:p.villamayor@alumnos.urjc.es) | p.villamayor@alumnos.urjc.es | [PabloVill](https://github.com/PabloVILL) |
+| [Blas Vita Ramos](mailto:b.vita.2020@alumnos.urjc.es) | b.vita.2020@alumnos.urjc.es | [Blasetvrtumi](https://github.com/Blasetvrtumi) |
 
 ## 🛠️ Instalación
 
@@ -60,15 +70,14 @@
     npm install
     ```
 
-3. Configura Firebase:
+3. Arranca la aplicación Express-JS:
     ```sh
-    firebase login
-    firebase init
+    npm run start
     ```
 
-4. Despliega la aplicación en Firebase:
+4. Abre la aplicación:
     ```sh
-    firebase deploy
+    start https://localhost:3000
     ```
 
 ## 🛫 Despliegue
@@ -89,18 +98,51 @@ https://recetikaapp.web.app/
 
 ## 🔢 Organización
 
-La organización en equipo de todo el proceso de desarrollom de la aplicación puede encontrarse en el tablero de [Miro](https://miro.com/app/board/uXjVLeblwNI=/?share_link_id=889107641490) y en el panel de Jira.
+La organización en equipo de todo el proceso de desarrollo de la aplicación puede encontrarse en el tablero de [Miro](https://miro.com/app/board/uXjVLeblwNI=/?share_link_id=889107641490) y en el panel de [Jira](https://ps-equipo7-22-23.atlassian.net/).
 
 ## 📋 Participación
 
-### En esta fase
-#### Nombre del Autor 1:
-Descripción de las contribuciones del autor 1.
+### En este sprint
+#### Cristian Teijeiro Parga:
+-	Diseño web
+-	Diagrama de arquitectura
+-	Barra de navegación web
 
-#### Nombre del Autor 2:
-Descripción de las contribuciones del autor 2.
+#### Elena Tordesillas Fernández:
+-	Funcionalidad subir receta
+-	Historias de usuario
+-	Redacción del informe
+-	Diseño de los roles de equipo
 
-#### Nombre del Autor 3:
-Descripción de las contribuciones del autor 3.
+#### Alejandro Triguero Ruiz:
+-
+
+#### Sara Tuset Villoria:
+-
+
+#### César Valero Bueno:
+-	Ayudar con el inicio de sesión
+
+#### Alejandro Valor González:
+-	Funcionalidad registro e iniciar sesión
+-	Diseño logo
+-	Normas, valores del equipo y fortalezas junto con mi compañera Elena
+-	Cambiar el nav para poner el nombre de usuario loggueado.
+
+
+#### Marco Vellisca Broncano:
+-	Funcionalidad calculadora calorias
+-	Colaboración en la redacción del informe
+
+#### Pablo Villamayor Iglesias:
+-
+
+#### Blas Vita Ramos:
+-	Diseño de la landing page
+-	Funcionalidad de mostrado de recetas aleatorias en landing
+-	Creación y gestión de la base de datos de recetas
+-	Gestión del router y del mapeo de rutas del backend
+-	Funcionalidad extra de hosting en dominio público
+-	Diseño de iconografía e identidad visual
 
 ---
