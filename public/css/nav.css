@@ -45,3 +45,11 @@
     background-color: black;
     color: white;
 }
+
+.navbar_username {
+    font-size: 16px;
+    font-weight: bold;
+    color: black;
+    align-self: center;
+    padding: 10px;
+}

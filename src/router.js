@@ -140,9 +140,9 @@ router.post('/login', (req, res) => {
     const user = users.find(user => user.email === email && user.password === password);
 
     if (user) {
-        res.send('¡Inicio de sesión exitoso! Bienvenido.');
+        res.render("landing", { username: user.email.split('@')[0] });
     } else {
-        res.send('Correo o contraseña incorrectos.');
+        res.send('Correo o contraseña incorrectos. Vuelva a intentarlo <a href="/login">Inténtelo de nuevo</a>');
     }
 });
 

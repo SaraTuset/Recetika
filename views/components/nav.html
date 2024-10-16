@@ -3,8 +3,7 @@
         <img title="recetika_image" id="navbar_logo" src="../../assets/Recetika_Iconologo.svg" href="#" />
         <!-- aqui irian todas las opciones de navegacion -->
         <div class="navbar_account">
-            <button class="login_button" onclick="location.href='../login'">Iniciar Sesión</button>
-            <button class="register_button" onclick="location.href='../register'">Registrarse</button>
+            <div id="login_nav"></div>
             <button class="calories_button" onclick="location.href='./calculator'">Calcula Calorias</button>
             <button class="calories_button" onclick="location.href='./newrecipe'">Subir receta</button>
         </div>
@@ -12,3 +11,21 @@
 </nav>
 
 <link href="../css/nav.css" rel="stylesheet" />
+
+<script>
+    window.onload = function() {
+        const username = '{{username}}';
+        const loginNav = document.getElementById("login_nav");
+
+        if (username) {
+            loginNav.innerHTML = `
+                <span class="navbar_username">${username}</span>
+            `;
+        } else {
+            loginNav.innerHTML = `
+                <button class="login_button" onclick="location.href='/login'">Iniciar Sesión</button>
+                <button class="register_button" onclick="location.href='/register'">Registrarse</button>
+            `;
+        }
+    }
+</script>
