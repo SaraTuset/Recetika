@@ -10,6 +10,7 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css">
     <link type="text/css" href="/styles/style.css" rel="stylesheet">
     <script src="clothesService.js"></script>
+    <link type="text/css" rel="stylesheet" href="/css/recipeStyle.css">
 </head>
 
 <!-- Nav-->
@@ -17,23 +18,23 @@
 
 
 
-<body class="body">
+<body class="body recipesBackground">
     <div class="conteiner">
 
-        <div class="newclothes">
-            <h3 class="titlenewclothe"> Añade una receta nueva. </h3>
-            <form action="{{route}}" method="post">
+        <div class="newclothes recipesFormEdit">
+            <h3 class="titlenewclothe" style="color:#403f25"> Añade una receta nueva. </h3>
+            <form id="newRecipeForm" action="{{route}}" method="post">
                 <div class="form-group">
                     <p class="borde">
                         <label for="Nombre de la receta"><b>Nombre de la receta</b></label>
-                        <input type="text" name="title" value="{{label}}" class="form-control" id="label
+                        <input type="text" name="title" value="{{label}}" class="form-control" id="title"
                             placeholder=" Introduza el nombre de la receta">
                     </p>
                 </div>
                 <div class="form-group">
                     <p class="borde">
                         <label for="Imagen"><b>URL de la imagen de la receta: </b></label>
-                        <input type="text" name="img" value="{{image}}" class="form-control" id="imagen"
+                        <input type="text" name="image" value="{{image}}" class="form-control" id="image"
                             placeholder="Introduza el URL de la imagen de la receta">
                     </p>
 
@@ -41,26 +42,26 @@
                     </p>
                     <p class="borde">
                         <label for="Tiempo de la receta"> <b>Tiempo de la receta</b> </label>
-                        <input name="time" type="number" value="{{totalTime}}" class="form-control" id="totalTime"
+                        <input name="totalTime" type="number" value="{{totalTime}}" class="form-control" id="totalTime"
                             placeholder="Introduza el tiempo de la receta">
                     </p>
 
                     <p class="borde">
                         <label for="Cantiad de personas"> <b>Cantidad de personas</b> </label>
-                        <input name="person" type="number" value="{{people}}" class="form-control" id="people"
+                        <input name="people" type="number" value="{{people}}" class="form-control" id="people"
                             placeholder="Introduza la cantidad de personas">
                     </p>
                 </div>
                 <p class="borde">
                     <label for="Dificultad de la receta"> <b>Dificultad de la receta</b> </label>
-                    <input name="person" type="number" value="{{difficulty}}" class="form-control" id="people"
+                    <input name="difficulty" type="number" value="{{difficulty}}" class="form-control" id="difficulty"
                         placeholder="Introduza la dificultad de la receta">
                 </p>
                 <div class="form-group">
                     <p class="borde">
                         <label for="vegetarian"><b>Si la receta es vegetariana "true", si no escriba
                                 "false"</b></label>
-                        <input type="text" name="title" value="{{vegetarian}}" class="form-control" id="vegetarian"
+                        <input type="text" name="vegetarian" value="{{vegetarian}}" class="form-control" id="vegetarian"
                             placeholder="Si la receta es vegetariana escriba 'true', si no escriba 'false'">
                     </p>
                 </div>
@@ -68,7 +69,7 @@
                     <p class="borde">
                         <label for="gluten"><b>Si la receta contiene gluten escriba "true", si no escriba
                                 "false"</b></label>
-                        <input type="text" name="title" value="{{glutenFree}}" class="form-control" id="glutenFree"
+                        <input type="text" name="glutenFree" value="{{glutenFree}}" class="form-control" id="glutenFree"
                             placeholder="Si la receta contiene gluten escriba 'true', si no escriba 'false'">
                     </p>
                 </div>
@@ -92,6 +93,42 @@
         </div>
 
     </div>
+
+    <script>
+        document.getElementById('newRecipeForm').addEventListener('submit', function(event){
+
+
+            //guardar datos del formulario
+            const newRecipe = {
+                title:document.getElementById('title').value,
+                image:document.getElementById('image').value,
+                totalTime:document.getElementById('totalTime').value,
+                people:document.getElementById('people').value,
+                difficulty:document.getElementById('difficulty').value,
+                vegetarian:document.getElementById('vegetarian').value.toLowerCase() === 'true',
+                glutenFree:document.getElementById('glutenFree').value.toLowerCase() === 'true',
+                calories:document.getElementById('calories').value
+            };
+
+            //guardar la receta en localStorage
+            const newRecipes = JSON.parse(localStorage.getItem('newRecipes')) || [];
+            newRecipes.push(newRecipe);
+            localStorage.setItem('newRecipes',JSON.stringify(newRecipes));
+
+            //enviar la receta al servidor
+            fetch('/newrecipe', {
+                method: 'POST',
+                headers:{
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify(newRecipe),
+            })
+            .catch(error => {
+                console.error('Error:', error);
+                alert('Ocurrió un error al guardar la receta');
+            });
+        });
+    </script>
 </body>
 
 </html>

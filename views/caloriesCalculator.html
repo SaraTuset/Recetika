@@ -5,9 +5,13 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Calculadora de Calorías</title>
-    <link type="text/css" rel="stylesheet" href="../public/css/calories.css">
+    <link type="text/css" rel="stylesheet" href="/css/calories.css">
+    <link type="text/css" rel="stylesheet" href="/css/recipeStyle.css">
 </head>
-<body>
+
+{{> components/nav}}
+
+<body class="recipesBackground">
     <h1>Calculadora de Calorías</h1>
     
     <h2>Personas Guardadas</h2>
@@ -20,7 +24,7 @@
     <div id="mealResults"></div>
 
     <h2>Añadir Nueva Persona</h2>
-    <form id="caloriesForm">
+    <form id="caloriesForm" class="recipesFormEdit">
         <label for="name">Nombre:</label>
         <input type="text" id="name" required>
 
