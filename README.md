@@ -115,10 +115,14 @@ La organización en equipo de todo el proceso de desarrollo de la aplicación pu
 -	Diseño de los roles de equipo
 
 #### Alejandro Triguero Ruiz:
--
+- Desarrollo de css para subir receta
+-Corrección de pequeños errores en html y css
+- Implementación del guardado de la receta para subir receta
+- Ayuda en el kudos y work expo
+
 
 #### Sara Tuset Villoria:
--
+- Plantilla valoraciones
 
 #### César Valero Bueno:
 -	Ayudar con el inicio de sesión
@@ -135,7 +139,7 @@ La organización en equipo de todo el proceso de desarrollo de la aplicación pu
 -	Colaboración en la redacción del informe
 
 #### Pablo Villamayor Iglesias:
--
+- Ayuda con el CSS de la aplicación
 
 #### Blas Vita Ramos:
 -	Diseño de la landing page
