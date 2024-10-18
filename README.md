@@ -116,7 +116,7 @@ La organización en equipo de todo el proceso de desarrollo de la aplicación pu
 
 #### Alejandro Triguero Ruiz:
 - Desarrollo de css para subir receta
--Corrección de pequeños errores en html y css
+- Corrección de pequeños errores en html y css
 - Implementación del guardado de la receta para subir receta
 - Ayuda en el kudos y work expo
 
