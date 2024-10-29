@@ -51,6 +51,10 @@ router.get('/newrecipe', (req, res) => {
     res.render('newrecipe');
 });
 
+router.get('/recipe', (req, res) => {
+    res.render('recipe');
+});
+
 router.post('/newrecipe', (req, res) => {
     const { title, image, totalTime, people, difficulty, vegetarian, glutenFree, calories } = req.body;
     //validar que todos los campos estan llenos
