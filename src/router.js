@@ -48,7 +48,8 @@ router.get('/password', (req, res) => {
 });
 
 router.get('/newrecipe', (req, res) => {
-    res.render('newrecipe');
+    const username = req.session.user ? req.session.user.email.split('@')[0] : null;
+    res.render('newrecipe', {username});
 });
 
 router.post('/newrecipe',(req, res) =>{
@@ -100,10 +101,6 @@ router.get('/calculator', (req, res) => {
     res.render('caloriesCalculator');
 });
 
-router.get('/', (req, res) => {
-    res.render("landing");
-
-});
 
 router.get("/recipes", (req, res) => {
     const from = parseInt(req.query.from) || 0;
