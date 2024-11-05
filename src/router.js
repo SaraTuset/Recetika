@@ -51,8 +51,8 @@ router.get('/newrecipe', (req, res) => {
     res.render('newrecipe');
 });
 
-router.get('/recipe', (req, res) => {
-    res.render('recipe');
+router.get('/view_recipe', (req, res) => {
+    res.render('view_recipe');
 });
 
 router.post('/newrecipe', (req, res) => {

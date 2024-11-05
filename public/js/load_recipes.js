@@ -14,7 +14,7 @@ async function loadRecipes() {
     //Format calories
     $(".calories").each((index, element) => {
         let calories = parseFloat($(element).attr("alt"));
-        calories = (calories / 1000 ).toFixed(2);
+        calories = (calories / 1000).toFixed(2);
         $(element).find("#formattedCalories").text(calories + " KCal");
     });
 }
@@ -32,7 +32,7 @@ $('.loadMoreRecipesBut').on("click", (event) => {
 
 function putDifficulties() {
     $(".diff").each((index, element) => {
-    
+
         let difficulty = $(element).attr("alt");
         console.log(difficulty);
         switch (difficulty) {
@@ -160,7 +160,7 @@ function putDifficulties() {
                 $(element).find(".diff5").addClass("fa-solid");
                 $(element).find(".diff5").removeClass("fa-regular");
             }
-            break;
+                break;
         }
     });
 }
