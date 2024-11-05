@@ -16,6 +16,7 @@
   "author": "saborANosotros",
   "dependencies": {
     "express": "^4.18.2",
+    "express-session": "^1.18.1",
     "firebase-functions": "^6.0.1",
     "jquery": "^3.6.3",
     "jsdom": "^20.0.3",

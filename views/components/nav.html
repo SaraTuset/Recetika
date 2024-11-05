@@ -37,6 +37,7 @@
         if (username) {
             loginNav.innerHTML = `
                 <span class="navbar_username">${username}</span>
+                <button class="logout_button" onclick="location.href='/logout'">Cerrar sesión</button>
             `;
         } else {
             loginNav.innerHTML = `

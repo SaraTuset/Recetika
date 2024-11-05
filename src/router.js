@@ -167,16 +167,33 @@ router.post('/register', (req, res) => {
 // Ruta para manejar el login de usuarios
 router.post('/login', (req, res) => {
     const { email, password } = req.body;
-
-    // Buscar el usuario en el array de usuarios registrados
     const user = users.find(user => user.email === email && user.password === password);
 
     if (user) {
+        // Guarda el usuario en la sesión
+        req.session.user = { email: user.email };
         res.render("landing", { username: user.email.split('@')[0] });
     } else {
         res.send('Correo o contraseña incorrectos. Vuelva a intentarlo <a href="/login">Inténtelo de nuevo</a>');
     }
 });
+
+router.get('/logout', (req, res) => {
+    req.session.destroy(err => {
+        if (err) {
+            return res.redirect('/');
+        }
+        res.clearCookie('connect.sid'); // O el nombre de la cookie de la sesión
+        res.redirect('/');
+    });
+});
+
+
+router.get('/', (req, res) => {
+    const username = req.session.user ? req.session.user.email.split('@')[0] : null;
+    res.render("landing", { username });
+});
+
 
 
 export default router;
