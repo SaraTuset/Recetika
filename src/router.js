@@ -72,9 +72,11 @@ router.post('/newrecipe',(req, res) =>{
         vegetarian:req.body.vegetarian === 'true',
         glutenFree:req.body.glutenFree === 'true',
         calories:parseInt(req.body.calories),
+        rate: 4.5 //Math.random() * (5 - 0.5) + 0.5, // Asigna un entero aleatorio entre 0.5 y 5
     };
     //mostrar por consola la informacion guardada en localStorage
     console.log('nueva receta guardada: ', saveRecipe);
+
     
     res.status(201).send(`
         <h3>Receta guardada correctamente.</h3>
@@ -110,6 +112,7 @@ router.get("/recipes", (req, res) => {
     const to = parseInt(req.query.to) || from + MAX_RECIPES_PER_PAGE;
 
     const recipes = getRecipes(from, to);
+
 
     res.render("recipe", {
         recipe: recipes
