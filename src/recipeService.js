@@ -17,7 +17,12 @@ jsonData.recipes.forEach(recipe => {
 // Función para obtener las recetas en un rango específico
 export function getRecipes(from, to) {
     const recipesArray = Array.from(recipesMap.values());
-    console.log(recipesArray.slice(from, to))
     return recipesArray.slice(from, to);
+}
+
+// Función para obtener una receta por su ID
+export function getRecipeById(id) {
+    id = parseInt(id);
+    return recipesMap.get(id);
 }
 

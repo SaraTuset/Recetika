@@ -1,0 +1,25 @@
+header {
+    text-align: center;
+}
+
+.text_header {
+    background-color: rgba(255, 255, 255, 0.7);
+    /* Fondo semi-transparente para el texto */
+    padding: 20px;
+    border-radius: 10px;
+}
+
+h1.maintext_header {
+    color: #333;
+    /* Color del texto principal */
+    font-size: 3em;
+    /* Tamaño del texto principal */
+    margin-bottom: 10px;
+}
+
+p.subtext_header {
+    color: #555;
+    /* Color del subtexto */
+    font-size: 1.5em;
+    /* Tamaño del subtexto */
+}

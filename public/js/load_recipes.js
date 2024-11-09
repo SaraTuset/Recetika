@@ -34,7 +34,6 @@ function putDifficulties() {
     $(".diff").each((index, element) => {
 
         let difficulty = $(element).attr("alt");
-        console.log(difficulty);
         switch (difficulty) {
             case "1":
                 // Text

@@ -1,5 +1,5 @@
 import express from 'express';
-import { recipesMap, getRecipes } from './recipeService.js';
+import { recipesMap, getRecipes, getRecipeById } from './recipeService.js';
 /*import { firebase } from './firebaseConfig.js';*/
 
 // Array temporal para almacenar usuarios
@@ -51,8 +51,9 @@ router.get('/newrecipe', (req, res) => {
     res.render('newrecipe');
 });
 
-router.get('/view_recipe', (req, res) => {
-    res.render('view_recipe');
+router.get('/recipe/:id', (req, res) => { // Visualizar una receta por medio de su ID
+    let recipe = getRecipeById(req.params.id);
+    res.render('view_recipe', recipe);
 });
 
 router.post('/newrecipe', (req, res) => {
