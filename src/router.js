@@ -1,5 +1,5 @@
 import express from 'express';
-import { recipesMap, getRecipes } from './recipeService.js';
+import { recipesMap, getRecipes, setRating } from './recipeService.js';
 /*import { firebase } from './firebaseConfig.js';*/
 
 // Array temporal para almacenar usuarios
@@ -179,6 +179,19 @@ router.post('/login', (req, res) => {
     } else {
         res.send('Correo o contraseña incorrectos. Vuelva a intentarlo <a href="/login">Inténtelo de nuevo</a>');
     }
+});
+
+router.post('/updateRating', (req, res) => {
+    const { id, rate } = req.body;
+    
+    if (!id || !rate) {
+        return res.status(400).json({ message: 'Faltan parámetros' });
+    }
+
+    const media = setRating(id)
+
+    console.log(`Receta actualizada - ID: ${id}, Nueva media: ${media}`);
+    res.json({ message: 'Thanks for rating', newRate: media.toFixed(1) });
 });
 
 

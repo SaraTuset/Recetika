@@ -78,8 +78,8 @@
 					<div class="col-md-6">
 						<div class="card">
 							<div class="card-body text-center">
-								<span class="myratings">{{#rate}}{{rate}}{{/rate}}</span>
-								<h4 class="mt-1" id="rated">Rate the recipe</h4>
+								<span class="myratings" id="rating_{{id}}">{{#rate}}{{rate}}{{/rate}}</span>
+								<h4 class="mt-1" id="rated_{{id}}">Rate the recipe</h4>
 
 								<fieldset class="rating">
 									<input type="radio" id="star5_{{id}}" name="rating_{{id}}" value="5" />
