@@ -1,28 +1,44 @@
 // document.ready
 $(() => {
-    loadRecipes();
+    let hasSearch = window.location.href.includes("search");
+    loadRecipes(hasSearch);
 });
 
-async function loadRecipes() {
-    const response = await fetch('/randomrecipes');
-    let newRecipes = await response.text();
-
-    let recipesContainer = $('#recipesContainer');
-    $(recipesContainer).append(newRecipes);
+export function formatRecipe(newRecipes) {
     putDifficulties();
 
     //Format calories
     $(".calories").each((index, element) => {
         let calories = parseFloat($(element).attr("alt"));
-        calories = (calories / 1000 ).toFixed(2);
+        calories = (calories / 1000).toFixed(2);
         $(element).find("#formattedCalories").text(calories + " KCal");
     });
+}
+
+async function loadRecipes(searchOn) {
+    const response = await fetch('/recipes?search=' + searchOn, );
+
+    const allShown = response.headers.get("allShown") === "true";
+
+    if (allShown)
+        $(".loadMoreRecipesBut").hide();
+    else
+        $(".loadMoreRecipesBut").show();
+
+    const newRecipes = await response.text();
+
+    formatRecipe(newRecipes);
+
+    if (!searchOn) {
+        let recipesContainer = $('#recipesContainer');
+        $(recipesContainer).append(newRecipes);
+    }
 }
 
 $('.loadMoreRecipesBut').on("click", (event) => {
     $(event.currentTarget).find("i").addClass("fa-spin");
     setTimeout(() => {
-        loadRecipes();
+        loadRecipes(false);
         $(event.currentTarget).find("i").removeClass("fa-spin");
 
     }, 1000);
@@ -32,9 +48,8 @@ $('.loadMoreRecipesBut').on("click", (event) => {
 
 function putDifficulties() {
     $(".diff").each((index, element) => {
-    
+
         let difficulty = $(element).attr("alt");
-        console.log(difficulty);
         switch (difficulty) {
             case "1":
                 // Text
@@ -160,7 +175,7 @@ function putDifficulties() {
                 $(element).find(".diff5").addClass("fa-solid");
                 $(element).find(".diff5").removeClass("fa-regular");
             }
-            break;
+                break;
         }
     });
 }

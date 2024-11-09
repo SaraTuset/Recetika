@@ -1,9 +1,15 @@
 import express from 'express';
-import { recipesMap, getRecipes } from './recipeService.js';
+import request from 'request';
+import { recipesMap, getRecipes, findByQuery } from './recipeService.js';
 /*import { firebase } from './firebaseConfig.js';*/
 
 // Array temporal para almacenar usuarios
 let users = [];
+
+let allShown = false; // Variable que controla si se han mostrado todas las recetas
+let searchOn = false; // Variable que controla si se está buscando o no
+let fromUrl = false; // Variable que controla si se está buscando desde una URL o no
+let currentQueries;
 
 const router = express.Router();
 const TOTAL_RECIPES = 422;
@@ -49,13 +55,13 @@ router.get('/password', (req, res) => {
 
 router.get('/newrecipe', (req, res) => {
     const username = req.session.user ? req.session.user.email.split('@')[0] : null;
-    res.render('newrecipe', {username});
+    res.render('newrecipe', { username });
 });
 
-router.post('/newrecipe',(req, res) =>{
-    const{title, image, totalTime, people, difficulty, vegetarian, glutenFree, calories} = req.body;
+router.post('/newrecipe', (req, res) => {
+    const { title, image, totalTime, people, difficulty, vegetarian, glutenFree, calories } = req.body;
     //validar que todos los campos estan llenos
-    if (!title || !image || !totalTime || !people || !difficulty || !vegetarian || !glutenFree || !calories){
+    if (!title || !image || !totalTime || !people || !difficulty || !vegetarian || !glutenFree || !calories) {
         return res.status(400).send(`
             <h3>Por favor complete el formulario para poder guardar.</h3>
             <button onclick="window.history.back()">seguir configurando la receta</button>
@@ -65,65 +71,57 @@ router.post('/newrecipe',(req, res) =>{
     //crear eel objeto receta
     const saveRecipe = {
         id: Date.now(),//para generar un id unico
-        title:req.body.title,
-        image:req.body.image,
-        totalTime:parseInt(req.body.totalTime),
-        people:parseInt(req.body.people),
-        difficulty:parseInt(req.body.difficulty),
-        vegetarian:req.body.vegetarian === 'true',
-        glutenFree:req.body.glutenFree === 'true',
-        calories:parseInt(req.body.calories),
+        title: req.body.title,
+        image: req.body.image,
+        totalTime: parseInt(req.body.totalTime),
+        people: parseInt(req.body.people),
+        difficulty: parseInt(req.body.difficulty),
+        vegetarian: req.body.vegetarian === 'true',
+        glutenFree: req.body.glutenFree === 'true',
+        calories: parseInt(req.body.calories),
     };
     //mostrar por consola la informacion guardada en localStorage
     console.log('nueva receta guardada: ', saveRecipe);
-    
+
     res.status(201).send(`
         <h3>Receta guardada correctamente.</h3>
         <button onclick="window.location.href='/'">Volver a la página principal</button>
         `);
-    
+
 });
 
-// Ruta para restablecer la contraseña
-router.post('/reset-password', async (req, res) => {
-    /*const { email } = req.body;
-    console.log(email)
-    try {
-      await firebase.auth().sendPasswordResetEmail(email);
-      res.status(200).send('Password reset email sent');
-    } catch (error) {
-      res.status(400).send(error.message);
-    }*/
-});
-
-//Ruta temporal a la calculadora de calorías
+// Ruta temporal a la calculadora de calorías
 router.get('/calculator', (req, res) => {
     res.render('caloriesCalculator');
 });
 
+router.get("/recipes", (req, res) => { // Obtiene recetas (bien aleatorias o por búsqueda/filtrado)
+    if (!fromUrl) {
+        let recipes;
+        if (!searchOn) {
+            recipes = getUniqueRandomRecipes(MAX_RECIPES_PER_PAGE);
 
-router.get("/recipes", (req, res) => {
-    const from = parseInt(req.query.from) || 0;
-    const to = parseInt(req.query.to) || from + MAX_RECIPES_PER_PAGE;
+            //check if all recipes are now displayed
+            if (sentRecipeIds.size === TOTAL_RECIPES) {
+                allShown = true;
+                return res.json({ noMoreRecipes: true });
+            }
+        } else {
+            recipes = currentQueries.slice(0, MAX_RECIPES_PER_PAGE);
 
-    const recipes = getRecipes(from, to);
+            if (req.query.search !== "true") {
+                currentQueries = currentQueries.slice(MAX_RECIPES_PER_PAGE);
+            }
 
-    res.render("recipe", {
-        recipe: recipes
-    });
-});
+            allShown = (currentQueries.length === 0);
+        }
 
-router.get("/randomrecipes", (req, res) => {
-    const recipes = getUniqueRandomRecipes(MAX_RECIPES_PER_PAGE);
+        res.setHeader("allShown", allShown);
 
-    //check if all recipes are now displayed
-    if (sentRecipeIds.size === TOTAL_RECIPES) {
-        return res.json({ noMoreRecipes: true });
+        res.render("recipe", {
+            recipe: recipes
+        });
     }
-
-    res.render("recipe", {
-        recipe: recipes
-    });
 });
 
 router.get("/caloriePeople", (req, res) => {
@@ -187,10 +185,54 @@ router.get('/logout', (req, res) => {
 
 
 router.get('/', (req, res) => {
+    searchOn = false;
+    fromUrl = false;
+
     const username = req.session.user ? req.session.user.email.split('@')[0] : null;
     res.render("landing", { username });
 });
 
+// Búsqueda de receta por query
+router.get("/search", (req, res) => { // renderiza la landing con las recetas que coinciden con la búsqueda
+    fromUrl = true;
 
+    const query = req.query.q;
+    const username = req.session.user ? req.session.user.email.split('@')[0] : null;
+
+    let host = req.get("host");
+    let url = host + `/searchByQuery?q=${query}`;
+    if (!url.includes("http")) url = "http://" + url;
+
+    request(url, (error, response, body) => {
+        if (error) {
+            console.error('Error en la búsqueda', error);
+            return res.send('Error en la búsqueda');
+        }
+
+        res.render("landing", {
+            username: username,
+            recipes: body
+        });
+    });
+
+    fromUrl = false;
+});
+
+router.get("/searchByQuery", (req, res) => {
+    searchOn = true;
+    const query = req.query.q;
+    const recipes = findByQuery(query);
+
+    currentQueries = recipes.slice(MAX_RECIPES_PER_PAGE);
+
+    allShown = (currentQueries.length == 0);
+
+    res.setHeader("allShown", allShown);
+
+    res.render("recipe", {
+        recipe: recipes.slice(0, MAX_RECIPES_PER_PAGE),
+        allShown: allShown
+    });
+});
 
 export default router;
