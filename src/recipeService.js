@@ -25,4 +25,3 @@ export function getRecipeById(id) {
     id = parseInt(id);
     return recipesMap.get(id);
 }
-

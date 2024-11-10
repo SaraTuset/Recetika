@@ -26,21 +26,32 @@
     <!-- Nav-->
     {{> components/nav}}
 
-    <!-- Header-->
-    <header id="recipeHeader">
-        <div class="text_header" style="background-repeat: no-repeat; background-size: cover; background-position: center; background-image: url('.{{image}}');">
-            <h1 class="maintext_header">{{label}}</h1>
-            <p class="subtext_header">{{cuisineType}} food</p>
+    <!-- Recipe container-->
+    <div class="recipe_father_container">
+        <div class="recipe_container">
+            <div class="recipe_image_container">
+                <img src=".{{image}}" alt="recipe_image" class="recipe_image">
+            </div>
+            <div class="recipe_info">
+                <div class="recipe_info_header">
+                    <h1 class="recipe_title">{{label}}</h1>
+                    <p class="recipe_cuisine">{{cuisineType}} food</p>
+                    <p class="recipe_time"><i class="far fa-clock"></i> {{totalTime}} minutes</p>
+                    <p class="recipe_difficulty">Dificultad: {{difficulty}}</p>
+                    <p class="recipe_veg_glu">{{#vegetarian}} Vegetariana {{/vegetarian}} {{^vegetarian}} No vegetariana
+                        {{/vegetarian}} /{{#hasGluten}} Gluten {{/hasGluten}} {{^hasGluten}} Sin gluten
+                        {{/hasGluten}}</p>
+                    <p class="recipe_calories">
+                        <i class="bi bi-fire"></i>{{calories}} Kcal
+                    </p>
+                </div>
+            </div>
         </div>
-    </header>
+    </div>
 
 
     <!-- Footer-->
-    <footer class="py-5 bg-dark">
-        <div class="container">
-            <p class="m-0 text-center text-white">Copyright &copy; saborANosotros 2024</p>
-        </div>
-    </footer>
+    {{> components/footer}}
 
     <!-- Bootstrap core JS-->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>

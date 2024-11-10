@@ -1,6 +1,7 @@
 import express from 'express';
 import { recipesMap, getRecipes, getRecipeById } from './recipeService.js';
-/*import { firebase } from './firebaseConfig.js';*/
+import pkg from 'jquery';
+const { get } = pkg;
 
 // Array temporal para almacenar usuarios
 let users = [];
@@ -117,7 +118,8 @@ router.get("/recipes", (req, res) => {
     const recipes = getRecipes(from, to);
 
     res.render("recipe", {
-        recipe: recipes
+        recipe: recipes,
+        recipe_calories: recipes.map(recipe => parseFloat(recipe.calories).toFixed(2))
     });
 });
 
