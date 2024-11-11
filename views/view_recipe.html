@@ -30,21 +30,44 @@
     <div class="recipe_father_container">
         <div class="recipe_container">
             <div class="recipe_image_container">
-                <img src=".{{image}}" alt="recipe_image" class="recipe_image">
+                <img src=".{{recipe.image}}" alt="recipe_image" class="recipe_image">
             </div>
             <div class="recipe_info">
                 <div class="recipe_info_header">
-                    <h1 class="recipe_title">{{label}}</h1>
-                    <p class="recipe_cuisine">{{cuisineType}} food</p>
-                    <p class="recipe_time"><i class="far fa-clock"></i> {{totalTime}} minutes</p>
-                    <p class="recipe_difficulty">Dificultad: {{difficulty}}</p>
-                    <p class="recipe_veg_glu">{{#vegetarian}} Vegetariana {{/vegetarian}} {{^vegetarian}} No vegetariana
-                        {{/vegetarian}} /{{#hasGluten}} Gluten {{/hasGluten}} {{^hasGluten}} Sin gluten
-                        {{/hasGluten}}</p>
+                    <h1 class="recipe_title">{{recipe.label}}</h1>
+                    <p class="recipe_cuisine">{{#capitalize_first_letter}} {{recipe.cuisineType}}
+                        {{/capitalize_first_letter}} food</p>
+                    <p class="recipe_time"><i class="far fa-clock"></i> {{recipe.totalTime}} minutes</p>
+                    <p class="recipe_difficulty">Dificultad: {{recipe.difficulty}}</p>
+                    <p class="recipe_veg_glu">{{#recipe.vegetarian}} Vegetariana {{/recipe.vegetarian}}
+                        {{^recipe.vegetarian}} No vegetariana
+                        {{/recipe.vegetarian}} /{{#recipe.hasGluten}} Gluten {{/recipe.hasGluten}} {{^recipe.hasGluten}}
+                        Sin gluten
+                        {{/recipe.hasGluten}}</p>
                     <p class="recipe_calories">
-                        <i class="bi bi-fire"></i>{{calories}} Kcal
+                        <i class="bi bi-fire"></i>{{#format_calories}} {{recipe.calories}} {{/format_calories}} Kcal
                     </p>
                 </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Reviews container-->
+    <div class="reviews_father_container">
+        <div class="reviews_container">
+            <h2 class="reviews_title">Reviews</h2>
+            <div class="reviews">
+                {{#reviews}}
+                <div class="review">
+                    <div class="review_header">
+                        <p class="review_user">{{user}}</p>
+                        <p class="review_date">{{date}}</p>
+                    </div>
+                    <div class="review_body">
+                        <p class="review_text">{{text}}</p>
+                    </div>
+                </div>
+                {{/reviews}}
             </div>
         </div>
     </div>

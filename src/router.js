@@ -54,7 +54,16 @@ router.get('/newrecipe', (req, res) => {
 
 router.get('/recipe/:id', (req, res) => { // Visualizar una receta por medio de su ID
     let recipe = getRecipeById(req.params.id);
-    res.render('view_recipe', recipe);
+    res.render('view_recipe', {
+        recipe,
+        format_calories: function () {
+            return function () {
+                const form_cal = parseFloat(recipe.calories);
+                return form_cal.toFixed(2);
+            }
+        },
+    });
+    console.log(recipe.totalTime);
 });
 
 router.post('/newrecipe', (req, res) => {
@@ -119,7 +128,6 @@ router.get("/recipes", (req, res) => {
 
     res.render("recipe", {
         recipe: recipes,
-        recipe_calories: recipes.map(recipe => parseFloat(recipe.calories).toFixed(2))
     });
 });
 

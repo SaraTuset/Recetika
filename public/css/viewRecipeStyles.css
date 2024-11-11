@@ -1,7 +1,21 @@
+/* Main Styles */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Roboto', sans-serif;
+    background-color: #f9f9f9;
+}
+
+/* Recipe Styles */
 .recipe_father_container {
     width: 100%;
     display: flex;
     justify-content: center;
+    background-color: #212529;
 }
 
 .recipe_container {
@@ -56,4 +70,11 @@
     margin: 0;
     margin-block-end: 0.5em;
     margin-block-start: 0.5em;
+}
+
+/* Review Styles */
+.review_father_container {
+    width: 100%;
+    display: flex;
+    justify-content: center;
 }
