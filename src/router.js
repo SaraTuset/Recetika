@@ -1,7 +1,5 @@
 import express from 'express';
-import { recipesMap, getRecipes, getRecipeById } from './recipeService.js';
-import pkg from 'jquery';
-const { get } = pkg;
+import { recipesMap, getRecipes, getRecipeById, getRecipesByName } from './recipeService.js';
 
 // Array temporal para almacenar usuarios
 let users = [];
@@ -62,19 +60,21 @@ router.get('/recipe/:id', (req, res) => { // Visualizar una receta por medio de 
                 return form_cal.toFixed(2);
             }
         },
+        capitalize_cuisineType: function () {
+            return function () {
+                const cuisineType = recipe.cuisineType.toString();
+                const cap_cuisineType = cuisineType.charAt(0).toUpperCase() + cuisineType.slice(1);
+                return cap_cuisineType;
+            }
+        },
     });
-    console.log(recipe.totalTime);
 });
 
 router.post('/newrecipe', (req, res) => {
-    const { title, image, totalTime, people, difficulty, vegetarian, glutenFree, calories } = req.body;
+    const { title, image, totalTime, cuisineType, people, difficulty, vegetarian, glutenFree, calories } = req.body;
     //validar que todos los campos estan llenos
-    if (!title || !image || !totalTime || !people || !difficulty || !vegetarian || !glutenFree || !calories) {
-        return res.status(400).send(`
-            <h3>Por favor complete el formulario para poder guardar.</h3>
-            <button onclick="window.history.back()">seguir configurando la receta</button>
-            <button onclick="window.location.href='/'">Volver a la página principal</button>
-        `);
+    if (!title || !image || !totalTime || !cuisineType || !people || !difficulty || !vegetarian || !glutenFree || !calories) {
+        return alert('Por favor, llena todos los campos');
     }
     //crear eel objeto receta
     const saveRecipe = {
@@ -82,6 +82,7 @@ router.post('/newrecipe', (req, res) => {
         title: req.body.title,
         image: req.body.image,
         totalTime: parseInt(req.body.totalTime),
+        cuisineType: req.body.cuisineType,
         people: parseInt(req.body.people),
         difficulty: parseInt(req.body.difficulty),
         vegetarian: req.body.vegetarian === 'true',
@@ -91,11 +92,9 @@ router.post('/newrecipe', (req, res) => {
     //mostrar por consola la informacion guardada en localStorage
     console.log('nueva receta guardada: ', saveRecipe);
 
-    res.status(201).send(`
-        <h3>Receta guardada correctamente.</h3>
-        <button onclick="window.location.href='/'">Volver a la página principal</button>
-        `);
-
+    res.render('view_recipe', {
+        recipe: saveRecipe,
+    });
 });
 
 // Ruta para restablecer la contraseña
@@ -117,7 +116,6 @@ router.get('/calculator', (req, res) => {
 
 router.get('/', (req, res) => {
     res.render("landing");
-
 });
 
 router.get("/recipes", (req, res) => {

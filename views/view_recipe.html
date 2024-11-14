@@ -35,17 +35,33 @@
             <div class="recipe_info">
                 <div class="recipe_info_header">
                     <h1 class="recipe_title">{{recipe.label}}</h1>
-                    <p class="recipe_cuisine">{{#capitalize_first_letter}} {{recipe.cuisineType}}
-                        {{/capitalize_first_letter}} food</p>
+                    <p class="recipe_cuisine"><svg class="recipe_info_icon" xmlns="http://www.w3.org/2000/svg"
+                            viewBox="0 0 24 24" fill="currentColor">
+                            <path
+                                d="M21 2V22H19V15H15V8C15 4.68629 17.6863 2 21 2ZM19 4.53C18.17 5 17 6.17 17 8V13H19V4.53ZM9 13.9V22H7V13.9C4.71776 13.4367 3 11.419 3 9V3H5V10H7V3H9V10H11V3H13V9C13 11.419 11.2822 13.4367 9 13.9Z">
+                            </path>
+                        </svg>{{#capitalize_cuisineType}}
+                        {{recipe.cuisineType}}
+                        {{/capitalize_cuisineType}} food</p>
                     <p class="recipe_time"><i class="far fa-clock"></i> {{recipe.totalTime}} minutes</p>
-                    <p class="recipe_difficulty">Dificultad: {{recipe.difficulty}}</p>
-                    <p class="recipe_veg_glu">{{#recipe.vegetarian}} Vegetariana {{/recipe.vegetarian}}
+                    <p class="recipe_difficulty"><img
+                            src="https://cdn-icons-png.freepik.com/256/5700/5700445.png?ga=GA1.1.1208512786.1726473953&semt=ais_hybrid"
+                            alt="" class="recipe_info_icon">Dificultad: {{recipe.difficulty}}</p>
+                    <p class="recipe_veg_glu"><img
+                            src="https://cdn-icons-png.freepik.com/256/17907/17907381.png?ga=GA1.1.1208512786.1726473953&semt=ais_hybrid"
+                            alt="" class="recipe_info_icon">{{#recipe.vegetarian}} Vegetariana {{/recipe.vegetarian}}
                         {{^recipe.vegetarian}} No vegetariana
-                        {{/recipe.vegetarian}} /{{#recipe.hasGluten}} Gluten {{/recipe.hasGluten}} {{^recipe.hasGluten}}
+                        {{/recipe.vegetarian}} / <img
+                            src="https://cdn-icons-png.freepik.com/256/7531/7531160.png?ga=GA1.1.1208512786.1726473953&semt=ais_hybrid"
+                            alt="" class="recipe_info_icon">{{#recipe.hasGluten}} Gluten {{/recipe.hasGluten}}
+                        {{^recipe.hasGluten}}
                         Sin gluten
                         {{/recipe.hasGluten}}</p>
                     <p class="recipe_calories">
-                        <i class="bi bi-fire"></i>{{#format_calories}} {{recipe.calories}} {{/format_calories}} Kcal
+                        <i class="bi bi-fire"></i><img
+                            src="https://cdn-icons-png.freepik.com/256/7490/7490327.png?ga=GA1.1.1208512786.1726473953&semt=ais_hybrid"
+                            alt="" class="recipe_info_icon">{{#format_calories}} {{recipe.calories}}
+                        {{/format_calories}} Kcal
                     </p>
                 </div>
             </div>
@@ -60,11 +76,11 @@
                 {{#reviews}}
                 <div class="review">
                     <div class="review_header">
-                        <p class="review_user">{{user}}</p>
-                        <p class="review_date">{{date}}</p>
+                        <p class="review_user">{{user}} hola</p>
+                        <p class="review_date">{{date}} adios</p>
                     </div>
                     <div class="review_body">
-                        <p class="review_text">{{text}}</p>
+                        <p class="review_text">{{text}} hola chicos que tal</p>
                     </div>
                 </div>
                 {{/reviews}}

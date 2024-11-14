@@ -38,8 +38,6 @@
                             placeholder="Introduza el URL de la imagen de la receta">
                     </p>
 
-
-                    </p>
                     <p class="borde">
                         <label for="Tiempo de la receta"> <b>Tiempo de la receta</b> </label>
                         <input name="totalTime" type="number" value="{{totalTime}}" class="form-control" id="totalTime"
@@ -47,7 +45,13 @@
                     </p>
 
                     <p class="borde">
-                        <label for="Cantiad de personas"> <b>Cantidad de personas</b> </label>
+                        <label for="Tipo de cocina"> <b>Tipo de cocina</b> </label>
+                        <input name="cuisineType" type="text" value="{{cuisineType}}" class="form-control"
+                            id="cuisineType" placeholder="Introduzca el Tipo de cocina">
+                    </p>
+
+                    <p class="borde">
+                        <label for="Cantidad de personas"> <b>Cantidad de personas</b> </label>
                         <input name="people" type="number" value="{{people}}" class="form-control" id="people"
                             placeholder="Introduza la cantidad de personas">
                     </p>
@@ -95,38 +99,38 @@
     </div>
 
     <script>
-        document.getElementById('newRecipeForm').addEventListener('submit', function(event){
+        document.getElementById('newRecipeForm').addEventListener('submit', function (event) {
 
 
             //guardar datos del formulario
             const newRecipe = {
-                title:document.getElementById('title').value,
-                image:document.getElementById('image').value,
-                totalTime:document.getElementById('totalTime').value,
-                people:document.getElementById('people').value,
-                difficulty:document.getElementById('difficulty').value,
-                vegetarian:document.getElementById('vegetarian').value.toLowerCase() === 'true',
-                glutenFree:document.getElementById('glutenFree').value.toLowerCase() === 'true',
-                calories:document.getElementById('calories').value
+                title: document.getElementById('title').value,
+                image: document.getElementById('image').value,
+                totalTime: document.getElementById('totalTime').value,
+                people: document.getElementById('people').value,
+                difficulty: document.getElementById('difficulty').value,
+                vegetarian: document.getElementById('vegetarian').value.toLowerCase() === 'true',
+                glutenFree: document.getElementById('glutenFree').value.toLowerCase() === 'true',
+                calories: document.getElementById('calories').value
             };
 
             //guardar la receta en localStorage
             const newRecipes = JSON.parse(localStorage.getItem('newRecipes')) || [];
             newRecipes.push(newRecipe);
-            localStorage.setItem('newRecipes',JSON.stringify(newRecipes));
+            localStorage.setItem('newRecipes', JSON.stringify(newRecipes));
 
             //enviar la receta al servidor
             fetch('/newrecipe', {
                 method: 'POST',
-                headers:{
+                headers: {
                     'Content-Type': 'application/json',
                 },
                 body: JSON.stringify(newRecipe),
             })
-            .catch(error => {
-                console.error('Error:', error);
-                alert('Ocurrió un error al guardar la receta');
-            });
+                .catch(error => {
+                    console.error('Error:', error);
+                    alert('Ocurrió un error al guardar la receta');
+                });
         });
     </script>
 </body>

@@ -25,3 +25,11 @@ export function getRecipeById(id) {
     id = parseInt(id);
     return recipesMap.get(id);
 }
+
+// Función para obtener recetas por su nombre
+export function getRecipesByName(name) {
+    const recipesArray = Array.from(recipesMap.values());
+    const recipe = recipesArray.filter(recipe => recipe.label && recipe.label.toLowerCase().includes(name.toLowerCase()));
+    console.log(recipe);
+    return recipe;
+}
