@@ -1,22 +1,23 @@
 <!--Generado con IA, me queda adaptarlo y hacerlo accesible desde inicio-->
 <!DOCTYPE html>
 <html lang="es">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Calculadora de Calorías</title>
-    <link type="text/css" rel="stylesheet" href="/css/calories.css">
-    <link type="text/css" rel="stylesheet" href="/css/recipeStyle.css">
+    <link type="text/css" rel="stylesheet" href="../css/calories.css">
+    <link type="text/css" rel="stylesheet" href="../css/recipeStyle.css">
 </head>
 
 {{> components/nav}}
 
 <body class="recipesBackground">
     <h1>Calculadora de Calorías</h1>
-    
+
     <h2>Personas Guardadas</h2>
     <div id="savedPeople" class="checkbox-list"></div>
-    
+
     <h2>Calcular Calorías por Comida</h2>
     <div id="mealCalculator">
         <button onclick="calculateMealCalories()">Calcular Calorías por Comida</button>
@@ -56,7 +57,8 @@
     </form>
 
     <div id="result"></div>
-    
+
     <script src="../public/js/caloriesScript.js"></script>
 </body>
+
 </html>

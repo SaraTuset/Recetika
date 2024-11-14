@@ -2,7 +2,7 @@
 <html>
 
 <head>
-    <title>Nueva receta </title>
+    <title>Recetika | Nueva receta </title>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet">
@@ -10,7 +10,7 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css">
     <link type="text/css" href="/styles/style.css" rel="stylesheet">
     <script src="clothesService.js"></script>
-    <link type="text/css" rel="stylesheet" href="/css/recipeStyle.css">
+    <link type="text/css" rel="stylesheet" href="../css/new_recipe.css">
 </head>
 
 <!-- Nav-->
@@ -19,7 +19,7 @@
 
 
 <body class="body recipesBackground">
-    <div class="container">
+    <div class="newrecipe_container">
 
         <div class="newclothes recipesFormEdit">
             <h3 class="titlenewclothe" style="color:#403f25"> Añade una receta nueva. </h3>
@@ -96,43 +96,12 @@
             </form>
         </div>
 
+        <!-- Footer -->
+        {{> components/footer}}
+
     </div>
 
-    <script>
-        document.getElementById('newRecipeForm').addEventListener('submit', function (event) {
-
-
-            //guardar datos del formulario
-            const newRecipe = {
-                title: document.getElementById('title').value,
-                image: document.getElementById('image').value,
-                totalTime: document.getElementById('totalTime').value,
-                people: document.getElementById('people').value,
-                difficulty: document.getElementById('difficulty').value,
-                vegetarian: document.getElementById('vegetarian').value.toLowerCase() === 'true',
-                glutenFree: document.getElementById('glutenFree').value.toLowerCase() === 'true',
-                calories: document.getElementById('calories').value
-            };
-
-            //guardar la receta en localStorage
-            const newRecipes = JSON.parse(localStorage.getItem('newRecipes')) || [];
-            newRecipes.push(newRecipe);
-            localStorage.setItem('newRecipes', JSON.stringify(newRecipes));
-
-            //enviar la receta al servidor
-            fetch('/newrecipe', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                },
-                body: JSON.stringify(newRecipe),
-            })
-                .catch(error => {
-                    console.error('Error:', error);
-                    alert('Ocurrió un error al guardar la receta');
-                });
-        });
-    </script>
+    <script src="../js/new_recipe.js"></script>
 </body>
 
 </html>
