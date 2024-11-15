@@ -1,6 +1,7 @@
 import express from 'express';
 import request from 'request';
-import { recipesMap, getRecipes, findByQuery } from './recipeService.js';
+import { recipesMap, getRecipes, findByQuery, getDurationRange, getCautions, 
+getCuisineTypes, getDiets, getDishTypes, getHealthLabels, getIngredients, getKcalRange, getMealTypes } from './recipeService.js';
 /*import { firebase } from './firebaseConfig.js';*/
 
 // Array temporal para almacenar usuarios
@@ -200,7 +201,7 @@ router.get("/search", (req, res) => { // renderiza la landing con las recetas qu
     const username = req.session.user ? req.session.user.email.split('@')[0] : null;
 
     let host = req.get("host");
-    let url = host + `/searchByQuery?q=${query}`;
+    let url = host + `/search-by-query?q=${query}`;
     if (!url.includes("http")) url = "http://" + url;
 
     request(url, (error, response, body) => {
@@ -218,7 +219,7 @@ router.get("/search", (req, res) => { // renderiza la landing con las recetas qu
     fromUrl = false;
 });
 
-router.get("/searchByQuery", (req, res) => {
+router.get("/search-by-query", (req, res) => {
     searchOn = true;
     const query = req.query.q;
     const recipes = findByQuery(query);
@@ -233,6 +234,51 @@ router.get("/searchByQuery", (req, res) => {
         recipe: recipes.slice(0, MAX_RECIPES_PER_PAGE),
         allShown: allShown
     });
+});
+
+router.get('/duration-range', (req, res) => {
+    const durationRange = getDurationRange(); // Suponiendo que esta función existe y devuelve el rango de duración
+    res.json(durationRange);
+});
+
+router.get('/diets', (req, res) => {
+    const diets = getDiets();
+    res.json(Array.from(diets));
+});
+
+router.get('/health-labels', (req, res) => {
+    const healthLabels = getHealthLabels();
+    res.json(Array.from(healthLabels));
+});
+
+router.get('/cautions', (req, res) => {
+    const cautions = getCautions();
+    res.json(Array.from(cautions));
+});
+
+router.get('/ingredients', (req, res) => {
+    const ingredients = getIngredients();
+    res.json(Array.from(ingredients));
+});
+
+router.get('/dish-types', (req, res) => {
+    const dishTypes = getDishTypes();
+    res.json(Array.from(dishTypes));
+});
+
+router.get('/meal-types', (req, res) => {
+    const mealTypes = getMealTypes();
+    res.json(Array.from(mealTypes));
+});
+
+router.get('/cuisine-types', (req, res) => {
+    const cuisineTypes = getCuisineTypes();
+    res.json(Array.from(cuisineTypes));
+});
+
+router.get('/kcal-range', (req, res) => {
+    const kcalRange = getKcalRange();
+    res.json(kcalRange);
 });
 
 export default router;

@@ -4,7 +4,7 @@ $(() => {
     loadRecipes(hasSearch);
 });
 
-export function formatRecipe(newRecipes) {
+export function formatRecipe() {
     putDifficulties();
 
     //Format calories
@@ -27,12 +27,12 @@ async function loadRecipes(searchOn) {
 
     const newRecipes = await response.text();
 
-    formatRecipe(newRecipes);
-
     if (!searchOn) {
         let recipesContainer = $('#recipesContainer');
         $(recipesContainer).append(newRecipes);
     }
+
+    formatRecipe();
 }
 
 $('.loadMoreRecipesBut').on("click", (event) => {

@@ -299,7 +299,7 @@ footer .social-icons a:hover {
 
 /******* Recipe ratings *******/
 body {
-  font-family: 'Calibri', sans-serif !important
+  font-family: 'Inter', sans-serif !important
 }
 
 fieldset, label { margin: 0; padding: 0; }
@@ -407,4 +407,52 @@ h4 {
 
 .btn:hover {
  background-color: #D32F2F !important
+}
+
+/* Responsive styles */
+@media (max-width: 768px) {
+  .text_header {
+    height: auto;
+    padding: 20px;
+  }
+
+  .maintext_header {
+    font-size: 32px;
+  }
+
+  .subtext_header {
+    font-size: 24px;
+  }
+
+  #recipesContainer {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 10px;
+  }
+
+  .recipe_container {
+    width: 45%;
+  }
+
+  .loadMoreRecipesBut {
+    width: 100%;
+  }
+}
+
+@media (max-width: 480px) {
+  .maintext_header {
+    font-size: 24px;
+  }
+
+  .subtext_header {
+    font-size: 18px;
+  }
+
+  #recipesContainer {
+    grid-template-columns: 1fr;
+    gap: 5px;
+  }
+
+  .recipe_container {
+    width: 90%;
+  }
 }

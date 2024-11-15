@@ -1,0 +1,184 @@
+<div class="dropdown-content" id="dropdownContent" style="display: none">
+    <div class="dropdown-column">
+        <label>Dificultad:</label>
+        <div class="difficulty-filter-options">
+            <label id="rangeDiff"><input type="radio" name="difficultyFilter" value="range"
+                    checked="true"> Rango</label>
+            <label id="selectDiff"><input type="radio" name="difficultyFilter"
+                    value="selection"> Selección</label>
+        </div>
+        <section class="range-slider" style="display: none">
+            <input value="1" min="1" max="5" step="1" type="range" class="diffSlider slider1">
+            <input value="5" min="1" max="5" step="1" type="range" class="diffSlider slider2">
+            <span class="diffRangeValues">1 - 5</span>
+            <p id="difficultyValue">-</p>
+        </section>
+        <div class="difficulty-checkboxes">
+            <label><input type="checkbox" name="difficulty" value="easy" id="easyDiff"
+                    checked="true"> Fácil</label>
+            <label><input type="checkbox" name="difficulty" value="medium" id="mediumDiff"
+                    checked="true"> Medio</label>
+            <label><input type="checkbox" name="difficulty" value="hard" id="hardDiff"
+                    checked="true"> Difícil</label>
+        </div>
+    </div>
+    <hr class="dropdown-separator">
+    <div class="dropdown-column">
+        <label>Calorías:</label>
+        <section class="range-slider">
+            <input value="0" min="0" max="1000" step="10" type="range"
+                class="kcalSlider kcalSlider1">
+            <input value="1000" min="0" max="1000" step="10" type="range"
+                class="kcalSlider kcalSlider2">
+            <span class="kcalRangeValues">0 - 1000</span> kcal
+        </section>
+    </div>
+    <hr class="dropdown-separator">
+    <div class="dropdown-column">
+        <label>Personas:</label>
+        <div class="people-filter-options">
+            <label id="rangePeop"><input type="radio" name="peopleFilter" value="range">
+                Rango</label>
+            <label id="selectPeop"><input type="radio" name="peopleFilter" value="selection"
+                    checked="true"> Selección</label>
+        </div>
+        <section class="range-slider range-slider-people">
+            <input value="1" min="1" max="7" step="1" type="range"
+                class="peopleSlider peopSlider1">
+            <input value="7" min="1" max="7" step="1" type="range"
+                class="peopleSlider peopSlider2">
+            <span class="peopRangeValues">1 - 7</span>
+        </section>
+        <select class="people-select" style="display: none">
+            <option value="1">1</option>
+            <option value="2">2</option>
+            <option value="3">3</option>
+            <option value="4">4</option>
+            <option value="5">5</option>
+            <option value="6">6</option>
+            <option value="7">7</option>
+        </select>
+    </div>
+    <hr class="dropdown-separator">
+    <div class="dropdown-column">
+        <label>Tiempo de Preparación:</label>
+        <section class="range-slider">
+            <input value="0" min="0" max="0" step="5" type="range"
+                class="timeSlider timeSlider1">
+            <input value="120" min="0" max="0" step="5" type="range"
+                class="timeSlider timeSlider2">
+            <span class="timeRangeValues"></span> minutos
+        </section>
+    </div>
+    <hr class="dropdown-separator">
+    <div class="dropdown-column">
+        <label>Tipos de Dieta:</label>
+        <div class="select-container">
+            <select class="diet-select" multiple>
+                <!-- Options will be populated dynamically -->
+            </select>
+            <div class="select-buttons">
+                <button type="button" class="selectAllBut but-diet-select"><i
+                        class="fa-solid fa-check"></i>Seleccionar todo</button>
+                <button type="button" class="deselectAllBut but-diet-select"><i
+                        class="fa-solid fa-xmark"></i>Deseleccionar
+                    todo</button>
+            </div>
+        </div>
+    </div>
+    <hr class="dropdown-separator">
+    <div class="dropdown-column">
+        <label>Etiquetas de Salud:</label>
+        <div class="select-container">
+            <select class="health-select" multiple>
+                <!-- Options will be populated dynamically -->
+            </select>
+            <div class="select-buttons">
+                <button type="button" class="selectAllBut but-health-select"><i
+                        class="fa-solid fa-check"></i>Seleccionar todo</button>
+                <button type="button" class="deselectAllBut but-health-select"><i
+                        class="fa-solid fa-xmark"></i>Deseleccionar
+                    todo</button>
+            </div>
+        </div>
+    </div>
+    <hr class="dropdown-separator">
+    <div class="dropdown-column">
+        <label>Alérgenos:</label>
+        <div class="select-container">
+            <select class="cautions-select" multiple>
+                <!-- Options will be populated dynamically -->
+            </select>
+            <div class="select-buttons">
+                <button type="button" class="selectAllBut but-cautions-select"><i
+                        class="fa-solid fa-check"></i>Seleccionar todo</button>
+                <button type="button" class="deselectAllBut but-cautions-select"><i
+                        class="fa-solid fa-xmark"></i>Deseleccionar
+                    todo</button>
+            </div>
+        </div>
+    </div>
+    <hr class="dropdown-separator">
+    <div class="dropdown-column">
+        <label>Ingredientes:</label>
+        <div class="select-container">
+            <select class="ingredients-select" multiple>
+                <!-- Options will be populated dynamically -->
+            </select>
+            <div class="select-buttons">
+                <button type="button" class="selectAllBut but-ingredients-select"><i
+                        class="fa-solid fa-check"></i>Seleccionar todo</button>
+                <button type="button" class="deselectAllBut but-ingredients-select"><i
+                        class="fa-solid fa-xmark"></i>Deseleccionar todo</button>
+            </div>
+        </div>
+    </div>
+    <hr class="dropdown-separator">
+    <div class="dropdown-column">
+        <label>Tipos de Plato:</label>
+        <div class="select-container">
+            <select class="dishType-select" multiple>
+                <!-- Options will be populated dynamically -->
+            </select>
+            <div class="select-buttons">
+                <button type="button" class="selectAllBut but-dishType-select"><i
+                        class="fa-solid fa-check"></i>Seleccionar todo</button>
+                <button type="button" class="deselectAllBut but-dishType-select"><i
+                        class="fa-solid fa-xmark"></i>Deseleccionar
+                    todo</button>
+            </div>
+        </div>
+    </div>
+    <hr class="dropdown-separator">
+    <div class="dropdown-column">
+        <label>Tipos de Comida:</label>
+        <div class="select-container">
+            <select class="mealType-select" multiple>
+                <!-- Options will be populated dynamically -->
+            </select>
+            <div class="select-buttons">
+                <button type="button" class="selectAllBut but-mealType-select"><i
+                        class="fa-solid fa-check"></i>Seleccionar todo</button>
+                <button type="button" class="deselectAllBut but-mealType-select"><i
+                        class="fa-solid fa-xmark"></i>Deseleccionar
+                    todo</button>
+            </div>
+        </div>
+    </div>
+    <hr class="dropdown-separator">
+    <div class="dropdown-column">
+        <label>Tipos de Cocina:</label>
+        <div class="select-container">
+            <select class="cuisineType-select" multiple>
+                <!-- Options will be populated dynamically -->
+            </select>
+            <div class="select-buttons">
+                <button type="button" class="selectAllBut but-cuisineType-select"><i
+                        class="fa-solid fa-check"></i>Seleccionar todo</button>
+                <button type="button" class="deselectAllBut but-cuisineType-select"><i
+                        class="fa-solid fa-xmark"></i>Deseleccionar todo</button>
+            </div>
+        </div>
+    </div>
+    <button class="confirm-button" onclick="confirmFilters()">Confirmar</button>
+</div>

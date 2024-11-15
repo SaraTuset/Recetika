@@ -1,0 +1,295 @@
+/*Navbar search bar and filtering*/
+#searchFilter {
+    width: 100%;
+    height: 50px;
+    display: flex;
+    justify-content: flex-start;
+    margin-left: 100px;
+    align-items: center;
+    gap: 1rem;
+}
+
+#searchFilter_mobile {
+    width: 100%;
+    height: auto;
+    display: flex;
+    flex-direction: column;
+}
+
+/*Navbar search bar*/
+.bm-d-flex {
+    display: flex;
+}
+
+#search-bar {
+    padding-right: calc(1.5em + 0.75rem);
+}
+
+/* Dropdown styles */
+.dropdown {
+    position: relative;
+    display: inline-block;
+}
+
+.dropBtn {
+    background-color: grey;
+    color: white;
+    padding: 10px;
+    font-size: 16px;
+    border: none;
+    cursor: pointer;
+    border-radius: .25rem;
+    opacity: 0.5;
+}
+
+.dropdown-content {
+    display: none;
+    position: absolute;
+    background-color: #f9f9f9;
+    width: 500px;
+    max-height: 500px;
+    overflow-y: auto;
+    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+    z-index: 1;
+    border-radius: .25rem;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+
+.dropdown.show .dropdown-content {
+    display: flex;
+}
+
+.dropdown:hover .dropdown-content {
+    display: flex;
+}
+
+.dropdown-column {
+    flex: 1;
+    padding: 10px;
+    justify-items: center;
+}
+
+.dropdown-content a,
+.dropdown-content label {
+    color: black;
+    padding: 12px 16px;
+    text-decoration: none;
+    display: block;
+}
+
+.dropdown-content a:hover,
+.dropdown-content label:hover {
+    background-color: #f1f1f1;
+}
+
+.dropdown-content .confirm-button {
+    background-color: #4CAF50;
+    color: white;
+    padding: 10px;
+    text-align: center;
+    border: none;
+    margin: 5px;
+    cursor: pointer;
+    border-radius: .25rem;
+    margin-top: 10px;
+    width: 100%;
+}
+
+.dropdown-content .confirm-button:hover {
+    background-color: #45a049;
+}
+
+.dropdown:hover .dropBtn {
+    background-color: darkgrey;
+}
+
+.diffSlider {
+    width: 100%;
+    margin: 10px 0;
+    justify-content: center;
+}
+
+/*Slider de dificultad*/
+section.range-slider {
+    position: relative;
+    width: 200px;
+    height: 35px;
+    text-align: center;
+    margin: 0 auto; /* Center the sliders */
+}
+
+section.range-slider input {
+    pointer-events: none;
+    position: absolute;
+    overflow: hidden;
+    left: 0;
+    top: 15px;
+    width: 200px;
+    outline: none;
+    height: 18px;
+    margin: 0;
+    padding: 0;
+}
+
+section.range-slider input::-webkit-slider-thumb {
+    pointer-events: all;
+    position: relative;
+    z-index: 1;
+    outline: 0;
+}
+
+section.range-slider input::-moz-range-thumb {
+    pointer-events: all;
+    position: relative;
+    z-index: 10;
+    -moz-appearance: none;
+    width: 9px;
+}
+
+section.range-slider input::-moz-range-track {
+    position: relative;
+    z-index: -1;
+    background-color: rgba(0, 0, 0, 1);
+    border: 0;
+}
+section.range-slider input:last-of-type::-moz-range-track {
+    -moz-appearance: none;
+    background: none transparent;
+    border: 0;
+}
+  section.range-slider input[type=range]::-moz-focus-outer {
+  border: 0;
+}
+
+
+.difficulty-checkboxes {
+    margin-top: 10px;
+    display: flex;
+    justify-content: space-between;
+}
+
+.difficulty-checkboxes label {
+    margin-bottom: 0;
+}
+
+.difficulty-filter-options, .people-filter-options {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 10px;
+}
+
+/* Hamburger menu styles */
+.hamburger-menu {
+    display: none;
+}
+
+.menu-icon {
+    cursor: pointer;
+    font-size: 24px;
+    color: white;
+}
+
+.menu-content {
+    display: none;
+    flex-direction: column;
+    align-items: flex-start;
+    background-color: #c1bf76;
+    padding: 10px;
+    position: absolute;
+    top: 90px; /* Adjusted to be just below the icon */
+    left: 80px;
+    width: 200px;
+    border-radius: 5px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    z-index: 1000; /* Ensure it appears above other elements */
+}
+
+.dropdown-separator {
+    width: 95%;
+    height: 1px;
+    background-color: #a0a0a0;
+    margin: 10px 0;
+}
+
+#menu-toggle:checked + .menu-icon + .menu-content {
+    display: flex;
+}
+
+/* Responsive styles */
+@media (max-width: 768px) {
+    .navbar_container {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    .navbar_account {
+        display: none;
+    }
+
+    #searchFilter {
+        display: none;
+    }
+
+    .hamburger-menu {
+        display: block;
+    }
+
+    .menuItem {
+        width: 100%;
+        text-align: center;
+    }
+
+    .dropdown-content {
+        max-width: 300px;
+    }
+
+    .select-container > select {
+        width: 280px;
+    }
+}
+
+.select-container {
+    display: flex;
+    flex-direction: column;
+}
+
+.select-buttons {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 5px;
+}
+
+.selectAllBut {
+    background-color: rgb(18, 110, 0);
+    color: white;
+    padding: 10px;
+    font-size: 16px;
+    border: none;
+    margin: 5px;
+    cursor: pointer;
+    border-radius: .25rem;
+    opacity: 0.5;
+    
+}
+
+.deselectAllBut {
+    background-color: rgb(100, 0, 0);
+    color: white;
+    padding: 10px;
+    font-size: 16px;
+    border: none;
+    margin: 5px;
+    cursor: pointer;
+    border-radius: .25rem;
+    opacity: 0.5;
+}
+
+.selectAllBut:hover {
+    background-color: #004503;
+}
+
+.deselectAllBut:hover {
+    background-color: #450000;
+}
