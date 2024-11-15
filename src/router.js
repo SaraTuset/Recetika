@@ -52,8 +52,10 @@ router.get('/newrecipe', (req, res) => {
 
 router.get('/recipe/:id', (req, res) => { // Visualizar una receta por medio de su ID
     let recipe = getRecipeById(req.params.id);
+    let reviews = recipe.reviews;
     res.render('view_recipe', {
         recipe,
+        reviews,
         format_calories: function () {
             return function () {
                 const form_cal = parseFloat(recipe.calories);
@@ -67,6 +69,9 @@ router.get('/recipe/:id', (req, res) => { // Visualizar una receta por medio de 
                 return cap_cuisineType;
             }
         },
+        displayStars: function (strNumStars) {
+
+        }
     });
 });
 

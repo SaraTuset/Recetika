@@ -10,7 +10,7 @@
     <link rel="icon" type="image/x-icon" href="../assets/favicon.ico" />
     <!-- Core theme CSS (includes Bootstrap)-->
     <link href="../css/landing.css" rel="stylesheet" />
-    <link href="../css/viewRecipeStyles.css" rel="stylesheet" />
+    <link href="../css/view_recipe.css" rel="stylesheet" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css"
         integrity="sha512-Kc323vGBEqzTmouAECnVceyQqyqdsSiqLQISBL29aUW4U/M7pSPA/gEUZQqv1cwx4OnYxTxve5UMg5GT6L4JJg=="
         crossorigin="anonymous" referrerpolicy="no-referrer" />
@@ -32,7 +32,7 @@
     <div class="recipe_father_container">
         <div class="recipe_container">
             <div class="recipe_image_container">
-                <img src=".{{recipe.image}}" alt="recipe_image" class="recipe_image">
+                <img src="{{recipe.image}}" alt="recipe_image" class="recipe_image">
             </div>
             <div class="recipe_info">
                 <div class="recipe_info_header">
@@ -74,19 +74,18 @@
     <div class="reviews_father_container">
         <div class="reviews_container">
             <h2 class="reviews_title">Reviews</h2>
-            <div class="reviews">
-                {{#reviews}}
-                <div class="review">
-                    <div class="review_header">
-                        <p class="review_user">{{user}} hola</p>
-                        <p class="review_date">{{date}} adios</p>
-                    </div>
-                    <div class="review_body">
-                        <p class="review_text">{{text}} hola chicos que tal</p>
-                    </div>
+            {{#reviews}}
+            <div class="review">
+                <div class="review_header">
+                    <h3 class="review_user">{{author}}</h3>
+                    <p class="review_date">{{date}}</p>
+                    <p class="review_rating">{{#displayStars}}{{rating}} {{/displayStars}}</p>
                 </div>
-                {{/reviews}}
+                <div class="review_body">
+                    <p class="review_text">{{comment}}</p>
+                </div>
             </div>
+            {{/reviews}}
         </div>
     </div>
 
