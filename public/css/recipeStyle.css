@@ -35,3 +35,41 @@
     border-color: #6b6942; 
     box-shadow: 0 0 5px #c1bf76; 
 }
+
+
+/*Boton de añadir */
+.addbtn {
+    background-color: transparent; /* Fondo transparente */
+    border: none; /* Sin bordes */
+    color: #403f25; /* Color del texto (puedes cambiarlo) */
+    font-size: 16px; /* Tamaño del texto */
+    padding: 10px 20px; /* Espaciado interno para que sea cómodo de pulsar */
+    cursor: pointer; /* Cambia el cursor al pasar el mouse */
+    text-decoration: none; /* Sin subrayado */
+}
+
+.addbtn:hover {
+    color: #252415; /* Color del texto al pasar el mouse */
+}
+
+.addbtn:focus {
+    outline: none; /* Elimina el contorno predeterminado del foco */
+}
+
+.addbtn:active {
+    color: #535230; /* Color del texto al hacer clic */
+}
+
+.rcpFormText {
+    background-color: #c8c69c; /* Fondo de color #c8c69c */
+    color: #403f25; /* Color del texto #403f25 */
+    border: 2px solid #403f25; /* Borde de color #403f25 */
+    padding: 10px; /* Espaciado interno para un buen aspecto */
+    font-size: 16px; /* Tamaño del texto */
+    border-radius: 10px; /* Bordes ligeramente redondeados */
+}
+.rcpFormText:focus {
+    outline: none; /* Elimina el contorno predeterminado del foco */
+    border-color: #6b6942; /* Color de borde al hacer foco */
+    box-shadow: 0 0 5px #c1bf76;
+}
