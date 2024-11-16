@@ -3,6 +3,9 @@ import request from 'request';
 import { recipesMap, getRecipes, findByQuery, getDurationRange, getCautions, 
 getCuisineTypes, getDiets, getDishTypes, getHealthLabels, getIngredients, getKcalRange, getMealTypes } from './recipeService.js';
 /*import { firebase } from './firebaseConfig.js';*/
+import fs from 'fs';
+import path from 'path';
+import { __dirname } from './dirname.js';
 
 // Array temporal para almacenar usuarios
 let users = [];
@@ -59,36 +62,56 @@ router.get('/newrecipe', (req, res) => {
     res.render('newrecipe', { username });
 });
 
+// Llevar los datos de la nueva receta a JSON de recetas
 router.post('/newrecipe', (req, res) => {
-    const { title, image, totalTime, people, difficulty, vegetarian, glutenFree, calories } = req.body;
-    //validar que todos los campos estan llenos
-    if (!title || !image || !totalTime || !people || !difficulty || !vegetarian || !glutenFree || !calories) {
-        return res.status(400).send(`
-            <h3>Por favor complete el formulario para poder guardar.</h3>
-            <button onclick="window.history.back()">seguir configurando la receta</button>
-            <button onclick="window.location.href='/'">Volver a la página principal</button>
-        `);
-    }
-    //crear eel objeto receta
-    const saveRecipe = {
-        id: Date.now(),//para generar un id unico
-        title: req.body.title,
-        image: req.body.image,
-        totalTime: parseInt(req.body.totalTime),
-        people: parseInt(req.body.people),
-        difficulty: parseInt(req.body.difficulty),
-        vegetarian: req.body.vegetarian === 'true',
-        glutenFree: req.body.glutenFree === 'true',
-        calories: parseInt(req.body.calories),
-    };
-    //mostrar por consola la informacion guardada en localStorage
-    console.log('nueva receta guardada: ', saveRecipe);
+    const formData = req.body;  // Recibes todo el objeto enviado por el formulario
 
-    res.status(201).send(`
-        <h3>Receta guardada correctamente.</h3>
-        <button onclick="window.location.href='/'">Volver a la página principal</button>
-        `);
+    // Imprimir en la consola para confirmar que los datos llegaron
+    console.log("Datos de la nueva receta recibidos:", formData);
 
+    // Ruta del archivo recetas.json
+    const filePath = path.join(__dirname, '../public/assets/recetas.json');
+
+    // Leer el archivo recetas.json
+    fs.readFile(filePath, 'utf-8', (err, data) => {
+        if (err) {
+            console.error('Error al leer el archivo:', err);
+            return res.status(500).send('Hubo un error al guardar la receta.');
+        }
+
+        // Parsear el contenido del archivo JSON
+        let recipesData;
+        try {
+            recipesData = JSON.parse(data);
+        } catch (parseError) {
+            console.error('Error al parsear el archivo JSON:', parseError);
+            return res.status(500).send('Error al procesar las recetas existentes.');
+        }
+        
+        // Calcular el nuevo ID basado en la longitud del array actual
+        const newId = recipesData.recipes.length;
+
+        // Crear el objeto de la receta con el campo id al principio
+        const newRecipe = {
+            id: newId,
+            ...formData // añadir los campos de formData
+        };
+
+        // Agregar la nueva receta al array de recetas
+        recipesData.recipes.push(newRecipe);
+
+        // Guardar el archivo actualizado
+        fs.writeFile(filePath, JSON.stringify(recipesData, null, 2), 'utf-8', (writeError) => {
+            if (writeError) {
+                console.error('Error al guardar el archivo:', writeError);
+                return res.status(500).send('Hubo un error al guardar la receta.');
+            }
+
+            // Responder con éxito
+            console.log('Receta guardada correctamente.');
+            res.status(200).send('Receta guardada correctamente');
+        });
+    });
 });
 
 // Ruta temporal a la calculadora de calorías

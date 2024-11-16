@@ -24,6 +24,10 @@ app.use(session({
     cookie: { secure: false } // Cambia a true si usas HTTPS
 }));
 
+// Permitir que Express procese datos JSON 
+app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
+
 // Usar el router para manejar todas las rutas
 app.use('/', router);
 
