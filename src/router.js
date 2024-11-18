@@ -1,15 +1,15 @@
 import express from 'express';
-import { recipesMap, getRecipes, getRecipeById, getRecipesByName } from './recipeService.js';
+import { recipesMap, getRecipes, getRecipeById, getRecipesByName, getRecipesCount } from './recipeService.js';
 
 // Array temporal para almacenar usuarios
 let users = [];
 
 const router = express.Router();
-const TOTAL_RECIPES = 422;
+const TOTAL_RECIPES = getRecipesCount();
 const MAX_RECIPES_PER_PAGE = 4;
 
 // Set para almacenar los IDs de las recetas ya enviadas
-const sentRecipeIds = new Set();
+let sentRecipeIds;
 
 // Función para obtener recetas aleatorias sin repetición
 function getUniqueRandomRecipes(count) {
@@ -120,6 +120,8 @@ router.get('/calculator', (req, res) => {
 });
 
 router.get('/', (req, res) => {
+    sentRecipeIds = new Set();
+
     res.render("landing");
 });
 
@@ -138,9 +140,7 @@ router.get("/randomrecipes", (req, res) => {
     const recipes = getUniqueRandomRecipes(MAX_RECIPES_PER_PAGE);
 
     //check if all recipes are now displayed
-    if (sentRecipeIds.size === TOTAL_RECIPES) {
-        return res.json({ noMoreRecipes: true });
-    }
+    res.set("noMoreRecipes", (sentRecipeIds.size === TOTAL_RECIPES));
 
     res.render("preview_recipe", {
         recipe: recipes

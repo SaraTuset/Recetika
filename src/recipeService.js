@@ -14,6 +14,11 @@ jsonData.recipes.forEach(recipe => {
     recipesMap.set(recipe.id, recipe);
 });
 
+// Función que devuelve el numero de recetas
+export function getRecipesCount() {
+    return recipesMap.size;
+}
+
 // Función para obtener las recetas en un rango específico
 export function getRecipes(from, to) {
     const recipesArray = Array.from(recipesMap.values());

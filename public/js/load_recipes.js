@@ -6,6 +6,10 @@ $(() => {
 async function loadRecipes() {
     const response = await fetch('/randomrecipes');
     let newRecipes = await response.text();
+    let noMoreRecipes = response.headers.get("noMoreRecipes") === "true" ? true : false;
+    if (noMoreRecipes) {
+        $('.loadMoreRecipesBut').hide();
+    }
 
     let recipesContainer = $('#recipesContainer');
     $(recipesContainer).append(newRecipes);
