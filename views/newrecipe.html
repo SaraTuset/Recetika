@@ -12,37 +12,40 @@
     <link type="text/css" rel="stylesheet" href="/css/recipeStyle.css">
 </head>
 
+<!-- Nav-->
+{{> components/nav}}
+
 <body class="body recipesBackground">
     <div class="container">
         <div class="recipesFormEdit">
-            <h3 class="titlenewclothe" style="color:#403f25">Añade una receta nueva</h3>
+            <h3 class="formColorTxt">Añade una receta nueva</h3>
             <form id="newRecipeForm">
                 <!-- Información principal -->
                 <div class="form-group">
-                    <label for="title"><b>Nombre de la receta</b></label>
+                    <label for="title"><b>Nombre</b></label>
                     <input type="text" name="title" class="form-control" id="title" placeholder="Nombre de la receta" required>
                 </div>
                 <div class="form-group">
-                    <label for="image"><b>URL de la imagen</b></label>
-                    <input type="text" name="image" class="form-control" id="image" placeholder="URL de la imagen" required>
+                    <label for="image"><b>Foto</b></label>
+                    <input type="text" name="image" class="form-control" id="image" placeholder="Imagen de la receta(URL)" required>
                 </div>
                 <div class="form-group">
                     <label for="totalTime"><b>Producción*</b></label>
-                    <input type="number" name="yield" class="form-control" id="yield" placeholder="Nº Platos">
+                    <input type="number" name="yield" class="form-control" id="yield" placeholder="Rendimiento:1,2,5..">
                 </div>
 
                 <!-- Etiquetas -->
                 <div class="form-group">
                     <label for="dietLabels"><b>Etiquetas de dieta*</b></label>
-                    <input type="text" name="dietLabels" class="form-control" id="dietLabels" placeholder="Ej: Balanced, High-Protein">
+                    <input type="text" name="dietLabels" class="form-control" id="dietLabels" placeholder="Balanceado, Alto en proteínas...">
                 </div>
                 <div class="form-group">
                     <label for="healthLabels"><b>Etiquetas de salud*</b></label>
-                    <input type="text" name="healthLabels" class="form-control" id="healthLabels" placeholder="Ej: Vegetarian, Gluten-Free">
+                    <input type="text" name="healthLabels" class="form-control" id="healthLabels" placeholder="Sin lácteos, bajo en azucar...">
                 </div>
                 <div class="form-group">
                     <label for="cautions"><b>Advertencias*</b></label>
-                    <input type="text" name="cautions" class="form-control" id="cautions" placeholder="Ej: Sulfites">
+                    <input type="text" name="cautions" class="form-control" id="cautions" placeholder="Sulfitos,Frutos secos...">
                 </div>
 
                 <!-- Ingredientes -->
@@ -61,23 +64,23 @@
                 <div class="form-group">
                     <label for="difficulty"><b>Dificultad</b></label>
                     <select name="difficulty" class="form-control rcpFormText" id="difficulty" required>
-                        <option value="1">1 - Muy Fácil</option>
-                        <option value="2">2 - Fácil</option>
-                        <option value="3">3 - Intermedio</option>
-                        <option value="4">4 - Difícil</option>
-                        <option value="5">5 - Muy Difícil</option>
+                        <option value="1">Muy Fácil</option>
+                        <option value="2">Fácil</option>
+                        <option value="3">Intermedio</option>
+                        <option value="4">Difícil</option>
+                        <option value="5">Muy Difícil</option>
                     </select>
                 </div>
 
                 <div class="form-group">
-                    <label for="vegetarian"><b>Vegetariano</b></label>
+                    <label for="vegetarian"><b>Es vegetariano?</b></label>
                     <select name="vegetarian" class="form-control" id="vegetarian" required>
                         <option value="true">Sí</option>
                         <option value="false">No</option>
                     </select>
                 </div>
                 <div class="form-group">
-                    <label for="glutenFree"><b>Sin Gluten</b></label>
+                    <label for="glutenFree"><b>Contiene Gluten??</b></label>
                     <select name="glutenFree" class="form-control" id="glutenFree" required>
                         <option value="true">Sí</option>
                         <option value="false">No</option>
@@ -90,206 +93,45 @@
                     <div id="nutrientsContainer">
                         <!-- Campos de nutrientes dinámicos -->
                     </div>
-                    <button type="button" style="color:#403f25" class="addbtn" id="addNutrientButton">+</button>
+                    <button type="button" class="addbtn" id="addNutrientButton">+</button>
                 </div>
 
                 <div class="form-group">
                     <label for="dishType"><b>Tipo de plato*</b></label>
-                    <input type="text" name="dishType" class="form-control" id="dishType" placeholder="Ej: Postre, Entrante...">
+                    <input type="text" name="dishType" class="form-control" id="dishType" placeholder="Postre, Entrante...">
                 </div>
                 <div class="form-group">
                     <label for="mealType"><b>Tipo de comida*</b></label>
-                    <input type="text" name="mealType" class="form-control" id="mealType" placeholder="Ej: desayuno, comida...">
+                    <input type="text" name="mealType" class="form-control" id="mealType" placeholder="Desayuno, comida...">
                 </div>
                 <div class="form-group">
                     <label for="cuisineType"><b>Procedencia*</b></label>
-                    <input type="text" name="cuisineType" class="form-control" id="cuisineType" placeholder="Ej: Americana, Asiatica...">
+                    <input type="text" name="cuisineType" class="form-control" id="cuisineType" placeholder="Americana, Asiatica...">
                 </div>
 
                 <!-- Opciones adicionales -->
                 <div class="form-group">
-                    <label for="totalTime"><b>Tiempo de preparación (min)</b></label>
-                    <input type="number" name="totalTime" class="form-control" id="totalTime" placeholder="Tiempo en minutos"required>
+                    <label for="totalTime"><b>Tiempo (min)</b></label>
+                    <input type="number" name="totalTime" class="form-control" id="totalTime" placeholder="Tiempo de preparación"required>
                 </div>
                 <div class="form-group">
                     <label for="totalWeight"><b>Peso(g)*</b></label>
-                    <input type="number" name="totalWeight" class="form-control" id="totalWeight" placeholder="peso de la receta" step="any" min="0">
+                    <input type="number" name="totalWeight" class="form-control" id="totalWeight" placeholder="Peso total" step="any" min="0">
                 </div>
 
                 <div class="form-group">
                     <label for="calories"><b>Calorías</b></label>
                     <input type="number" name="calories" class="form-control" id="calories" placeholder="Calorías totales" step="any" min="0" required>
                 </div>
-
                 <!-- Botones -->
-                <button type="submit" class="btn btn-success mt-3">Guardar</button>
-                <a href="/" class="btn btn-danger mt-3">Cancelar</a>
-                <div>El simbolo * indica que esos campos son opcionales</div>
+                <button type="submit" class="save">Guardar ✅</button>
+                <button onclick="window.location.href='/';" class="cancel">Cancelar 🅧</button>
+                <div class="smallWords">El simbolo * indica que esos campos son opcionales</div>
             </form>
         </div>
     </div>
-
-    <script>
-        document.addEventListener('DOMContentLoaded', function () {
-            const ingredientsContainer = document.getElementById('ingredientsContainer');
-            const addIngredientButton = document.getElementById('addIngredientButton');
-            const nutrientsContainer = document.getElementById('nutrientsContainer');
-            const addNutrientButton = document.getElementById('addNutrientButton');
-
-            // Función para añadir un nuevo ingrediente
-            function addIngredientField() {
-                const ingredientGroup = document.createElement('div');
-                ingredientGroup.className = 'ingredient-group mb-3';
-
-                ingredientGroup.innerHTML = `
-                    <div class="row g-3">
-                        <div class="col-md-3">
-                            <label for="ingredientName" class="form-label">Nombre</label>
-                            <input type="text" class="form-control ingredient-name">
-                        </div>
-                        <div class="col-md-2">
-                            <label for="ingredientQuantity" class="form-label">Cantidad</label>
-                            <input type="number" class="form-control ingredient-quantity" step="any" min="0">
-                        </div>
-                        <div class="col-md-3">
-                            <label for="ingredientMeasure" class="form-label">Medida</label>
-                            <input type="text" class="form-control ingredient-measure">
-                        </div>
-                        <div class="col-md-3">
-                            <label for="ingredientFood" class="form-label">Ingrediente</label>
-                            <input type="text" class="form-control ingredient-food">
-                        </div>
-                        <div class="col-md-2">
-                            <label for="ingredientWeight" class="form-label">Peso(g)</label>
-                            <input type="number" class="form-control ingredient-weight" step="any" min="0">
-                        </div>
-                        <div class="col-md-3">
-                            <label for="ingredientFoodCategory" class="form-label">Tipo de ingrediente*</label>
-                            <input type="text" class="form-control ingredient-foodCategory">
-                        </div>
-                        <div class="col-md-3">
-                            <label for="ingredientFoodId" class="form-label">ID</label>
-                            <input type="text" class="form-control ingredient-foodId">
-                        </div>
-                        <div class="col-md-3">
-                            <label for="ingredientImage" class="form-label">Imagen del ingrediente</label>
-                            <input type="text" class="form-control ingredient-image">
-                        </div>
-                    </div>
-                `;
-
-                ingredientsContainer.appendChild(ingredientGroup);
-            }
-
-            // Función para añadir un nuevo nutriente
-            function addNutrientField() {
-                const nutrientGroup = document.createElement('div');
-                nutrientGroup.className = 'nutrient-group mb-3';
-
-                nutrientGroup.innerHTML = `
-                    <div class="row g-3">
-                        <div class="col-md-3">
-                            <label for="nutrientLabel" class="form-label">Nutriente (ej. ENERC_KCAL)</label>
-                            <input type="text" class="form-control nutrient-label">
-                        </div>
-                        <div class="col-md-3">
-                            <label for="nutrientQuantity" class="form-label">Cantidad</label>
-                            <input type="number" class="form-control nutrient-quantity" step="any" min="0">
-                        </div>
-                        <div class="col-md-2">
-                            <label for="nutrientUnit" class="form-label">Unidad</label>
-                            <input type="text" class="form-control nutrient-unit">
-                        </div>
-                    </div>
-                `;
-
-                // Convertir el campo de nombre de nutriente a mayúsculas
-                const nutrientInput = nutrientGroup.querySelector('.nutrient-label');
-                nutrientInput.addEventListener('input', function () {
-                    this.value = this.value.toUpperCase();
-                });
-
-                nutrientsContainer.appendChild(nutrientGroup);
-            }
-
-            // Añadir el primer conjunto de campos de ingredientes y nutrientes al cargar la página
-            addIngredientField();
-            addNutrientField();
-
-            // Eventos para añadir más ingredientes y nutrientes
-            addIngredientButton.addEventListener('click', addIngredientField);
-            addNutrientButton.addEventListener('click', addNutrientField);
-
-            // Manejo del envío del formulario
-            document.getElementById('newRecipeForm').addEventListener('submit', function (event) {
-                event.preventDefault();
-
-                // Procesar los ingredientes
-                const ingredientElements = document.querySelectorAll('.ingredient-group');
-                const ingredients = Array.from(ingredientElements).map(group => ({
-                    text: group.querySelector('.ingredient-name').value,
-                    quantity: parseFloat(group.querySelector('.ingredient-quantity').value),
-                    measure: group.querySelector('.ingredient-measure').value,
-                    food: group.querySelector('.ingredient-food').value,
-                    weight: parseFloat(group.querySelector('.ingredient-weight').value),
-                    foodCategory:group.querySelector('.ingredient-foodCategory').value,
-                    foodId: group.querySelector('.ingredient-foodId').value,
-                    image: group.querySelector('.ingredient-image').value
-                }));
-
-                // Procesar los nutrientes
-                const nutrientElements = document.querySelectorAll('.nutrient-group');
-                const nutrients = {};
-                Array.from(nutrientElements).forEach(group => {
-                    const label = group.querySelector('.nutrient-label').value;
-                    const quantity = parseFloat(group.querySelector('.nutrient-quantity').value);
-                    const unit = group.querySelector('.nutrient-unit').value;
-                    nutrients[label] = {
-                        label: label,
-                        quantity: quantity,
-                        unit: unit
-                    };
-                });
-
-                const formData = {
-                    label: document.getElementById('title').value,
-                    image: document.getElementById('image').value,
-                    yield: document.getElementById('yield').value,
-                    dietLabels: document.getElementById('dietLabels').value.split(','),
-                    healthLabels: document.getElementById('healthLabels').value.split(','),
-                    cautions: document.getElementById('cautions').value.split(','),
-                    ingredients: ingredients,
-                    people: document.getElementById('people').value,
-                    difficulty: parseInt(document.getElementById('difficulty').value),
-                    vegetarian: document.getElementById('vegetarian').value === 'true',
-                    hasGluten: document.getElementById('glutenFree').value === 'true',
-                    totalNutrients: nutrients,  // Nutrientes como objeto
-                    dishType: document.getElementById('dishType').value.split(','),
-                    mealType: document.getElementById('mealType').value.split(','),
-                    cuisineType: document.getElementById('cuisineType').value.split(','),
-                    totalTime: document.getElementById('totalTime').value,
-                    totalWeight: parseFloat(document.getElementById('totalWeight').value),
-                    calories: parseFloat(document.getElementById('calories').value)
-                };
-
-                fetch('/newrecipe', {
-                    method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/json'
-                    },
-                    body: JSON.stringify(formData)
-                })
-                .then(response => {
-                    if (response.ok) {
-                        alert('Receta guardada correctamente');
-                        window.location.href = '/';
-                    } else {
-                        alert('Error al guardar la receta.');
-                    }
-                });
-            });
-        });
-    </script>
+    <script src="../js/newRecipe.js"></script>
 </body>
+
 
 </html>
