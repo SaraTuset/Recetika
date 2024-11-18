@@ -1,4 +1,4 @@
-/* Estilos generales */
+
 body {
     font-family: 'Arial', sans-serif;
     background-color: #c8c69c;
@@ -9,7 +9,7 @@ h1 {
     animation: aparecer 1s ease-in;
 }
 
-/* Estilos para el formulario */
+
 #formularioUsuario input, #formularioUsuario select {
     padding: 10px;
     margin: 10px;
@@ -47,7 +47,7 @@ button:hover {
     transition: width 0.5s ease;
 }
 
-/* Tabla de nutrientes */
+
 .tabla-estilo {
     margin: 20px auto;
     width: 60%;
@@ -60,7 +60,7 @@ button:hover {
     padding: 10px;
 }
 
-/* Estilos para las imágenes de alimentos */
+
 .imagenes-alimentos {
     display: flex;
     justify-content: center;
@@ -68,7 +68,7 @@ button:hover {
 }
 
 .imagenes-alimentos img {
-    width: 150px; /* Ajusta el tamaño de las imágenes aquí */
+    width: 150px; 
     height: auto;
     margin: 10px;
     cursor: pointer;
@@ -76,7 +76,7 @@ button:hover {
 }
 
 .imagenes-alimentos img:hover {
-    transform: scale(1.1); /* Efecto hover para hacerlas más interactivas */
+    transform: scale(1.1); 
 }
 
 /* Animaciones */
