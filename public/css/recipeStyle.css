@@ -59,6 +59,35 @@
 .addbtn:active {
     color: #535230; /* Color del texto al hacer clic */
 }
+.formColorTxt{
+    color: #403f25;
+}
+
+.save {
+    background-color: #28a745;
+    color: white;
+    border-radius: 10px;
+    margin-top: 1vh;
+}
+.save:hover {
+    background-color: #218838;
+    transform: scale(1.05);
+}
+.smallWords{
+    margin-top: 0.5vh;
+    font-size: 1.5vh;
+}
+.cancel {
+    background-color: #dc3545;
+    color: white;
+    border-radius: 10px;
+    margin-top: 1vh;
+}
+
+.cancel:hover {
+    background-color: #c82333;
+    transform: scale(1.05);
+}
 
 .rcpFormText {
     background-color: #c8c69c; /* Fondo de color #c8c69c */
