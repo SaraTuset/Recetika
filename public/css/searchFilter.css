@@ -21,10 +21,6 @@
     display: flex;
 }
 
-#search-bar {
-    padding-right: calc(1.5em + 0.75rem);
-}
-
 /* Dropdown styles */
 .dropdown {
     position: relative;
@@ -43,6 +39,7 @@
 }
 
 .dropdown-content {
+    scroll-behavior: auto;
     display: none;
     position: absolute;
     background-color: #f9f9f9;
@@ -242,6 +239,7 @@ section.range-slider input:last-of-type::-moz-range-track {
     }
 
     .dropdown-content {
+        left: -45px;
         max-width: 300px;
     }
 
@@ -257,15 +255,19 @@ section.range-slider input:last-of-type::-moz-range-track {
 
 .select-buttons {
     display: flex;
-    justify-content: space-between;
+    justify-content: center;
     margin-top: 5px;
 }
 
 .selectAllBut {
+    display: flex;
+    align-items: center;
+    height: 50px;
+    width: 100px;
     background-color: rgb(18, 110, 0);
     color: white;
     padding: 10px;
-    font-size: 16px;
+    font-size: 11px;
     border: none;
     margin: 5px;
     cursor: pointer;
@@ -275,10 +277,14 @@ section.range-slider input:last-of-type::-moz-range-track {
 }
 
 .deselectAllBut {
+    display: flex;
+    align-items: center;
+    height: 50px;
+    width: 100px;
     background-color: rgb(100, 0, 0);
     color: white;
     padding: 10px;
-    font-size: 16px;
+    font-size: 10px;
     border: none;
     margin: 5px;
     cursor: pointer;

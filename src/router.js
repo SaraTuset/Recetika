@@ -1,7 +1,8 @@
 import express from 'express';
 import request from 'request';
 import { recipesMap, getRecipes, findByQuery, getDurationRange, getCautions, 
-getCuisineTypes, getDiets, getDishTypes, getHealthLabels, getIngredients, getKcalRange, getMealTypes } from './recipeService.js';
+getCuisineTypes, getDiets, getDishTypes, getHealthLabels, getIngredients, getKcalRange,
+getMealTypes, filterRecipes } from './recipeService.js';
 /*import { firebase } from './firebaseConfig.js';*/
 
 // Array temporal para almacenar usuarios
@@ -9,6 +10,7 @@ let users = [];
 
 let allShown = false; // Variable que controla si se han mostrado todas las recetas
 let searchOn = false; // Variable que controla si se está buscando o no
+let filteringOn = false; // Variable que controla si se está filtrando o no
 let fromUrl = false; // Variable que controla si se está buscando desde una URL o no
 let currentQueries;
 
@@ -99,7 +101,7 @@ router.get('/calculator', (req, res) => {
 router.get("/recipes", (req, res) => { // Obtiene recetas (bien aleatorias o por búsqueda/filtrado)
     if (!fromUrl) {
         let recipes;
-        if (!searchOn) {
+        if (!searchOn && !filteringOn) {
             recipes = getUniqueRandomRecipes(MAX_RECIPES_PER_PAGE);
 
             //check if all recipes are now displayed
@@ -187,6 +189,7 @@ router.get('/logout', (req, res) => {
 
 router.get('/', (req, res) => {
     searchOn = false;
+    filteringOn = false;
     fromUrl = false;
 
     const username = req.session.user ? req.session.user.email.split('@')[0] : null;
@@ -279,6 +282,23 @@ router.get('/cuisine-types', (req, res) => {
 router.get('/kcal-range', (req, res) => {
     const kcalRange = getKcalRange();
     res.json(kcalRange);
+});
+
+router.post('/filter-recipes', (req, res) => {
+    filteringOn = true;
+    const filters = req.body;
+    const filteredRecipes = filterRecipes(filters);
+
+    currentQueries = filteredRecipes.slice(MAX_RECIPES_PER_PAGE);
+
+    allShown = (currentQueries.length == 0);
+
+    res.setHeader("allShown", allShown);
+
+    res.render("recipe", {
+        recipe: filteredRecipes.slice(0, MAX_RECIPES_PER_PAGE),
+        allShown: allShown
+    });
 });
 
 export default router;

@@ -67,19 +67,21 @@ $(() => {
         return min + " - " + max;
     }
 
-    $("*[id=rangeDiff], *[id=selectDiff]").find("input").on("tap touchstart", (e) => {
-
+    $("*[id=rangeDiff], *[id=selectDiff]").find("input").on("click", (e) => {
         let checkboxes = $(e.target).closest(".dropdown-column").find(".difficulty-checkboxes");
         let rangeSlider = $(e.target).closest(".dropdown-column").find(".range-slider");
 
-        $(checkboxes).toggle();
-        $(rangeSlider).toggle();
+        if ($(e.target).parent().attr("id") === "selectDiff") {
+            $(checkboxes).show();
+            $(rangeSlider).hide();
+        } else {
+            $(rangeSlider).show();
+            $(checkboxes).hide();
+        }
     });
 
     $("*[id=rangeDiff]").find("input").trigger("click");
-    $("*[id=rangeDiff]").find("input").trigger("touchstart");
     $("*[id=rangePeop]").find("input").trigger("click");
-    $("*[id=rangePeop]").find("input").trigger("touchstart");
 
 
     $("*[id=rangePeop], *[id=selectPeop]").find("input").on("click", (e) => {
@@ -100,11 +102,68 @@ $(() => {
 
     $(".dropBtn").on("click", (e) => {
         $(".dropdown-content").toggle();
+
+        dropdownContent = $(".dropdown-content").html();
+
+        diffChange = false;
+        calChange = false;
+        peopChange = false;
+        timeChange = false;
+        dietChange = false;
+        healthChange = false;
+        cautionsChange = false;
+        ingredientsChange = false;
+        dishTypeChange = false;
+        mealTypeChange = false;
+        cuisineTypeChange = false;
+
+        $(".dropdown-column").children().on("click", (e) => {
+            let changedItem = $(e.target).closest(".dropdown-column").attr("id");
+
+            switch (changedItem) {
+                case "difficulty":
+                    diffChange = true;
+                    break;
+                case "calories":
+                    calChange = true;
+                    break;
+                case "people":
+                    peopChange = true;
+                    break;
+                case "time":
+                    timeChange = true;
+                    break;
+                case "diet":
+                    dietChange = true;
+                    break;
+                case "health":
+                    healthChange = true;
+                    break;
+                case "cautions":
+                    cautionsChange = true;
+                    break;
+                case "ingredients":
+                    ingredientsChange = true;
+                    break;
+                case "dishType":
+                    dishTypeChange = true;
+                    break;
+                case "mealType":
+                    mealTypeChange = true;
+                    break;
+                case "cuisineType":
+                    cuisineTypeChange = true;
+                    break;
+            }
+        });
+
     });
 
     $(".diffSlider").on("input", (e) => {
         let slider1 = $(e.target).parent().find("input")[0].value;
+        $($("#diffSliders").find("input")[0]).val(slider1);
         let slider2 = $(e.target).parent().find("input")[1].value;
+        $($("#diffSliders").find("input")[1]).val(slider2);
 
         let [diffText, diffLevel] = calcDiff(slider1, slider2);
         $(".diffRangeValues").text(diffText);
@@ -208,17 +267,6 @@ $(() => {
 
     let selects = $("*[id=dropdownContent]").find("select");
 
-    // By default all options are selected...
-    setTimeout(() => {
-        $(selects).each((index, select) => {
-            let id = $(select).attr("class");
-            if (id === "people-select") return;
-            $(select).find("option").each((index, option) => {
-                option.selected = true;
-            });
-        });
-    }, 1000);
-
     let lastSelectedIndex = -1;
 
     // Change all select dropdowns behavior to allow multiple selection without CTRL
@@ -252,30 +300,144 @@ $(() => {
         return false;
     });
 
+    $(".confirm-button").on("click", (e) => confirmFilters(e.target));
 
 });
 
+// Dropdown initial HTML
+let dropdownContent;
+
+// Dropdown filters initially not changed
+let diffChange = false;
+let calChange = false;
+let peopChange = false;
+let timeChange = false;
+let dietChange = false;
+let healthChange = false;
+let cautionsChange = false;
+let ingredientsChange = false;
+let dishTypeChange = false;
+let mealTypeChange = false;
+let cuisineTypeChange = false;
+
 function toggleDropdown() {
-    const dropdownContent = document.getElementById("dropdownContent");
-    dropdownContent.classList.toggle("show");
+    const dropdownContent = $("#dropdownContent");
+    $(dropdownContent).addClass("show");
 }
 
-function confirmFilters() {
+function gatherFilterData(caller) {
+    const filters = {};
 
-    toggleDropdown();
-}
+    // Only include filters that have been touched
 
-function toggleDifficultyFilter(filterType) {
-    const rangeSlider = $(".range-slider");
-    const difficultyCheckboxes = $(".difficulty-checkboxes");
+    // Difficulty
+    if (diffChange) {
+        let diffSliders = $(caller).parent().find("#diffSliders");
+        let rangeDiffSlider = [parseInt($($(diffSliders).find("input")[0]).val()), parseInt($($(diffSliders).find("input")[1]).val())]
+        let selectDiff = Array.from($(caller).parent().find(".difficulty-checkboxes").find("input:checked")).map((checkbox) => checkbox.value);
 
-    if (filterType === 'range') {
-        rangeSlider.style.display = 'block';
-        difficultyCheckboxes.style.display = 'none';
-    } else {
-        rangeSlider.style.display = 'none';
-        difficultyCheckboxes.style.display = 'flex';
+        let diffValues = $(diffSliders).css("display") != "none" ? rangeDiffSlider : selectDiff;
+        let mode = $(diffSliders).css("display") != "none" ? "range" : "select";
+        filters.difficulty = { values: diffValues, mode: mode };
     }
+
+    // Calories
+    if (calChange) {
+        let calSliders = $(caller).parent().find("#calSliders");
+        let rangeCalSlider = [parseFloat($($(calSliders).find("input")[0]).val()), parseFloat($($(calSliders).find("input")[1]).val())]
+        filters.calories = { values: rangeCalSlider };
+    }
+
+    // People
+    if (peopChange) {
+        let peopSliders = $(caller).parent().find("#peopSliders");
+        let rangePeopSlider = [$($(peopSliders).find("input")[0]).val(), $($(peopSliders).find("input")[1]).val()]
+        let selectPeop = $(caller).parent().find(".people-select").find("option:selected").val();
+        let peopValues = $(peopSliders).css("display") != "none" ? rangePeopSlider : selectPeop;
+        let peopMode = $(peopSliders).css("display") != "none" ? "range" : "select";
+        filters.people = { values: peopValues, mode: peopMode };
+    }
+
+    // Time
+    if (timeChange) {
+        let timeSliders = $(caller).parent().find("#timeSliders");
+        let rangeTimeSlider = [parseInt($($(timeSliders).find("input")[0]).val()), parseInt($($(timeSliders).find("input")[1]).val())]
+        filters.time = { values: rangeTimeSlider };
+    }
+
+    // Diet type
+    if (dietChange) {
+        let dietSelect = $(caller).parent().find(".diet-select").find("option:selected");
+        let dietValues = Array.from(dietSelect).map((option) => option.value);
+        filters.diet = dietValues;
+    }
+
+    // Health labels
+    if (healthChange) {
+        let healthSelect = $(caller).parent().find(".health-select").find("option:selected");
+        let healthValues = Array.from(healthSelect).map((option) => option.value);
+        filters.health = healthValues;
+    }
+
+    // Cautions
+    if (cautionsChange) {
+        let cautionsSelect = $(caller).parent().find(".cautions-select").find("option:selected");
+        let cautionsValues = Array.from(cautionsSelect).map((option) => option.value);
+        filters.cautions = cautionsValues;
+    }
+
+    // Ingredients
+    if (ingredientsChange) {
+        let ingredientsSelect = $(caller).parent().find(".ingredients-select").find("option:selected");
+        let ingredientsValues = Array.from(ingredientsSelect).map((option) => option.value);
+        filters.ingredients = ingredientsValues;
+    }
+
+    // Dish type
+    if (dishTypeChange) {
+        let dishTypeSelect = $(caller).parent().find(".dishType-select").find("option:selected");
+        let dishTypeValues = Array.from(dishTypeSelect).map((option) => option.value);
+        filters.dishType = dishTypeValues;
+    }
+
+    // Meal type
+    if (mealTypeChange) {
+        let mealTypeSelect = $(caller).parent().find(".mealType-select").find("option:selected");
+        let mealTypeValues = Array.from(mealTypeSelect).map((option) => option.value);
+        filters.mealType = mealTypeValues;
+    }
+
+    // Cuisine type
+    if (cuisineTypeChange) {
+        let cuisineTypeSelect = $(caller).parent().find(".cuisineType-select").find("option:selected");
+        let cuisineTypeValues = Array.from(cuisineTypeSelect).map((option) => option.value);
+        filters.cuisineType = cuisineTypeValues;
+    }
+
+    return filters;
+}
+
+function confirmFilters(caller) {
+
+    const filters = gatherFilterData(caller);
+
+    $(".dropdown-content").scrollTop(0);
+
+    $(caller).parent().hide();
+    $(caller).parent().html(dropdownContent);
+
+    $.ajax({
+        type: 'POST',
+        url: '/filter-recipes',
+        data: JSON.stringify(filters),
+        contentType: 'application/json',
+        success: (response) => {
+            $("#recipesContainer").empty();
+            $("#recipesContainer").append(response);
+            formatRecipe(response);
+        }
+    });
+    toggleDropdown();
 }
 
 $(".selectAllBut").on("click", (e) => {

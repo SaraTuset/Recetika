@@ -98,19 +98,111 @@ export function getCuisineTypes() {
 
 // Función para obtener el rango de kcals
 export function getKcalRange() {
-    let minKcal = Infinity;
-    let maxKcal = -Infinity;
+    let minKcal = Number.MAX_SAFE_INTEGER;
+    let maxKcal = Number.MIN_SAFE_INTEGER;
+
     for (let recipe of recipesMap.values()) {
-        if (recipe.calories) {
-            if (recipe.calories < minKcal) minKcal = recipe.calories;
-            if (recipe.calories > maxKcal) maxKcal = recipe.calories;
-        }
+        if (recipe.calories < minKcal) minKcal = recipe.calories;
+        if (recipe.calories > maxKcal) maxKcal = recipe.calories;
     }
+
     return [minKcal, maxKcal];
 }
 
 export function findByQuery(query) {
     const recipesArray = Array.from(recipesMap.values());
     return recipesArray.filter(recipe => recipe.label.toLowerCase().includes(query.toLowerCase()));
+}
+
+export function filterRecipes(filters) {
+    let res = Array.from(recipesMap.values()).filter(recipe => {
+        // Difficulty
+        if (filters.difficulty) {
+            if (filters.difficulty.mode === "range") {
+                if (recipe.difficulty < Math.min(...filters.difficulty.values) || recipe.difficulty > Math.max(...filters.difficulty.values)) return false;
+            } else {
+                const isValid = Array.from(filters.difficulty.values).some(diff => {
+                    switch (diff) {
+                        case "easy":
+                            return recipe.difficulty <= 2;
+                        case "medium":
+                            return recipe.difficulty === 3;
+                        case "hard":
+                            return recipe.difficulty >= 4;
+                        default:
+                            return false;
+                    }
+                });
+                if (!isValid) return false;
+            }
+        }
+
+        // People
+        if (filters.people) {
+            if (filters.people.mode === "range") {
+                if (recipe.people < Math.min(...filters.people.values) || recipe.people > Math.max(...filters.people.values)) return false;
+            } else {
+                if (recipe.people != filters.people.values) return false;
+            }
+        }
+
+        // Time
+        if (filters.time) {
+            if (recipe.totalTime < Math.min(...filters.time.values) || recipe.totalTime > Math.max(...filters.time.values)) return false;
+        }
+
+        // Diet types
+        if (filters.diet) {
+            if (!Array.from(filters.diet).some(diet => recipe.dietLabels.includes(diet))) return false;
+        }
+
+        // Health labels
+        if (filters.health) {
+            if (!Array.from(filters.health).some(label => recipe.healthLabels.includes(label))) return false;
+        }
+
+        // Cautions
+        if (filters.cautions) {
+            let cautions = Array.from(filters.cautions);
+            let nCautions = getCautions().size;
+
+            if (!cautions.includes("Gluten") && cautions.length == nCautions - 1) {
+                return !recipe.hasGluten
+            }
+            if (cautions.every(caution => recipe.cautions.includes(caution))) return true
+            else return false;
+        }
+
+        // Ingredients
+        if (filters.ingredients) {
+            if (!Array.from(filters.ingredients).some(ingredient => {
+                return recipe.ingredients.some(recipeIngredient => recipeIngredient.food === ingredient);
+            })) return false;
+        }
+
+        // Dish types
+        if (filters.dishType) {
+            if (!Array.from(filters.dishType).some(type => recipe.dishType && recipe.dishType.includes(type))) return false;
+        }
+
+        // Meal types
+        if (filters.mealType) {
+            if (!Array.from(filters.mealType).some(type => recipe.mealType.includes(type))) return false;
+        }
+
+        // Cuisine types
+        if (filters.cuisineType) {
+            if (!Array.from(filters.cuisineType).some(type => recipe.cuisineType.includes(type))) return false;
+        }
+
+        // Calories
+        if (filters.calories) {
+            if (recipe.calories < Math.min(...filters.calories.values) || recipe.calories > Math.max(...filters.calories.values)) return false;
+        }
+
+        return true;
+    });
+
+    return res;
 }
 
