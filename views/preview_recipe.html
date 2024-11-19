@@ -2,7 +2,8 @@
 	<!-- Bootstrap CSS -->
 	<link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
 	<!-- Bootstrap JS and Popper.js -->
-	<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+	<script src="https://code.jquery.com/jquery-3.7.1.js"
+        integrity="sha256-eKhayi8LEQwp4NKxN+CfCh+3qOVUtJn3QNZ0TciWLP4=" crossorigin="anonymous"></script>
 	<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
 	<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 </head>
@@ -10,6 +11,8 @@
 {{#recipe}}
 <div class="col mb-5 recipe">
 	<div class="card h-100">
+		<!--Product id-->
+		<label hidden class="recipeId id{{id}}">{{id}}</label>
 		<!-- Product image-->
 		<img class="card-img-top" src="{{image}}" alt="..." />
 		<!-- Product details-->
@@ -79,30 +82,30 @@
 					<div class="col-md-6">
 						<div class="card">
 							<div class="card-body text-center">
-								<span class="myratings">4.5</span>
-								<h4 class="mt-1" id="rated">Rate the recipe</h4>
+								<span class="myratings">0.0</span>
+								<h4 class="mt-1" id="rated">Valora esta receta</h4>
 
 								<fieldset class="rating">
 									<input type="radio" id="star5" name="rating" value="5" /><label class="full"
-										for="star5" title="Awesome - 5 stars"></label>
+										for="star5" title="¡Increíble! - 5 estrellas"></label>
 									<input type="radio" id="star4half" name="rating" value="4.5" /><label class="half"
-										for="star4half" title="Pretty good - 4.5 stars"></label>
+										for="star4half" title="Muy bueno - 4.5 estrellas"></label>
 									<input type="radio" id="star4" name="rating" value="4" /><label class="full"
-										for="star4" title="Pretty good - 4 stars"></label>
+										for="star4" title="Bueno - 4 estrellas"></label>
 									<input type="radio" id="star3half" name="rating" value="3.5" /><label class="half"
-										for="star3half" title="Meh - 3.5 stars"></label>
+										for="star3half" title="Está bien - 3.5 estrellas"></label>
 									<input type="radio" id="star3" name="rating" value="3" /><label class="full"
-										for="star3" title="Meh - 3 stars"></label>
+										for="star3" title="Está bien - 3 estrellas"></label>
 									<input type="radio" id="star2half" name="rating" value="2.5" /><label class="half"
-										for="star2half" title="Kinda bad - 2.5 stars"></label>
+										for="star2half" title="Algo mal - 2.5 estrellas"></label>
 									<input type="radio" id="star2" name="rating" value="2" /><label class="full"
-										for="star2" title="Kinda bad - 2 stars"></label>
+										for="star2" title="Algo mal - 2 estrellas"></label>
 									<input type="radio" id="star1half" name="rating" value="1.5" /><label class="half"
-										for="star1half" title="Meh - 1.5 stars"></label>
+										for="star1half" title="Malo - 1.5 estrellas"></label>
 									<input type="radio" id="star1" name="rating" value="1" /><label class="full"
-										for="star1" title="Sucks big time - 1 star"></label>
+										for="star1" title="Muy malo - 1 star"></label>
 									<input type="radio" id="starhalf" name="rating" value="0.5" /><label class="half"
-										for="starhalf" title="Sucks big time - 0.5 stars"></label>
+										for="starhalf" title="Muy malo - 0.5 estrellas"></label>
 									<input type="radio" class="reset-option" name="rating" value="reset" />
 								</fieldset>
 							</div>
@@ -110,7 +113,7 @@
 					</div>
 				</div>
 			</div>
-			<script src="../public/js/value_recipe.js"> </script>
+			<script type="module" src="js/value_recipe.js"> </script>
 		</div>
 	</div>
 </div>

@@ -1,4 +1,5 @@
 import fs from "fs";
+import { getCurrentUser } from "./router.js";
 
 const MAX_RECIPES = 110;
 
@@ -11,6 +12,8 @@ const jsonData = JSON.parse(data);
 
 // Estructurar las recetas en un mapa
 jsonData.recipes.forEach(recipe => {
+    if (!recipe.reviews) recipe.reviews = [];
+
     recipesMap.set(recipe.id, recipe);
 });
 
@@ -29,6 +32,44 @@ export function getRecipes(from, to) {
 export function getRecipeById(id) {
     id = parseInt(id);
     return recipesMap.get(id);
+}
+
+//Setea y exporta valoración
+export async function setRating(id, rate){
+    id = parseFloat(id);
+
+    let recipe = recipesMap.get(id);
+    let valores = recipe.reviews;
+    let newReview = {};
+    newReview.author = "Anónimo";
+
+    let user = getCurrentUser();
+    if (user) newReview.author = user;
+
+    newReview.date = new Date().toLocaleDateString().replace(/\//g, "-");
+    newReview.rating = parseInt(rate);
+    newReview.comment = "";
+
+    valores.push(newReview);
+
+
+    recipe.reviews = valores;
+    recipesMap.set(id, recipe);
+
+    return getRatingsMean(id);
+}
+
+export function getRatingsMean(id) {
+    let recipe = recipesMap.get(id);
+    if (!recipe) return 0;
+    let valores = recipesMap.get(id).reviews;
+    if (!valores || valores.length === 0) return 0;
+    let suma = 0;
+    valores.forEach((valor) => {
+        suma += valor.rating;
+    });
+
+    return suma / valores.length;
 }
 
 // Función para obtener recetas por su nombre
