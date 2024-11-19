@@ -78,6 +78,25 @@ body {
     margin-right: 5px;
 }
 
+.recipe_buttons {
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+    justify-content: flex-start;
+}
+
+.recipe_buttons button {
+    width: 150px;
+    height: 40px;
+    border: none;
+    border-radius: 10px;
+    background-color: #c1bf76;
+    color: black;
+    font-size: 1rem;
+    margin-right: 10px;
+    cursor: pointer;
+}
+
 /* Review Styles */
 .reviews_father_container {
     width: 100%;

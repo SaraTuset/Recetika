@@ -4,75 +4,27 @@
             "id": 0,
             "label": "Time for a Drink: Whiskey Sour Recipe",
             "image": "./assets/img/0.jpg",
-            "ingredients": [
-                {
-                    "text": "2 ounces whiskey",
-                    "quantity": 2,
-                    "measure": "ounce",
-                    "food": "whiskey",
-                    "weight": 56.69904625,
-                    "foodCategory": "liquors and cocktails",
-                    "foodId": "food_bbt0i11acd5rx6b2l3hwaas5ro3v",
-                    "image": "https://www.edamam.com/food-img/068/0682aefc964db752b41c04dece4bedcb.jpg"
-                },
-                {
-                    "text": "1 ounce fresh-squeezed lemon juice",
-                    "quantity": 1,
-                    "measure": "ounce",
-                    "food": "lemon juice",
-                    "weight": 28.349523125,
-                    "foodCategory": "100% juice",
-                    "foodId": "food_bglm6vxahuauteb0n6ynfbg9eryu",
-                    "image": "https://www.edamam.com/food-img/e31/e310952d214e78a4cb8b73f30ceeaaf2.jpg"
-                },
-                {
-                    "text": "1 teaspoon sugar",
-                    "quantity": 1,
-                    "measure": "teaspoon",
-                    "food": "sugar",
-                    "weight": 4.2,
-                    "foodCategory": "sugars",
-                    "foodId": "food_axi2ijobrk819yb0adceobnhm1c2",
-                    "image": "https://www.edamam.com/food-img/ecb/ecb3f5aaed96d0188c21b8369be07765.jpg"
-                },
-                {
-                    "text": "1 egg white (optional—use if you’re feeling mildly adventurous, or need a drink with a little more gravitas)",
-                    "quantity": 1,
-                    "measure": "<unit>",
-                    "food": "egg white",
-                    "weight": 26.4,
-                    "foodCategory": "Eggs",
-                    "foodId": "food_a7hurbpb20zs42bnwg2p8bca3ihs",
-                    "image": "https://www.edamam.com/food-img/b30/b304a020501418f9a63cf7f9359bc99d.jpg"
-                }
-            ],
             "people": 1,
             "difficulty": 3,
-            "vegetarian": true,
-            "hasGluten": true,
-            "dishType": [
-                "alcohol cocktail"
-            ],
-            "mealType": [
-                "lunch/dinner"
-            ],
+            "vegetarian": false,
+            "hasGluten": false,
             "cuisineType": [
                 "world"
             ],
-            "totalTime": 0,
-            "calories": 177.9665107125,
+            "totalTime": 5,
+            "calories": 177.97,
             "reviews": [
                 {
                     "author": "John Doe",
                     "date": "2023-10-01",
                     "rating": 5,
-                    "comment": "A classic cocktail with a perfect balance of flavors."
+                    "comment": "Un cóctel clásico con un equilibrio perfecto de sabores."
                 },
                 {
                     "author": "Jane Smith",
                     "date": "2023-10-02",
                     "rating": 4,
-                    "comment": "Great drink, but I prefer it without the egg white."
+                    "comment": "Gran bebida, pero la prefiero sin la clara de huevo."
                 }
             ]
         },
@@ -80,307 +32,141 @@
             "id": 1,
             "label": "Classic Margarita",
             "image": "./assets/img/1.jpg",
-            "ingredients": [
-                {
-                    "text": "2 ounces tequila",
-                    "quantity": 2,
-                    "measure": "ounce",
-                    "food": "tequila",
-                    "weight": 56.69904625,
-                    "foodCategory": "liquors and cocktails",
-                    "foodId": "food_bbt0i11acd5rx6b2l3hwaas5ro3v",
-                    "image": "https://www.edamam.com/food-img/068/0682aefc964db752b41c04dece4bedcb.jpg"
-                },
-                {
-                    "text": "1 ounce lime juice",
-                    "quantity": 1,
-                    "measure": "ounce",
-                    "food": "lime juice",
-                    "weight": 28.349523125,
-                    "foodCategory": "100% juice",
-                    "foodId": "food_bglm6vxahuauteb0n6ynfbg9eryu",
-                    "image": "https://www.edamam.com/food-img/e31/e310952d214e78a4cb8b73f30ceeaaf2.jpg"
-                },
-                {
-                    "weight": 0.5,
-                    "foodCategory": "Condiments and sauces",
-                    "foodId": "food_btxz81db72hwbra2pncvebzzzum9",
-                    "image": "https://www.edamam.com/food-img/8f0/8f0a331c8c0d8b5d4d1d9f8b3e8b5e0c.jpg"
-                }
-            ],
             "people": 1,
             "difficulty": 2,
             "vegetarian": true,
             "hasGluten": false,
-            "dishType": [
-                "alcohol cocktail"
-            ],
-            "mealType": [
-                "lunch/dinner"
-            ],
             "cuisineType": [
                 "mexican"
             ],
-            "totalTime": 0,
-            "calories": 168.0
+            "totalTime": 5,
+            "calories": 168.0,
+            "reviews": [
+                {
+                    "author": "Alice Johnson",
+                    "date": "2023-10-03",
+                    "rating": 5,
+                    "comment": "Margarita perfecta, con la cantidad justa de lima."
+                },
+                {
+                    "author": "Bob Brown",
+                    "date": "2023-10-04",
+                    "rating": 4,
+                    "comment": "Buena, pero un poco fuerte para mi gusto."
+                }
+            ]
         },
         {
             "id": 2,
             "label": "Mojito",
             "image": "https://cdn.stoneline.de/media/bc/1f/3d/1724839845/mojito.png",
-            "ingredients": [
-                {
-                    "text": "2 ounces white rum",
-                    "quantity": 2,
-                    "measure": "ounce",
-                    "food": "white rum",
-                    "weight": 56.69904625,
-                    "foodCategory": "liquors and cocktails",
-                    "foodId": "food_bbt0i11acd5rx6b2l3hwaas5ro3v",
-                    "image": "https://www.edamam.com/food-img/068/0682aefc964db752b41c04dece4bedcb.jpg"
-                },
-                {
-                    "text": "1 ounce lime juice",
-                    "quantity": 1,
-                    "measure": "ounce",
-                    "food": "lime juice",
-                    "weight": 28.349523125,
-                    "foodCategory": "100% juice",
-                    "foodId": "food_bglm6vxahuauteb0n6ynfbg9eryu",
-                    "image": "https://www.edamam.com/food-img/e31/e310952d214e78a4cb8b73f30ceeaaf2.jpg"
-                },
-                {
-                    "text": "2 teaspoons sugar",
-                    "quantity": 2,
-                    "measure": "teaspoon",
-                    "food": "sugar",
-                    "weight": 8.4,
-                    "foodCategory": "sugars",
-                    "foodId": "food_axi2ijobrk819yb0adceobnhm1c2",
-                    "image": "https://www.edamam.com/food-img/ecb/ecb3f5aaed96d0188c21b8369be07765.jpg"
-                },
-                {
-                    "text": "6 leaves of fresh mint",
-                    "quantity": 6,
-                    "measure": "leaf",
-                    "food": "mint",
-                    "weight": 2.4,
-                    "foodCategory": "Herbs and spices",
-                    "foodId": "food_bxl2c7fahp8fg2b26zlsaaykb0ks",
-                    "image": "https://www.edamam.com/food-img/8f0/8f0a331c8c0d8b5d4d1d9f8b3e8b5e0c.jpg"
-                },
-                {
-                    "text": "Soda water",
-                    "quantity": 2,
-                    "measure": "ounce",
-                    "food": "soda water",
-                    "weight": 56.69904625,
-                    "foodCategory": "water",
-                    "foodId": "food_a1gb9ubb72c7snbuxr3weagwv0dd",
-                    "image": "https://www.edamam.com/food-img/8f0/8f0a331c8c0d8b5d4d1d9f8b3e8b5e0c.jpg"
-                }
-            ],
             "people": 1,
             "difficulty": 2,
             "vegetarian": true,
             "hasGluten": false,
-            "dishType": [
-                "alcohol cocktail"
-            ],
-            "mealType": [
-                "lunch/dinner"
-            ],
             "cuisineType": [
                 "cuban"
             ],
-            "totalTime": 0,
-            "calories": 150.0
+            "totalTime": 5,
+            "calories": 150.0,
+            "reviews": [
+                {
+                    "author": "Charlie Davis",
+                    "date": "2023-10-05",
+                    "rating": 5,
+                    "comment": "Refrescante y mentolado, perfecto para el verano."
+                },
+                {
+                    "author": "Dana Evans",
+                    "date": "2023-10-06",
+                    "rating": 4,
+                    "comment": "Buen mojito, pero podría usar un poco más de azúcar."
+                }
+            ]
         },
         {
             "id": 3,
             "label": "Piña Colada",
             "image": "https://imag.bonviveur.com/pina-colada.jpg",
-            "ingredients": [
-                {
-                    "text": "2 ounces white rum",
-                    "quantity": 2,
-                    "measure": "ounce",
-                    "food": "white rum",
-                    "weight": 56.69904625,
-                    "foodCategory": "liquors and cocktails",
-                    "foodId": "food_bbt0i11acd5rx6b2l3hwaas5ro3v",
-                    "image": "https://www.edamam.com/food-img/068/0682aefc964db752b41c04dece4bedcb.jpg"
-                },
-                {
-                    "text": "1 ounce coconut cream",
-                    "quantity": 1,
-                    "measure": "ounce",
-                    "food": "coconut cream",
-                    "weight": 28.349523125,
-                    "foodCategory": "plant-based milk",
-                    "foodId": "food_bglm6vxahuauteb0n6ynfbg9eryu",
-                    "image": "https://www.edamam.com/food-img/e31/e310952d214e78a4cb8b73f30ceeaaf2.jpg"
-                },
-                {
-                    "text": "1 ounce pineapple juice",
-                    "quantity": 1,
-                    "measure": "ounce",
-                    "food": "pineapple juice",
-                    "weight": 28.349523125,
-                    "foodCategory": "100% juice",
-                    "foodId": "food_bglm6vxahuauteb0n6ynfbg9eryu",
-                    "image": "https://www.edamam.com/food-img/e31/e310952d214e78a4cb8b73f30ceeaaf2.jpg"
-                }
-            ],
             "people": 1,
             "difficulty": 2,
             "vegetarian": true,
             "hasGluten": false,
-            "dishType": [
-                "alcohol cocktail"
-            ],
-            "mealType": [
-                "lunch/dinner"
-            ],
             "cuisineType": [
                 "caribbean"
             ],
-            "totalTime": 0,
-            "calories": 230.0
+            "totalTime": 5,
+            "calories": 230.0,
+            "reviews": [
+                {
+                    "author": "Eve Foster",
+                    "date": "2023-10-07",
+                    "rating": 5,
+                    "comment": "Deliciosa y cremosa, como en vacaciones."
+                },
+                {
+                    "author": "Frank Green",
+                    "date": "2023-10-08",
+                    "rating": 4,
+                    "comment": "Gran sabor, pero un poco dulce para mí."
+                }
+            ]
         },
         {
             "id": 4,
-            "label": "Bloody Mary",
-            "image": "data:image/jpeg;base64,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",
-            "ingredients": [
-                {
-                    "text": "2 ounces vodka",
-                    "quantity": 2,
-                    "measure": "ounce",
-                    "food": "vodka",
-                    "weight": 56.69904625,
-                    "foodCategory": "liquors and cocktails",
-                    "foodId": "food_bbt0i11acd5rx6b2l3hwaas5ro3v",
-                    "image": "https://www.edamam.com/food-img/068/0682aefc964db752b41c04dece4bedcb.jpg"
-                },
-                {
-                    "text": "4 ounces tomato juice",
-                    "quantity": 4,
-                    "measure": "ounce",
-                    "food": "tomato juice",
-                    "weight": 113.3980925,
-                    "foodCategory": "100% juice",
-                    "foodId": "food_bglm6vxahuauteb0n6ynfbg9eryu",
-                    "image": "https://www.edamam.com/food-img/e31/e310952d214e78a4cb8b73f30ceeaaf2.jpg"
-                },
-                {
-                    "text": "2 dashes Worcestershire sauce",
-                    "quantity": 2,
-                    "measure": "dash",
-                    "food": "Worcestershire sauce",
-                    "weight": 5.0,
-                    "foodCategory": "Condiments and sauces",
-                    "foodId": "food_btxz81db72hwbra2pncvebzzzum9",
-                    "image": "https://www.edamam.com/food-img/8f0/8f0a331c8c0d8b5d4d1d9f8b3e8b5e0c.jpg"
-                },
-                {
-                    "text": "1 pinch salt",
-                    "quantity": 1,
-                    "measure": "pinch",
-                    "food": "salt",
-                    "weight": 0.5,
-                    "foodCategory": "Condiments and sauces",
-                    "foodId": "food_btxz81db72hwbra2pncvebzzzum9",
-                    "image": "https://www.edamam.com/food-img/8f0/8f0a331c8c0d8b5d4d1d9f8b3e8b5e0c.jpg"
-                },
-                {
-                    "text": "1 pinch black pepper",
-                    "quantity": 1,
-                    "measure": "pinch",
-                    "food": "black pepper",
-                    "weight": 0.5,
-                    "foodCategory": "Herbs and spices",
-                    "foodId": "food_bxl2c7fahp8fg2b26zlsaaykb0ks",
-                    "image": "https://www.edamam.com/food-img/8f0/8f0a331c8c0d8b5d4d1d9f8b3e8b5e0c.jpg"
-                }
-            ],
-            "people": 1,
+            "label": "Spaghetti Carbonara",
+            "image": "https://bit.ly/40QPe59",
+            "people": 2,
             "difficulty": 3,
             "vegetarian": false,
-            "hasGluten": false,
-            "dishType": [
-                "alcohol cocktail"
-            ],
-            "mealType": [
-                "lunch/dinner"
-            ],
+            "hasGluten": true,
             "cuisineType": [
-                "american"
+                "italian"
             ],
-            "totalTime": 0,
-            "calories": 120.0
+            "totalTime": 30,
+            "calories": 400.0,
+            "reviews": [
+                {
+                    "author": "Grace Harris",
+                    "date": "2023-10-09",
+                    "rating": 5,
+                    "comment": "Auténtica y deliciosa, como en Italia."
+                },
+                {
+                    "author": "Henry Irving",
+                    "date": "2023-10-10",
+                    "rating": 4,
+                    "comment": "Buena, pero un poco demasiado cremosa para mi gusto."
+                }
+            ]
         },
         {
             "id": 5,
-            "label": "Cosmopolitan",
-            "image": "data:image/jpeg;base64,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",
-            "ingredients": [
-                {
-                    "text": "1.5 ounces vodka",
-                    "quantity": 1.5,
-                    "measure": "ounce",
-                    "food": "vodka",
-                    "weight": 42.5242846875,
-                    "foodCategory": "liquors and cocktails",
-                    "foodId": "food_bbt0i11acd5rx6b2l3hwaas5ro3v",
-                    "image": "https://www.edamam.com/food-img/068/0682aefc964db752b41c04dece4bedcb.jpg"
-                },
-                {
-                    "text": "1 ounce cranberry juice",
-                    "quantity": 1,
-                    "measure": "ounce",
-                    "food": "cranberry juice",
-                    "weight": 28.349523125,
-                    "foodCategory": "100% juice",
-                    "foodId": "food_bglm6vxahuauteb0n6ynfbg9eryu",
-                    "image": "https://www.edamam.com/food-img/e31/e310952d214e78a4cb8b73f30ceeaaf2.jpg"
-                },
-                {
-                    "text": "0.5 ounce triple sec",
-                    "quantity": 0.5,
-                    "measure": "ounce",
-                    "food": "triple sec",
-                    "weight": 14.1747615625,
-                    "foodCategory": "liquors and cocktails",
-                    "foodId": "food_bbt0i11acd5rx6b2l3hwaas5ro3v",
-                    "image": "https://www.edamam.com/food-img/068/0682aefc964db752b41c04dece4bedcb.jpg"
-                },
-                {
-                    "text": "0.5 ounce lime juice",
-                    "quantity": 0.5,
-                    "measure": "ounce",
-                    "food": "lime juice",
-                    "weight": 14.1747615625,
-                    "foodCategory": "100% juice",
-                    "foodId": "food_bglm6vxahuauteb0n6ynfbg9eryu",
-                    "image": "https://www.edamam.com/food-img/e31/e310952d214e78a4cb8b73f30ceeaaf2.jpg"
-                }
-            ],
+            "label": "Caesar Salad",
+            "image": "https://bit.ly/40Qbexf",
             "people": 1,
             "difficulty": 2,
-            "vegetarian": true,
+            "vegetarian": false,
             "hasGluten": false,
-            "dishType": [
-                "alcohol cocktail"
-            ],
-            "mealType": [
-                "lunch/dinner"
-            ],
             "cuisineType": [
                 "american"
             ],
-            "totalTime": 0,
-            "calories": 150.0
+            "totalTime": 15,
+            "calories": 150.0,
+            "reviews": [
+                {
+                    "author": "Ivy Johnson",
+                    "date": "2023-10-11",
+                    "rating": 5,
+                    "comment": "Fresca y crujiente, perfecta para el almuerzo."
+                },
+                {
+                    "author": "Jack King",
+                    "date": "2023-10-12",
+                    "rating": 4,
+                    "comment": "Buena ensalada, pero un poco salada para mí."
+                }
+            ]
         }
     ]
 }

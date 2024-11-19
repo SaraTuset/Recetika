@@ -18,8 +18,7 @@ async function loadRecipes() {
     //Format calories
     $(".calories").each((index, element) => {
         let calories = parseFloat($(element).attr("alt"));
-        calories = (calories / 1000).toFixed(2);
-        $(element).find("#formattedCalories").text(calories + " KCal");
+        $(element).find("#formattedCalories").text(calories + " Cal");
     });
 }
 
