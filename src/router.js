@@ -1,5 +1,7 @@
 import express from 'express';
 import { recipesMap, getRecipes, getRecipeById, getRecipesByName, getRecipesCount } from './recipeService.js';
+import fs from 'fs';
+import path from 'path';
 
 // Array temporal para almacenar usuarios
 let users = [];
@@ -196,5 +198,43 @@ router.post('/login', (req, res) => {
     }
 });
 
+router.get('/form_new_recipe', (req, res) => {
+    res.render('new_review');
+});
+
+router.post('/addReview', (req, res) => {
+    console.log(req.body);
+    const { recipe_name, username, date, rating, review } = req.body;
+
+
+    if (!recipe_name || !username || !date || !rating || !review) {
+        return res.status(400).send('Todos los campos son obligatorios');
+    }
+
+    const filePath = path.join(__dirname, '../assets/recetas.json');
+    const recetas = JSON.parse(fs.readFileSync(filePath, 'utf8'));
+
+    const recipe = recetas.find(r => r.label === recipe_name);
+    if (!recipe) {
+        return res.status(404).send('Receta no encontrada');
+    }
+
+    const newReview = {
+        username,
+        date,
+        rating: parseInt(rating),
+        review
+    };
+
+    recipe.reviews.push(newReview);
+
+    fs.writeFileSync(filePath, JSON.stringify(recetas, null, 2), 'utf8');
+
+    res.send('¡Reseña añadida exitosamente!');
+    res.render('view_recipe', {
+        recipe,
+        reviews: recipe.reviews
+    });
+});
 
 export default router;
