@@ -217,6 +217,16 @@ router.post('/login', (req, res) => {
     }
 });
 
+router.get("/currentuser", (req, res) => {
+    const username = req.session.user ? req.session.user.email.split('@')[0] : null;
+    console.log(username);
+    res.json(username);
+});
+
+export function getCurrentUser() {
+    return request.get('/currentuser');
+}
+
 router.get('/form_new_recipe', (req, res) => {
     res.render('new_review');
 });
