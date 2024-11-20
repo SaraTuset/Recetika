@@ -1,0 +1,102 @@
+
+body {
+    font-family: 'Arial', sans-serif;
+    background-color: #c8c69c;
+    text-align: center;
+}
+
+h1 {
+    animation: aparecer 1s ease-in;
+}
+
+
+#formularioUsuario input, #formularioUsuario select {
+    padding: 10px;
+    margin: 10px;
+}
+
+button {
+    padding: 10px 20px;
+    background-color: #27ae60;
+    color: white;
+    border: none;
+    cursor: pointer;
+    font-size: 16px;
+    transition: background-color 0.3s;
+}
+
+button:hover {
+    background-color: #2ecc71;
+}
+
+/* Barra de progreso */
+.barra-progreso {
+    width: 80%;
+    background-color: #ddd;
+    margin: 20px auto;
+    border-radius: 10px;
+    overflow: hidden;
+    height: 30px;
+}
+
+#progreso {
+    height: 100%;
+    width: 0;
+    background-color: #27ae60;
+    border-radius: 10px;
+    transition: width 0.5s ease;
+}
+
+
+.tabla-estilo {
+    margin: 20px auto;
+    width: 60%;
+    border-collapse: collapse;
+    border: 2px solid #3498db;
+}
+
+.tabla-estilo th, .tabla-estilo td {
+    border: 2px solid #3498db;
+    padding: 10px;
+}
+
+
+.imagenes-alimentos {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+}
+
+.imagenes-alimentos img {
+    width: 150px; 
+    height: auto;
+    margin: 10px;
+    cursor: pointer;
+    transition: transform 0.3s;
+}
+
+.imagenes-alimentos img:hover {
+    transform: scale(1.1); 
+}
+
+/* Animaciones */
+@keyframes aparecer {
+    from {
+        opacity: 0;
+        transform: translateY(-20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+.food-image {
+    width: 100%;
+    height: auto;
+    cursor: pointer;
+    transition: transform 0.2s ease;
+}
+
+.food-image:hover {
+    transform: scale(1.1);
+}

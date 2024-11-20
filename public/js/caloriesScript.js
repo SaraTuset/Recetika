@@ -1,93 +1,120 @@
-const mealPercentages = {
-    desayuno: 0.25,
-    comida: 0.35,
-    merienda: 0.15,
-    cena: 0.25
+// Datos de los alimentos y sus valores nutricionales por gramos
+
+const alimentos = {
+    tortilla: { calorias: 2.2, carbohidratos: 0.12, azucares: 0.01, proteinas: 0.08, grasas: 0.15 },
+    pollo: { calorias: 1.6, carbohidratos: 0, azucares: 0, proteinas: 0.3, grasas: 0.05 },
+    tarta: { calorias: 3.5, carbohidratos: 0.25, azucares: 0.2, proteinas: 0.05, grasas: 0.22 },
+    sopa: { calorias: 0.6, carbohidratos: 0.1, azucares: 0.02, proteinas: 0.03, grasas: 0.01 },
+    manzana: { calorias: 0.52, carbohidratos: 0.14, azucares: 0.1, proteinas: 0.003, grasas: 0.002 },
+    arroz: { calorias: 1.3, carbohidratos: 0.28, azucares: 0, proteinas: 0.026, grasas: 0.001 },
+    aguacate: { calorias: 1.6, carbohidratos: 0.08, azucares: 0, proteinas: 0.02, grasas: 0.15 },
+    salmón: { calorias: 2.1, carbohidratos: 0, azucares: 0, proteinas: 0.2, grasas: 0.13 },
+    panIntegral: { calorias: 2.5, carbohidratos: 0.46, azucares: 0.05, proteinas: 0.09, grasas: 0.04 },
+    chocolateNegro: { calorias: 5.7, carbohidratos: 0.34, azucares: 0.23, proteinas: 0.05, grasas: 0.31 },
+    huevoCocido: { calorias: 1.55, carbohidratos: 0.01, azucares: 0.006, proteinas: 0.13, grasas: 0.11 },
+    espinacas: { calorias: 0.23, carbohidratos: 0.036, azucares: 0.004, proteinas: 0.029, grasas: 0.003 },
+    yogurNatural: { calorias: 0.6, carbohidratos: 0.05, azucares: 0.04, proteinas: 0.034, grasas: 0.033 },
+    plátano: { calorias: 0.89, carbohidratos: 0.23, azucares: 0.12, proteinas: 0.011, grasas: 0.003 },
+    quesoCheddar: { calorias: 4.0, carbohidratos: 0.01, azucares: 0.0, proteinas: 0.25, grasas: 0.33 },
+    fresas: { calorias: 0.32, carbohidratos: 0.08, azucares: 0.05, proteinas: 0.01, grasas: 0.002 }
+
 };
 
-function calculateCalories(age, gender, weight, height, activity) {
-    let bmr;
-    if (gender === 'male') {
-        bmr = 88.362 + (13.397 * weight) + (4.799 * height) - (5.677 * age);
+let totalCaloriasDiarias = 0;
+let caloriasConsumidas = 0;
+let alimentoSeleccionado = null;
+
+function calcularCaloriasDiarias() {
+    const nombre = document.getElementById('nombre').value;
+    const edad = parseInt(document.getElementById('edad').value);
+    const genero = document.getElementById('genero').value;
+    const peso = parseFloat(document.getElementById('peso').value);
+    const altura = parseFloat(document.getElementById('altura').value);
+    const actividad = document.getElementById('actividad').value;
+
+    if (nombre && edad && genero && peso && altura && actividad) {
+        if (genero === "male") {
+            totalCaloriasDiarias = 10 * peso + 6.25 * altura - 5 * edad + 5;
+        } else {
+            totalCaloriasDiarias = 10 * peso + 6.25 * altura - 5 * edad - 161;
+        }
+
+        switch (actividad) {
+            case "sedentario":
+                totalCaloriasDiarias *= 1.2;
+                break;
+            case "ligero":
+                totalCaloriasDiarias *= 1.375;
+                break;
+            case "moderado":
+                totalCaloriasDiarias *= 1.55;
+                break;
+            case "activo":
+                totalCaloriasDiarias *= 1.725;
+                break;
+        }
+
+        document.getElementById('caloriasRestantes').innerText = `Has consumido 0 de ${Math.round(totalCaloriasDiarias)} kcal recomendadas.`;
+        document.getElementById('progreso').style.width = '0%';
+
+        document.getElementById('calculadoraNutricional').classList.remove('d-none');
     } else {
-        bmr = 447.593 + (9.247 * weight) + (3.098 * height) - (4.330 * age);
-    }
-    return Math.round(bmr * activity);
-}
-
-async function savePerson(name, calories) {
-    const respuesta = await fetch('//NewCalorie', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({ name, calories }),  // Enviar los elementos como un objeto JSON
-      });
-
-
-}
-
-async function displaySavedPeople() {
-    const response = await fetch('/caloriePeople');
-    let savedCalories = await response.text();
-
-    const savedPeople = document.getElementById('savedPeople');
-    savedPeople.innerHTML = '';
-    let people = savedCalories
-    if (people == {}){
-        savedPeople.innerHTML = '<p>No hay resultados aún</p>';
-    }
-    for (let name in people) {
-        const div = document.createElement('div');
-        div.innerHTML = `
-            <input type="checkbox" id="${name}" name="person" value="${name}">
-            <label for="${name}">${name}: ${people[name]} calorías diarias</label>
-        `;
-        savedPeople.appendChild(div);
+        alert("Por favor, completa todos los campos.");
     }
 }
 
-function calculateMealCalories() {
-    const selectedPeople = Array.from(document.querySelectorAll('input[name="person"]:checked'))
-        .map(checkbox => checkbox.value);
-    
-    if (selectedPeople.length === 0) {
-        alert('Por favor, selecciona al menos una persona.');
-        return;
-    }
+function seleccionarAlimento(alimento) {
+    alimentoSeleccionado = alimento;
+    document.getElementById('gramos').value = '';
+    ocultarResultados();
+}
 
-    const people = JSON.parse(localStorage.getItem('caloriePeople')) || {};
-    const totalCalories = selectedPeople.reduce((sum, name) => sum + people[name], 0);
+function ocultarResultados() {
+    document.getElementById('tablaNutricional').classList.add('d-none');
+    document.getElementById('añadirComida').classList.add('d-none');
+}
 
-    const mealResults = document.getElementById('mealResults');
-    mealResults.innerHTML = '<h3>Calorías por Comida:</h3>';
+function calcularNutricion() {
+    const gramos = parseFloat(document.getElementById('gramos').value);
 
-    for (let meal in mealPercentages) {
-        const mealCalories = Math.round(totalCalories * mealPercentages[meal]);
-        const div = document.createElement('div');
-        div.textContent = `${meal.charAt(0).toUpperCase() + meal.slice(1)}: ${mealCalories} calorías`;
-        mealResults.appendChild(div);
+    if (!isNaN(gramos) && alimentoSeleccionado) {
+        const alimento = alimentos[alimentoSeleccionado];
+
+        const calorias = alimento.calorias * gramos;
+        const carbohidratos = alimento.carbohidratos * gramos;
+        const azucares = alimento.azucares * gramos;
+        const proteinas = alimento.proteinas * gramos;
+        const grasas = alimento.grasas * gramos;
+
+        document.getElementById('calorias').innerText = `${calorias.toFixed(2)} kcal`;
+        document.getElementById('carbohidratos').innerText = `${carbohidratos.toFixed(2)} g`;
+        document.getElementById('azucares').innerText = `${azucares.toFixed(2)} g`;
+        document.getElementById('proteinas').innerText = `${proteinas.toFixed(2)} g`;
+        document.getElementById('grasas').innerText = `${grasas.toFixed(2)} g`;
+
+        document.getElementById('tablaNutricional').classList.remove('d-none');
+        document.getElementById('añadirComida').classList.remove('d-none');
+    } else {
+        ocultarResultados();
     }
 }
 
-document.getElementById('caloriesForm').addEventListener('submit', function(e) {
-    e.preventDefault();
-    
-    const name = document.getElementById('name').value;
-    const age = parseInt(document.getElementById('age').value);
-    const gender = document.getElementById('gender').value;
-    const weight = parseFloat(document.getElementById('weight').value);
-    const height = parseFloat(document.getElementById('height').value);
-    const activity = parseFloat(document.getElementById('activity').value);
+function añadirComida() {
+    const gramos = parseFloat(document.getElementById('gramos').value);
+    const alimento = alimentos[alimentoSeleccionado];
 
-    const calories = calculateCalories(age, gender, weight, height, activity);
+    const calorias = alimento.calorias * gramos;
 
-    savePerson(name, calories);
+    caloriasConsumidas += calorias;
+    const porcentajeProgreso = (caloriasConsumidas / totalCaloriasDiarias) * 100;
 
-    document.getElementById('result').innerHTML = `${name} ha sido añadido/a con ${calories} calorías diarias estimadas.`;
-    
-    displaySavedPeople();
-});
-
-// Mostrar personas guardadas al cargar la página
-displaySavedPeople();
+    document.getElementById('progreso').style.width = `${porcentajeProgreso}%`;
+    document.getElementById('progreso').ariaValueNow = `${porcentajeProgreso}`;
+    document.getElementById('caloriasRestantes').innerText = `Has consumido ${Math.round(caloriasConsumidas)} de ${Math.round(totalCaloriasDiarias)} kcal recomendadas.`;
+}
+function reiniciarCalorias() {
+    caloriasConsumidas = 0; // Reiniciar calorías consumidas
+    document.getElementById('progreso').style.width = '0%'; // Reiniciar barra de progreso
+    document.getElementById('progreso').ariaValueNow = '0';
+    document.getElementById('caloriasRestantes').innerText = `Has consumido 0 de ${Math.round(totalCaloriasDiarias)} kcal recomendadas.`; // Actualizar texto
+}
