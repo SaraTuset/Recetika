@@ -1,31 +1,40 @@
 // document.ready
 $(() => {
-    loadRecipes();
+    let hasSearch = window.location.href.includes("search");
+    loadRecipes(hasSearch);
 });
 
-async function loadRecipes() {
-    const response = await fetch('/randomrecipes');
-    let newRecipes = await response.text();
-    let noMoreRecipes = response.headers.get("noMoreRecipes") === "true" ? true : false;
-    if (noMoreRecipes) {
-        $('.loadMoreRecipesBut').hide();
-    }
-
-    let recipesContainer = $('#recipesContainer');
-    $(recipesContainer).append(newRecipes);
+export function formatRecipe() {
     putDifficulties();
 
     //Format calories
     $(".calories").each((index, element) => {
         let calories = parseFloat($(element).attr("alt"));
-        $(element).find("#formattedCalories").text(calories + " Cal");
+        calories = (calories / 1000).toFixed(2);
+        $(element).find("#formattedCalories").text(calories + " KCal");
     });
+
+}
+
+async function loadRecipes(searchOn) {
+    const response = await fetch('/randomrecipes');
+    let newRecipes = await response.text();
+    let noMoreRecipes = response.headers.get("noMoreRecipes") === "true" ? true : false;
+
+    if (noMoreRecipes) $('.loadMoreRecipesBut').hide();
+
+    if (!searchOn) {
+        let recipesContainer = $('#recipesContainer');
+        $(recipesContainer).append(newRecipes);
+    }
+
+    formatRecipe();
 }
 
 $('.loadMoreRecipesBut').on("click", (event) => {
     $(event.currentTarget).find("i").addClass("fa-spin");
     setTimeout(() => {
-        loadRecipes();
+        loadRecipes(false);
         $(event.currentTarget).find("i").removeClass("fa-spin");
 
     }, 1000);
@@ -168,4 +177,3 @@ function putDifficulties() {
 }
 
 //Falta añadir comprobación de si quedan mas recetas o no para esconder el botón, y de añadir un delay y animación de giro de flechas
-

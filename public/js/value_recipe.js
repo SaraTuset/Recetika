@@ -4,6 +4,8 @@ const EMPTY = "#D3D3D3";
 const HALF = "#FFED85";
 
 $(() => {
+    putRatings();
+
     function putRatings() {
         $(".rating").each(async (index, rating) => {
             const id = $(rating).find(".recipeId").text();
@@ -15,20 +17,8 @@ $(() => {
             colorStars(stars, valor, "filled");
             colorStars(stars, valor, "empty");
         });
-    }
 
-    $(".loadMoreRecipesBut").on('click', async (e) => {
-        putRatings();
-    });
-    // Nada mas cargarse hay que colocar las medias de valoración
-    $(".recipe").each(async (index, recipe) => {
-        putRatings();
-    });
-
-    // Selecciona todos los inputs dentro de la clase rating
-    let ratingInputs;
-
-    $(".rating label").on("click", (e) => {
+        $(".rating label").on("click", (e) => {
             // Obtener el id y el valor del input seleccionado
             const id = $(e.target).closest(".recipe").find(".recipeId").text();
             const valor = parseFloat($(e.target).prev().val());
@@ -69,6 +59,19 @@ $(() => {
         colorStars(stars, valor, "empty");
 
     });
+    }
+
+    $(".loadMoreRecipesBut").on('click', async (e) => {
+        setTimeout(() => putRatings(), 2000);
+        //putRatings();
+    });
+    // Nada mas cargarse hay que colocar las medias de valoración
+    $(".recipe").each(async (index, recipe) => {
+        putRatings();
+    });
+
+    // Selecciona todos los inputs dentro de la clase rating
+    let ratingInputs;
    
 })
 

@@ -5,7 +5,7 @@ import path from 'path';
 import {
     recipesMap, getRecipes, findByQuery, getDurationRange, getCautions,
     getCuisineTypes, getDiets, getDishTypes, getHealthLabels, getIngredients, getKcalRange,
-    getMealTypes, filterRecipes
+    getMealTypes, filterRecipes, getRecipesCount, getRatingsMean, setRating, getRecipeById, getRecipesByName
 } from './recipeService.js';
 /*import { firebase } from './firebaseConfig.js';*/
 
@@ -134,50 +134,43 @@ router.get('/calculator', (req, res) => {
 router.get('/', (req, res) => {
     sentRecipeIds = new Set();
 
-    res.render("landing");
+    searchOn = false;
+    filteringOn = false;
+    fromUrl = false;
+
+    const username = req.session.user ? req.session.user.email.split('@')[0] : null;
+
+    res.render("landing", {username});
 });
 
 router.get("/recipes", (req, res) => {
-    if (!fromUrl) {
-        let recipes;
-        if (!searchOn && !filteringOn) {
-            const from = parseInt(req.query.from) || 0;
-            const to = parseInt(req.query.to) || from + MAX_RECIPES_PER_PAGE;
-
-            const recipes = getRecipes(from, to);
-
-
-            res.render("recipe", {
-                recipe: recipes,
-            });
-        }
-    }
+    
 });
 
 router.get("/randomrecipes", (req, res) => {
-    const recipes = getUniqueRandomRecipes(MAX_RECIPES_PER_PAGE);
 
-    //check if all recipes are now displayed
-    res.set("noMoreRecipes", (sentRecipeIds.size === TOTAL_RECIPES));
+    if (!fromUrl) {
+        if (!searchOn && !filteringOn) {
+            const recipes = getUniqueRandomRecipes(MAX_RECIPES_PER_PAGE);
+
             //check if all recipes are now displayed
-            if (sentRecipeIds.size === TOTAL_RECIPES) {
-                allShown = true;
-                return res.json({ noMoreRecipes: true });
-            } else {
-            recipes = currentQueries.slice(0, MAX_RECIPES_PER_PAGE);
+            res.setHeader("noMoreRecipes", (sentRecipeIds.size === TOTAL_RECIPES));
+        
+            res.render("preview_recipe", {
+                recipe: recipes
+            });
+        } else {
+            let recipes = currentQueries.slice(0, MAX_RECIPES_PER_PAGE);
+            currentQueries = currentQueries.slice(MAX_RECIPES_PER_PAGE);
 
-            if (req.query.search !== "true") {
-                currentQueries = currentQueries.slice(MAX_RECIPES_PER_PAGE);
-            }
-
-            allShown = (currentQueries.length === 0);
+            let allShown = currentQueries.length == 0;
+            res.setHeader("noMoreRecipes", allShown);
+            res.render("preview_recipe", {
+                recipe: recipes
+            });
         }
+    }
 
-        res.setHeader("allShown", allShown);
-
-    res.render("preview_recipe", {
-        recipe: recipes
-    });
 });
 
 router.get("/caloriePeople", (req, res) => {
@@ -256,16 +249,6 @@ router.get('/logout', (req, res) => {
     });
 });
 
-
-router.get('/', (req, res) => {
-    searchOn = false;
-    filteringOn = false;
-    fromUrl = false;
-
-    const username = req.session.user ? req.session.user.email.split('@')[0] : null;
-    res.render("landing", { username });
-});
-
 // Búsqueda de receta por query
 router.get("/search", (req, res) => { // renderiza la landing con las recetas que coinciden con la búsqueda
     fromUrl = true;
@@ -303,7 +286,7 @@ router.get("/search-by-query", (req, res) => {
 
     res.setHeader("allShown", allShown);
 
-    res.render("recipe", {
+    res.render("preview_recipe", {
         recipe: recipes.slice(0, MAX_RECIPES_PER_PAGE),
         allShown: allShown
     });
@@ -365,19 +348,19 @@ router.post('/filter-recipes', (req, res) => {
 
     res.setHeader("allShown", allShown);
 
-    res.render("recipe", {
+    res.render("preview_recipe", {
         recipe: filteredRecipes.slice(0, MAX_RECIPES_PER_PAGE),
         allShown: allShown
     });
 });
+
 router.get("/currentuser", (req, res) => {
     const username = req.session.user ? req.session.user.email.split('@')[0] : null;
-    console.log(username);
     res.json(username);
 });
 
 export function getCurrentUser() {
-    return request.get('/currentuser');
+    return request('/currentuser', (error, response, body) => { return response });
 }
 
 router.get('/form_new_recipe', (req, res) => {

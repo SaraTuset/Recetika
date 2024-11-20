@@ -32,14 +32,68 @@ export function getRecipes(from, to) {
     return recipesArray.slice(from, to);
 }
 
+// Función para obtener una receta por su ID
+export function getRecipeById(id) {
+    id = parseInt(id);
+    return recipesMap.get(id);
+}
+
+//Setea y exporta valoración
+export async function setRating(id, rate) {
+    id = parseFloat(id);
+
+    let recipe = recipesMap.get(id);
+    let valores = recipe.reviews;
+    let newReview = {};
+    newReview.author = "Anónimo";
+
+    let user = getCurrentUser();
+    if (user) newReview.author = user;
+
+    newReview.date = new Date().toLocaleDateString().replace(/\//g, "-");
+    newReview.rating = parseInt(rate);
+    newReview.comment = "";
+
+    valores.push(newReview);
+
+
+    recipe.reviews = valores;
+    recipesMap.set(id, recipe);
+
+    return getRatingsMean(id);
+}
+
+export function getRatingsMean(id) {
+    let recipe = recipesMap.get(id);
+    if (!recipe) return 0;
+    let valores = recipesMap.get(id).reviews;
+    if (!valores || valores.length === 0) return 0;
+    let suma = 0;
+    valores.forEach((valor) => {
+        suma += valor.rating;
+    });
+
+    return suma / valores.length;
+}
+
+// Función para obtener recetas por su nombre
+export function getRecipesByName(name) {
+    const recipesArray = Array.from(recipesMap.values());
+    const recipe = recipesArray.filter(recipe => recipe.label && recipe.label.toLowerCase().includes(name.toLowerCase()));
+    console.log(recipe);
+    return recipe;
+}
+
 // Función para obtener el rango de duración de las recetas
 export function getDurationRange() {
     let min = Number.MAX_SAFE_INTEGER;
     let max = Number.MIN_SAFE_INTEGER;
 
     for (let recipe of recipesMap.values()) {
-        if (recipe.totalTime < min) min = recipe.totalTime;
-        if (recipe.totalTime > max) max = recipe.totalTime;
+        if (recipe.totalTime) {
+            if (recipe.totalTime < min) min = recipe.totalTime;
+            if (recipe.totalTime > max) max = recipe.totalTime;
+        }
     }
 
     return [min, max];
@@ -49,7 +103,7 @@ export function getDurationRange() {
 export function getDiets() {
     let diets = new Set();
     for (let recipe of recipesMap.values()) {
-        recipe.dietLabels.forEach(diet => diets.add(diet));
+        if (recipe.dietLabels) recipe.dietLabels.forEach(diet => diets.add(diet));
     }
     return diets;
 }
@@ -58,7 +112,7 @@ export function getDiets() {
 export function getHealthLabels() {
     let healthLabels = new Set();
     for (let recipe of recipesMap.values()) {
-        recipe.healthLabels.forEach(label => healthLabels.add(label));
+        if (recipe.healthLabels) recipe.healthLabels.forEach(label => healthLabels.add(label));
     }
     return healthLabels;
 }
@@ -67,7 +121,7 @@ export function getHealthLabels() {
 export function getCautions() {
     let cautions = new Set();
     for (let recipe of recipesMap.values()) {
-        recipe.cautions.forEach(caution => cautions.add(caution));
+        if (recipe.cautions) recipe.cautions.forEach(caution => cautions.add(caution));
     }
     return cautions;
 }
@@ -76,7 +130,7 @@ export function getCautions() {
 export function getIngredients() {
     let ingredients = new Set();
     for (let recipe of recipesMap.values()) {
-        recipe.ingredients.forEach(ingredient => ingredients.add(ingredient.food));
+        if (recipe.ingredients) recipe.ingredients.forEach(ingredient => ingredients.add(ingredient.food));
     }
     return ingredients;
 }
@@ -94,7 +148,7 @@ export function getDishTypes() {
 export function getMealTypes() {
     let mealTypes = new Set();
     for (let recipe of recipesMap.values()) {
-        recipe.mealType.forEach(type => mealTypes.add(type));
+        if (recipe.mealType) recipe.mealType.forEach(type => mealTypes.add(type));
     }
     return mealTypes;
 }
@@ -103,7 +157,7 @@ export function getMealTypes() {
 export function getCuisineTypes() {
     let cuisineTypes = new Set();
     for (let recipe of recipesMap.values()) {
-        recipe.cuisineType.forEach(type => cuisineTypes.add(type));
+        if (recipe.cuisineType) recipe.cuisineType.forEach(type => cuisineTypes.add(type));
     }
     return cuisineTypes;
 }
@@ -114,8 +168,10 @@ export function getKcalRange() {
     let maxKcal = Number.MIN_SAFE_INTEGER;
 
     for (let recipe of recipesMap.values()) {
-        if (recipe.calories < minKcal) minKcal = recipe.calories;
-        if (recipe.calories > maxKcal) maxKcal = recipe.calories;
+        if (recipe.calories) {
+            if (recipe.calories < minKcal) minKcal = recipe.calories;
+            if (recipe.calories > maxKcal) maxKcal = recipe.calories;
+        }
     }
 
     return [minKcal, maxKcal];
