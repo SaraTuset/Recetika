@@ -17,6 +17,9 @@ app.engine("html", mustacheExpress());
 // Middleware para analizar los datos JSON
 app.use(bodyParser.json());
 
+// Middleware para analizar los datos JSON
+app.use(bodyParser.json());
+
 // Middleware para analizar los datos del formulario
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(express.static(path.join(__dirname, '/../public')));

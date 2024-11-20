@@ -1,18 +1,30 @@
 import fs from "fs";
+import { getCurrentUser } from "./router.js";
 
 const MAX_RECIPES = 110;
+//dicionario con id unible a json y valor int que se incorpora cada vez que se vota
 
 export let recipesMap = new Map();
+export let ratingMap = new Map();
 let nextId = 0
 
 // Leer el archivo JSON
 const data = fs.readFileSync('./public/assets/recetas.json', 'utf8');
 const jsonData = JSON.parse(data);
 
+
 // Estructurar las recetas en un mapa
 jsonData.recipes.forEach(recipe => {
+    if (!recipe.reviews) recipe.reviews = [];
+
     recipesMap.set(recipe.id, recipe);
+    ratingMap.set(recipe.id, [recipe.rate])
 });
+
+// Función que devuelve el numero de recetas
+export function getRecipesCount() {
+    return recipesMap.size;
+}
 
 // Función para obtener las recetas en un rango específico
 export function getRecipes(from, to) {

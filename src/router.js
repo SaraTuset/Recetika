@@ -1,8 +1,12 @@
 import express from 'express';
 import request from 'request';
-import { recipesMap, getRecipes, findByQuery, getDurationRange, getCautions, 
-getCuisineTypes, getDiets, getDishTypes, getHealthLabels, getIngredients, getKcalRange,
-getMealTypes, filterRecipes } from './recipeService.js';
+import fs from 'fs';
+import path from 'path';
+import {
+    recipesMap, getRecipes, findByQuery, getDurationRange, getCautions,
+    getCuisineTypes, getDiets, getDishTypes, getHealthLabels, getIngredients, getKcalRange,
+    getMealTypes, filterRecipes
+} from './recipeService.js';
 /*import { firebase } from './firebaseConfig.js';*/
 
 // Array temporal para almacenar usuarios
@@ -15,11 +19,11 @@ let fromUrl = false; // Variable que controla si se está buscando desde una URL
 let currentQueries;
 
 const router = express.Router();
-const TOTAL_RECIPES = 422;
+const TOTAL_RECIPES = getRecipesCount();
 const MAX_RECIPES_PER_PAGE = 4;
 
 // Set para almacenar los IDs de las recetas ya enviadas
-const sentRecipeIds = new Set();
+let sentRecipeIds;
 
 // Función para obtener recetas aleatorias sin repetición
 function getUniqueRandomRecipes(count) {
@@ -61,8 +65,33 @@ router.get('/newrecipe', (req, res) => {
     res.render('newrecipe', { username });
 });
 
+router.get('/recipe/:id', (req, res) => { // Visualizar una receta por medio de su ID
+    let recipe = getRecipeById(req.params.id);
+    let reviews = recipe.reviews;
+    res.render('view_recipe', {
+        recipe,
+        reviews,
+        format_calories: function () {
+            return function () {
+                const form_cal = parseFloat(recipe.calories);
+                return form_cal.toFixed(2);
+            }
+        },
+        capitalize_cuisineType: function () {
+            return function () {
+                const cuisineType = recipe.cuisineType.toString();
+                const cap_cuisineType = cuisineType.charAt(0).toUpperCase() + cuisineType.slice(1);
+                return cap_cuisineType;
+            }
+        },
+        displayStars: function (strNumStars) {
+
+        }
+    });
+});
+
 router.post('/newrecipe', (req, res) => {
-    const { title, image, totalTime, people, difficulty, vegetarian, glutenFree, calories } = req.body;
+    const { title, image, totalTime, cuisineType, people, difficulty, vegetarian, glutenFree, calories } = req.body;
     //validar que todos los campos estan llenos
     if (!title || !image || !totalTime || !people || !difficulty || !vegetarian || !glutenFree || !calories) {
         return res.status(400).send(`
@@ -91,6 +120,10 @@ router.post('/newrecipe', (req, res) => {
         <button onclick="window.location.href='/'">Volver a la página principal</button>
         `);
 
+
+    res.render('view_recipe', {
+        recipe: saveRecipe,
+    });
 });
 
 // Ruta temporal a la calculadora de calorías
@@ -98,18 +131,39 @@ router.get('/calculator', (req, res) => {
     res.render('caloriesCalculator');
 });
 
-router.get("/recipes", (req, res) => { // Obtiene recetas (bien aleatorias o por búsqueda/filtrado)
+router.get('/', (req, res) => {
+    sentRecipeIds = new Set();
+
+    res.render("landing");
+});
+
+router.get("/recipes", (req, res) => {
     if (!fromUrl) {
         let recipes;
         if (!searchOn && !filteringOn) {
-            recipes = getUniqueRandomRecipes(MAX_RECIPES_PER_PAGE);
+            const from = parseInt(req.query.from) || 0;
+            const to = parseInt(req.query.to) || from + MAX_RECIPES_PER_PAGE;
 
+            const recipes = getRecipes(from, to);
+
+
+            res.render("recipe", {
+                recipe: recipes,
+            });
+        }
+    }
+});
+
+router.get("/randomrecipes", (req, res) => {
+    const recipes = getUniqueRandomRecipes(MAX_RECIPES_PER_PAGE);
+
+    //check if all recipes are now displayed
+    res.set("noMoreRecipes", (sentRecipeIds.size === TOTAL_RECIPES));
             //check if all recipes are now displayed
             if (sentRecipeIds.size === TOTAL_RECIPES) {
                 allShown = true;
                 return res.json({ noMoreRecipes: true });
-            }
-        } else {
+            } else {
             recipes = currentQueries.slice(0, MAX_RECIPES_PER_PAGE);
 
             if (req.query.search !== "true") {
@@ -121,10 +175,9 @@ router.get("/recipes", (req, res) => { // Obtiene recetas (bien aleatorias o por
 
         res.setHeader("allShown", allShown);
 
-        res.render("recipe", {
-            recipe: recipes
-        });
-    }
+    res.render("preview_recipe", {
+        recipe: recipes
+    });
 });
 
 router.get("/caloriePeople", (req, res) => {
@@ -141,6 +194,20 @@ router.post("/NewCalorie", (req, res) => {
     let { name, calories } = req.body
     setPerson(name, calories)
 
+});
+
+router.post("/nuevaValoracion", async (req, res) => {
+    const { id, valor } = req.body;
+    let media = (await setRating(id, valor)).toFixed(1);
+
+    const username = req.session.user ? req.session.user.email.split('@')[0] : null;
+    res.json({ media, username });
+});
+
+router.get("/ratemean/:id", async (req, res) => {
+    const id = req.params.id;
+    const media = getRatingsMean(parseInt(id)).toFixed(1);
+    res.json(media);
 });
 
 
@@ -170,6 +237,9 @@ router.post('/login', (req, res) => {
     if (user) {
         // Guarda el usuario en la sesión
         req.session.user = { email: user.email };
+        // Reinicio de la sesión
+        sentRecipeIds = new Set();
+
         res.render("landing", { username: user.email.split('@')[0] });
     } else {
         res.send('Correo o contraseña incorrectos. Vuelva a intentarlo <a href="/login">Inténtelo de nuevo</a>');
@@ -298,6 +368,54 @@ router.post('/filter-recipes', (req, res) => {
     res.render("recipe", {
         recipe: filteredRecipes.slice(0, MAX_RECIPES_PER_PAGE),
         allShown: allShown
+    });
+});
+router.get("/currentuser", (req, res) => {
+    const username = req.session.user ? req.session.user.email.split('@')[0] : null;
+    console.log(username);
+    res.json(username);
+});
+
+export function getCurrentUser() {
+    return request.get('/currentuser');
+}
+
+router.get('/form_new_recipe', (req, res) => {
+    res.render('new_review');
+});
+
+router.post('/addReview', (req, res) => {
+    console.log(req.body);
+    const { recipe_name, username, date, rating, review } = req.body;
+
+
+    if (!recipe_name || !username || !date || !rating || !review) {
+        return res.status(400).send('Todos los campos son obligatorios');
+    }
+
+    const filePath = path.join(__dirname, '../assets/recetas.json');
+    const recetas = JSON.parse(fs.readFileSync(filePath, 'utf8'));
+
+    const recipe = recetas.find(r => r.label === recipe_name);
+    if (!recipe) {
+        return res.status(404).send('Receta no encontrada');
+    }
+
+    const newReview = {
+        username,
+        date,
+        rating: parseInt(rating),
+        review
+    };
+
+    recipe.reviews.push(newReview);
+
+    fs.writeFileSync(filePath, JSON.stringify(recetas, null, 2), 'utf8');
+
+    res.send('¡Reseña añadida exitosamente!');
+    res.render('view_recipe', {
+        recipe,
+        reviews: recipe.reviews
     });
 });
 
