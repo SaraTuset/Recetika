@@ -1,4 +1,5 @@
 import fs from "fs";
+import { getCurrentUser } from "./router.js";
 
 const MAX_RECIPES = 110;
 //dicionario con id unible a json y valor int que se incorpora cada vez que se vota
@@ -14,26 +15,71 @@ const jsonData = JSON.parse(data);
 
 // Estructurar las recetas en un mapa
 jsonData.recipes.forEach(recipe => {
-    recipe.rate = 4.5  
+    if (!recipe.reviews) recipe.reviews = [];
+
     recipesMap.set(recipe.id, recipe);
     ratingMap.set(recipe.id, [recipe.rate])
 });
 
+// Función que devuelve el numero de recetas
+export function getRecipesCount() {
+    return recipesMap.size;
+}
+
 // Función para obtener las recetas en un rango específico
 export function getRecipes(from, to) {
     const recipesArray = Array.from(recipesMap.values());
-    console.log(recipesArray.slice(from, to))
     return recipesArray.slice(from, to);
 }
 
+// Función para obtener una receta por su ID
+export function getRecipeById(id) {
+    id = parseInt(id);
+    return recipesMap.get(id);
+}
+
 //Setea y exporta valoración
-export function setRating(id, rate){
-    valores = ratingMap.get(id);
-    valores.add(rate);
-    suma = valores.reduce((acumulador, valorActual) => acumulador + valorActual, 0);
-    media =  suma / valores.length;
-    ratingMap.set(id, valores);
-    recipesMap[id].rate=media;
-    console.log(ratingMap.get(id));
-    return media;
+export async function setRating(id, rate){
+    id = parseFloat(id);
+
+    let recipe = recipesMap.get(id);
+    let valores = recipe.reviews;
+    let newReview = {};
+    newReview.author = "Anónimo";
+
+    let user = getCurrentUser();
+    if (user) newReview.author = user;
+
+    newReview.date = new Date().toLocaleDateString().replace(/\//g, "-");
+    newReview.rating = parseInt(rate);
+    newReview.comment = "";
+
+    valores.push(newReview);
+
+
+    recipe.reviews = valores;
+    recipesMap.set(id, recipe);
+
+    return getRatingsMean(id);
+}
+
+export function getRatingsMean(id) {
+    let recipe = recipesMap.get(id);
+    if (!recipe) return 0;
+    let valores = recipesMap.get(id).reviews;
+    if (!valores || valores.length === 0) return 0;
+    let suma = 0;
+    valores.forEach((valor) => {
+        suma += valor.rating;
+    });
+
+    return suma / valores.length;
+}
+
+// Función para obtener recetas por su nombre
+export function getRecipesByName(name) {
+    const recipesArray = Array.from(recipesMap.values());
+    const recipe = recipesArray.filter(recipe => recipe.label && recipe.label.toLowerCase().includes(name.toLowerCase()));
+    console.log(recipe);
+    return recipe;
 }

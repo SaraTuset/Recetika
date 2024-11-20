@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+    <meta name="description" content="" />
+    <meta name="author" content="" />
+    <title id="title">Recetika | </title>
+    <!-- Web Icon -->
+    <link rel="icon" type="image/x-icon" href="../assets/favicon.ico" />
+    <!-- Core theme CSS (includes Bootstrap)-->
+    <link href="../css/landing.css" rel="stylesheet" />
+    <link href="../css/view_recipe.css" rel="stylesheet" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css"
+        integrity="sha512-Kc323vGBEqzTmouAECnVceyQqyqdsSiqLQISBL29aUW4U/M7pSPA/gEUZQqv1cwx4OnYxTxve5UMg5GT6L4JJg=="
+        crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <!-- google fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap"
+        rel="stylesheet">
+    <script src="https://code.jquery.com/jquery-3.7.1.js"
+        integrity="sha256-eKhayi8LEQwp4NKxN+CfCh+3qOVUtJn3QNZ0TciWLP4=" crossorigin="anonymous"></script>
+</head>
+
+<body>
+    <!-- Nav-->
+    {{> components/nav}}
+
+    <!-- Recipe container-->
+    <div class="recipe_father_container">
+        <div class="recipe_container">
+            <div class="recipe_image_container">
+                <img src="{{recipe.image}}" alt="recipe_image" class="recipe_image">
+            </div>
+            <div class="recipe_info">
+                <div class="recipe_info_header">
+                    <h1 class="recipe_title">{{recipe.label}}</h1>
+                    <p class="recipe_cuisine"><svg class="recipe_info_icon" xmlns="http://www.w3.org/2000/svg"
+                            viewBox="0 0 24 24" fill="currentColor">
+                            <path
+                                d="M21 2V22H19V15H15V8C15 4.68629 17.6863 2 21 2ZM19 4.53C18.17 5 17 6.17 17 8V13H19V4.53ZM9 13.9V22H7V13.9C4.71776 13.4367 3 11.419 3 9V3H5V10H7V3H9V10H11V3H13V9C13 11.419 11.2822 13.4367 9 13.9Z">
+                            </path>
+                        </svg>{{#capitalize_cuisineType}}
+                        {{recipe.cuisineType}}
+                        {{/capitalize_cuisineType}} food</p>
+                    <p class="recipe_time"><i class="far fa-clock"></i> {{recipe.totalTime}} minutes</p>
+                    <p class="recipe_difficulty"><img
+                            src="https://cdn-icons-png.freepik.com/256/5700/5700445.png?ga=GA1.1.1208512786.1726473953&semt=ais_hybrid"
+                            alt="" class="recipe_info_icon">Dificultad: {{recipe.difficulty}}</p>
+                    <p class="recipe_veg_glu"><img
+                            src="https://cdn-icons-png.freepik.com/256/17907/17907381.png?ga=GA1.1.1208512786.1726473953&semt=ais_hybrid"
+                            alt="" class="recipe_info_icon">{{#recipe.vegetarian}} Vegetariana {{/recipe.vegetarian}}
+                        {{^recipe.vegetarian}} No vegetariana
+                        {{/recipe.vegetarian}} / <img
+                            src="https://cdn-icons-png.freepik.com/256/7531/7531160.png?ga=GA1.1.1208512786.1726473953&semt=ais_hybrid"
+                            alt="" class="recipe_info_icon">{{#recipe.hasGluten}} Gluten {{/recipe.hasGluten}}
+                        {{^recipe.hasGluten}}
+                        Sin gluten
+                        {{/recipe.hasGluten}}</p>
+                    <p class="recipe_calories">
+                        <i class="bi bi-fire"></i><img
+                            src="https://cdn-icons-png.freepik.com/256/7490/7490327.png?ga=GA1.1.1208512786.1726473953&semt=ais_hybrid"
+                            alt="" class="recipe_info_icon">{{#format_calories}} {{recipe.calories}}
+                        {{/format_calories}} Cal
+                    </p>
+                </div>
+                <div class="recipe_buttons">
+                    <button class="new_recipe_button">Subir Valoración</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Form New Review -->
+    {{> components/new_review}}
+
+    <!-- Reviews container-->
+    <div class="reviews_father_container">
+        <div class="reviews_container">
+            <h2 class="reviews_title">Reviews</h2>
+            {{#reviews}}
+            <div class="review">
+                <div class="review_header">
+                    <h3 class="review_user">{{author}}</h3>
+                    <p class="review_date">{{date}}</p>
+                    <p class="review_rating">{{#displayStars}}{{rating}} {{/displayStars}}</p>
+                </div>
+                <div class="review_body">
+                    <p class="review_text">{{comment}}</p>
+                </div>
+            </div>
+            {{/reviews}}
+        </div>
+    </div>
+
+
+    <!-- Footer-->
+    {{> components/footer}}
+
+    <!-- Bootstrap core JS-->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
+
+    <script src="../js/view_recipe.js" type="module"></script>
+
+</body>
+
+</html>

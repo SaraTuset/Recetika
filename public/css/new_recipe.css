@@ -1,0 +1,57 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+.newrecipe_container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.recipesBackground {
+    background-color: white;
+    height: 100vh;
+}
+
+/* Estilo para el formulario */
+.recipesFormEdit {
+    background-color: #c7c5a4;
+    border-radius: 10px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+    padding: 20px;
+    width: 40%;
+    margin-top: 50px;
+    margin-bottom: 50px;
+    justify-content: center;
+}
+
+/*títulos del formulario */
+.recipesFormEdit label {
+    color: #403f25;
+}
+
+/* texto placeholders */
+.recipesFormEdit input::placeholder {
+    color: #402925;
+    ;
+}
+
+/*casillas formulario*/
+.recipesFormEdit .form-control {
+    background-color: #c8c69c;
+    border: 2px solid #444323;
+    color: #403f25;
+}
+
+/* marco cuando vas a escribir */
+.recipesFormEdit .form-control:focus {
+    border-color: #6b6942;
+    box-shadow: 0 0 5px #c1bf76;
+}
+
+.margen {
+    display: flex;
+    justify-content: center;
+}

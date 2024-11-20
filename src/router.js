@@ -1,16 +1,18 @@
-import express from 'express';
-import { recipesMap, getRecipes, setRating } from './recipeService.js';
-/*import { firebase } from './firebaseConfig.js';*/
+import express, { request } from 'express';
+import { recipesMap, getRecipes, getRecipeById, getRecipesByName, getRecipesCount, setRating, getRatingsMean } from './recipeService.js';
+
+import fs from 'fs';
+import path from 'path';
 
 // Array temporal para almacenar usuarios
 let users = [];
 
 const router = express.Router();
-const TOTAL_RECIPES = 422;
+const TOTAL_RECIPES = getRecipesCount();
 const MAX_RECIPES_PER_PAGE = 4;
 
 // Set para almacenar los IDs de las recetas ya enviadas
-const sentRecipeIds = new Set();
+let sentRecipeIds;
 
 // Función para obtener recetas aleatorias sin repetición
 function getUniqueRandomRecipes(count) {
@@ -51,38 +53,56 @@ router.get('/newrecipe', (req, res) => {
     res.render('newrecipe');
 });
 
-router.post('/newrecipe',(req, res) =>{
-    const{title, image, totalTime, people, difficulty, vegetarian, glutenFree, calories} = req.body;
+router.get('/recipe/:id', (req, res) => { // Visualizar una receta por medio de su ID
+    let recipe = getRecipeById(req.params.id);
+    let reviews = recipe.reviews;
+    res.render('view_recipe', {
+        recipe,
+        reviews,
+        format_calories: function () {
+            return function () {
+                const form_cal = parseFloat(recipe.calories);
+                return form_cal.toFixed(2);
+            }
+        },
+        capitalize_cuisineType: function () {
+            return function () {
+                const cuisineType = recipe.cuisineType.toString();
+                const cap_cuisineType = cuisineType.charAt(0).toUpperCase() + cuisineType.slice(1);
+                return cap_cuisineType;
+            }
+        },
+        displayStars: function (strNumStars) {
+
+        }
+    });
+});
+
+router.post('/newrecipe', (req, res) => {
+    const { title, image, totalTime, cuisineType, people, difficulty, vegetarian, glutenFree, calories } = req.body;
     //validar que todos los campos estan llenos
-    if (!title || !image || !totalTime || !people || !difficulty || !vegetarian || !glutenFree || !calories){
-        return res.status(400).send(`
-            <h3>Por favor complete el formulario para poder guardar.</h3>
-            <button onclick="window.history.back()">seguir configurando la receta</button>
-            <button onclick="window.location.href='/'">Volver a la página principal</button>
-        `);
+    if (!title || !image || !totalTime || !cuisineType || !people || !difficulty || !vegetarian || !glutenFree || !calories) {
+        return alert('Por favor, llena todos los campos');
     }
     //crear eel objeto receta
     const saveRecipe = {
         id: Date.now(),//para generar un id unico
-        title:req.body.title,
-        image:req.body.image,
-        totalTime:parseInt(req.body.totalTime),
-        people:parseInt(req.body.people),
-        difficulty:parseInt(req.body.difficulty),
-        vegetarian:req.body.vegetarian === 'true',
-        glutenFree:req.body.glutenFree === 'true',
-        calories:parseInt(req.body.calories),
-        rate: 4.5 //Math.random() * (5 - 0.5) + 0.5, // Asigna un entero aleatorio entre 0.5 y 5
+        title: req.body.title,
+        image: req.body.image,
+        totalTime: parseInt(req.body.totalTime),
+        cuisineType: req.body.cuisineType,
+        people: parseInt(req.body.people),
+        difficulty: parseInt(req.body.difficulty),
+        vegetarian: req.body.vegetarian === 'true',
+        glutenFree: req.body.glutenFree === 'true',
+        calories: parseInt(req.body.calories),
     };
     //mostrar por consola la informacion guardada en localStorage
     console.log('nueva receta guardada: ', saveRecipe);
 
-    
-    res.status(201).send(`
-        <h3>Receta guardada correctamente.</h3>
-        <button onclick="window.location.href='/'">Volver a la página principal</button>
-        `);
-    
+    res.render('view_recipe', {
+        recipe: saveRecipe,
+    });
 });
 
 // Ruta para restablecer la contraseña
@@ -103,8 +123,9 @@ router.get('/calculator', (req, res) => {
 });
 
 router.get('/', (req, res) => {
-    res.render("landing");
+    sentRecipeIds = new Set();
 
+    res.render("landing");
 });
 
 router.get("/recipes", (req, res) => {
@@ -115,7 +136,7 @@ router.get("/recipes", (req, res) => {
 
 
     res.render("recipe", {
-        recipe: recipes
+        recipe: recipes,
     });
 });
 
@@ -123,11 +144,9 @@ router.get("/randomrecipes", (req, res) => {
     const recipes = getUniqueRandomRecipes(MAX_RECIPES_PER_PAGE);
 
     //check if all recipes are now displayed
-    if (sentRecipeIds.size === TOTAL_RECIPES) {
-        return res.json({ noMoreRecipes: true });
-    }
+    res.set("noMoreRecipes", (sentRecipeIds.size === TOTAL_RECIPES));
 
-    res.render("recipe", {
+    res.render("preview_recipe", {
         recipe: recipes
     });
 });
@@ -146,6 +165,20 @@ router.post("/NewCalorie", (req, res) => {
     let { name, calories } = req.body
     setPerson(name, calories)
 
+});
+
+router.post("/nuevaValoracion", async (req, res) => {
+    const { id, valor } = req.body;
+    let media = (await setRating(id, valor)).toFixed(1);
+    
+    const username = req.session.user ? req.session.user.email.split('@')[0] : null;
+    res.json({media, username});
+});
+
+router.get("/ratemean/:id", async (req, res) => {
+    const id = req.params.id;
+    const media = getRatingsMean(parseInt(id)).toFixed(1);
+    res.json(media);
 });
 
 
@@ -175,24 +208,52 @@ router.post('/login', (req, res) => {
     const user = users.find(user => user.email === email && user.password === password);
 
     if (user) {
+        // Reinicio de la sesión
+        sentRecipeIds = new Set();
+
         res.render("landing", { username: user.email.split('@')[0] });
     } else {
         res.send('Correo o contraseña incorrectos. Vuelva a intentarlo <a href="/login">Inténtelo de nuevo</a>');
     }
 });
 
-router.post('/updateRating', (req, res) => {
-    const { id, rate } = req.body;
-    
-    if (!id || !rate) {
-        return res.status(400).json({ message: 'Faltan parámetros' });
-    }
-
-    const media = setRating(id)
-
-    console.log(`Receta actualizada - ID: ${id}, Nueva media: ${media}`);
-    res.json({ message: 'Thanks for rating', newRate: media.toFixed(1) });
+router.get('/form_new_recipe', (req, res) => {
+    res.render('new_review');
 });
 
+router.post('/addReview', (req, res) => {
+    console.log(req.body);
+    const { recipe_name, username, date, rating, review } = req.body;
+
+
+    if (!recipe_name || !username || !date || !rating || !review) {
+        return res.status(400).send('Todos los campos son obligatorios');
+    }
+
+    const filePath = path.join(__dirname, '../assets/recetas.json');
+    const recetas = JSON.parse(fs.readFileSync(filePath, 'utf8'));
+
+    const recipe = recetas.find(r => r.label === recipe_name);
+    if (!recipe) {
+        return res.status(404).send('Receta no encontrada');
+    }
+
+    const newReview = {
+        username,
+        date,
+        rating: parseInt(rating),
+        review
+    };
+
+    recipe.reviews.push(newReview);
+
+    fs.writeFileSync(filePath, JSON.stringify(recetas, null, 2), 'utf8');
+
+    res.send('¡Reseña añadida exitosamente!');
+    res.render('view_recipe', {
+        recipe,
+        reviews: recipe.reviews
+    });
+});
 
 export default router;

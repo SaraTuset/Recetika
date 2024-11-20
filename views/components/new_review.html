@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="../../css/new_review.css">
+</head>
+
+
+<body>
+    <div class="form_container">
+        <form action="/new_review" method="POST" class="form">
+            <span class="close">&times;</span>
+            <h1 class="form_title">Nueva Reseña</h1>
+            <div class="form_group">
+                <label for="username" class="form_label">Nombre de usuario: </label>
+                <input type="text" name="username" id="username" class="form_input" required>
+                <label for="date" class="form_label">Fecha: </label>
+                <input type="date" name="date" id="date" class="form_input" required>
+                <label for="rating" class="form_label">Valoración: </label>
+                <input type="number" name="rating" id="rating" class="form_input" min="0" max="5" required>
+                <label for="review" class="form_label">Reseña: </label>
+                <textarea name="review" id="review" class="form_input" required></textarea>
+            </div>
+            <div class="buttons_container">
+                <button type="submit" class="send_button">Enviar</button>
+                <button type="reset" class="clean_button">Limpiar</button>
+            </div>
+        </form>
+    </div>
+
+    <script src="/js/view_recipe.js" type="module"></script>
+</body>
+
+</html>
