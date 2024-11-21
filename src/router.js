@@ -141,11 +141,11 @@ router.get('/', (req, res) => {
 
     const username = req.session.user ? req.session.user.email.split('@')[0] : null;
 
-    res.render("landing", {username});
+    res.render("landing", { username });
 });
 
 router.get("/recipes", (req, res) => {
-    
+
 });
 
 router.get("/randomrecipes", (req, res) => {
@@ -156,7 +156,7 @@ router.get("/randomrecipes", (req, res) => {
 
             //check if all recipes are now displayed
             res.setHeader("noMoreRecipes", (sentRecipeIds.size === TOTAL_RECIPES));
-        
+
             res.render("preview_recipe", {
                 recipe: recipes
             });
@@ -406,7 +406,7 @@ router.post('/addReview', (req, res) => {
         return res.status(500).send('Error al escribir en el archivo de recetas');
     }
 
-    res.redirect(`/recipe/${recipe.id}`);
+    res.redirect("/");
 });
 
 export default router;
