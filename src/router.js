@@ -1,5 +1,6 @@
-import express from 'express';
-import { recipesMap, getRecipes, getRecipeById, getRecipesByName, getRecipesCount } from './recipeService.js';
+import express, { request } from 'express';
+import { recipesMap, getRecipes, getRecipeById, getRecipesByName, getRecipesCount, setRating, getRatingsMean } from './recipeService.js';
+
 import fs from 'fs';
 import path from 'path';
 import { __dirname } from './dirname.js';
@@ -166,6 +167,20 @@ router.post("/NewCalorie", (req, res) => {
 
 });
 
+router.post("/nuevaValoracion", async (req, res) => {
+    const { id, valor } = req.body;
+    let media = (await setRating(id, valor)).toFixed(1);
+    
+    const username = req.session.user ? req.session.user.email.split('@')[0] : null;
+    res.json({media, username});
+});
+
+router.get("/ratemean/:id", async (req, res) => {
+    const id = req.params.id;
+    const media = getRatingsMean(parseInt(id)).toFixed(1);
+    res.json(media);
+});
+
 
 // *** Nuevo código para el registro y el login de usuarios *** //
 
@@ -193,6 +208,9 @@ router.post('/login', (req, res) => {
     const user = users.find(user => user.email === email && user.password === password);
 
     if (user) {
+        // Reinicio de la sesión
+        sentRecipeIds = new Set();
+
         res.render("landing", { username: user.email.split('@')[0] });
     } else {
         res.send('Correo o contraseña incorrectos. Vuelva a intentarlo <a href="/login">Inténtelo de nuevo</a>');
