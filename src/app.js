@@ -23,6 +23,8 @@ app.use(bodyParser.json());
 // Middleware para analizar los datos del formulario
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(express.static(path.join(__dirname, '/../public')));
+app.use(express.json());
+
 app.use(session({
     secret: 'yourSecretKey', // Cambia esto a una clave secreta segura
     resave: false,
@@ -32,8 +34,6 @@ app.use(session({
 
 // Usar el router para manejar todas las rutas
 app.use('/', router);
-
-
 
 // Puerto de escucha del servidor
 app.listen(3000, () => console.log('Listening on port 3000!'));
