@@ -16,11 +16,10 @@ app.engine("html", mustacheExpress());
 // Middleware para analizar los datos del formulario
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(express.static(path.join(__dirname, '/../public')));
+app.use(express.json());
 
 // Usar el router para manejar todas las rutas
 app.use('/', router);
-
-
 
 // Puerto de escucha del servidor
 app.listen(3000, () => console.log('Listening on port 3000!'));

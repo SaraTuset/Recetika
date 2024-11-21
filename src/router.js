@@ -2,6 +2,9 @@ import express from 'express';
 import { recipesMap, getRecipes, getRecipeById, getRecipesByName, getRecipesCount } from './recipeService.js';
 import fs from 'fs';
 import path from 'path';
+import { __dirname } from './dirname.js';
+import bodyParser from 'body-parser';
+import { ref } from 'firebase-functions/v1/database';
 
 // Array temporal para almacenar usuarios
 let users = [];
@@ -9,6 +12,7 @@ let users = [];
 const router = express.Router();
 const TOTAL_RECIPES = getRecipesCount();
 const MAX_RECIPES_PER_PAGE = 4;
+router.use(bodyParser.urlencoded({ extended: true }));
 
 // Set para almacenar los IDs de las recetas ya enviadas
 let sentRecipeIds;
@@ -71,9 +75,6 @@ router.get('/recipe/:id', (req, res) => { // Visualizar una receta por medio de 
                 return cap_cuisineType;
             }
         },
-        displayStars: function (strNumStars) {
-
-        }
     });
 });
 
@@ -198,43 +199,45 @@ router.post('/login', (req, res) => {
     }
 });
 
-router.get('/form_new_recipe', (req, res) => {
-    res.render('new_review');
-});
-
 router.post('/addReview', (req, res) => {
     console.log(req.body);
     const { recipe_name, username, date, rating, review } = req.body;
 
+    const filePath = path.join(__dirname, '../public/assets/recetas.json');
+    let data;
 
-    if (!recipe_name || !username || !date || !rating || !review) {
-        return res.status(400).send('Todos los campos son obligatorios');
+    if (Object.keys(req.body).length === 0) {
+        return res.status(400).send('Petición incorrecta');
     }
 
-    const filePath = path.join(__dirname, '../assets/recetas.json');
-    const recetas = JSON.parse(fs.readFileSync(filePath, 'utf8'));
+    try {
+        data = JSON.parse(fs.readFileSync(filePath, 'utf8'));
+    } catch (error) {
+        return res.status(500).send('Error al leer el archivo de recetas');
+    }
 
-    const recipe = recetas.find(r => r.label === recipe_name);
+    const recipe = data.recipes.find(r => r.label === recipe_name);
     if (!recipe) {
         return res.status(404).send('Receta no encontrada');
     }
 
     const newReview = {
-        username,
-        date,
+        author: username,
+        date: date,
         rating: parseInt(rating),
-        review
+        comment: review
     };
 
     recipe.reviews.push(newReview);
 
-    fs.writeFileSync(filePath, JSON.stringify(recetas, null, 2), 'utf8');
 
-    res.send('¡Reseña añadida exitosamente!');
-    res.render('view_recipe', {
-        recipe,
-        reviews: recipe.reviews
-    });
+    try {
+        fs.writeFileSync(filePath, JSON.stringify(data, null, 2), 'utf8');
+    } catch (error) {
+        return res.status(500).send('Error al escribir en el archivo de recetas');
+    }
+
+    res.redirect(`/recipe/${recipe.id}`);
 });
 
 export default router;

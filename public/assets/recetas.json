@@ -1,172 +1,172 @@
 {
-    "recipes": [
+  "recipes": [
+    {
+      "id": 0,
+      "label": "Time for a Drink: Whiskey Sour Recipe",
+      "image": "./assets/img/0.jpg",
+      "people": 1,
+      "difficulty": 3,
+      "vegetarian": false,
+      "hasGluten": false,
+      "cuisineType": [
+        "world"
+      ],
+      "totalTime": 5,
+      "calories": 177.97,
+      "reviews": [
         {
-            "id": 0,
-            "label": "Time for a Drink: Whiskey Sour Recipe",
-            "image": "./assets/img/0.jpg",
-            "people": 1,
-            "difficulty": 3,
-            "vegetarian": false,
-            "hasGluten": false,
-            "cuisineType": [
-                "world"
-            ],
-            "totalTime": 5,
-            "calories": 177.97,
-            "reviews": [
-                {
-                    "author": "John Doe",
-                    "date": "2023-10-01",
-                    "rating": 5,
-                    "comment": "Un cóctel clásico con un equilibrio perfecto de sabores."
-                },
-                {
-                    "author": "Jane Smith",
-                    "date": "2023-10-02",
-                    "rating": 4,
-                    "comment": "Gran bebida, pero la prefiero sin la clara de huevo."
-                }
-            ]
+          "author": "John Doe",
+          "date": "2023-10-01",
+          "rating": 5,
+          "comment": "Un cóctel clásico con un equilibrio perfecto de sabores."
         },
         {
-            "id": 1,
-            "label": "Classic Margarita",
-            "image": "./assets/img/1.jpg",
-            "people": 1,
-            "difficulty": 2,
-            "vegetarian": true,
-            "hasGluten": false,
-            "cuisineType": [
-                "mexican"
-            ],
-            "totalTime": 5,
-            "calories": 168.0,
-            "reviews": [
-                {
-                    "author": "Alice Johnson",
-                    "date": "2023-10-03",
-                    "rating": 5,
-                    "comment": "Margarita perfecta, con la cantidad justa de lima."
-                },
-                {
-                    "author": "Bob Brown",
-                    "date": "2023-10-04",
-                    "rating": 4,
-                    "comment": "Buena, pero un poco fuerte para mi gusto."
-                }
-            ]
-        },
-        {
-            "id": 2,
-            "label": "Mojito",
-            "image": "https://cdn.stoneline.de/media/bc/1f/3d/1724839845/mojito.png",
-            "people": 1,
-            "difficulty": 2,
-            "vegetarian": true,
-            "hasGluten": false,
-            "cuisineType": [
-                "cuban"
-            ],
-            "totalTime": 5,
-            "calories": 150.0,
-            "reviews": [
-                {
-                    "author": "Charlie Davis",
-                    "date": "2023-10-05",
-                    "rating": 5,
-                    "comment": "Refrescante y mentolado, perfecto para el verano."
-                },
-                {
-                    "author": "Dana Evans",
-                    "date": "2023-10-06",
-                    "rating": 4,
-                    "comment": "Buen mojito, pero podría usar un poco más de azúcar."
-                }
-            ]
-        },
-        {
-            "id": 3,
-            "label": "Piña Colada",
-            "image": "https://imag.bonviveur.com/pina-colada.jpg",
-            "people": 1,
-            "difficulty": 2,
-            "vegetarian": true,
-            "hasGluten": false,
-            "cuisineType": [
-                "caribbean"
-            ],
-            "totalTime": 5,
-            "calories": 230.0,
-            "reviews": [
-                {
-                    "author": "Eve Foster",
-                    "date": "2023-10-07",
-                    "rating": 5,
-                    "comment": "Deliciosa y cremosa, como en vacaciones."
-                },
-                {
-                    "author": "Frank Green",
-                    "date": "2023-10-08",
-                    "rating": 4,
-                    "comment": "Gran sabor, pero un poco dulce para mí."
-                }
-            ]
-        },
-        {
-            "id": 4,
-            "label": "Spaghetti Carbonara",
-            "image": "https://bit.ly/40QPe59",
-            "people": 2,
-            "difficulty": 3,
-            "vegetarian": false,
-            "hasGluten": true,
-            "cuisineType": [
-                "italian"
-            ],
-            "totalTime": 30,
-            "calories": 400.0,
-            "reviews": [
-                {
-                    "author": "Grace Harris",
-                    "date": "2023-10-09",
-                    "rating": 5,
-                    "comment": "Auténtica y deliciosa, como en Italia."
-                },
-                {
-                    "author": "Henry Irving",
-                    "date": "2023-10-10",
-                    "rating": 4,
-                    "comment": "Buena, pero un poco demasiado cremosa para mi gusto."
-                }
-            ]
-        },
-        {
-            "id": 5,
-            "label": "Caesar Salad",
-            "image": "https://bit.ly/40Qbexf",
-            "people": 1,
-            "difficulty": 2,
-            "vegetarian": false,
-            "hasGluten": false,
-            "cuisineType": [
-                "american"
-            ],
-            "totalTime": 15,
-            "calories": 150.0,
-            "reviews": [
-                {
-                    "author": "Ivy Johnson",
-                    "date": "2023-10-11",
-                    "rating": 5,
-                    "comment": "Fresca y crujiente, perfecta para el almuerzo."
-                },
-                {
-                    "author": "Jack King",
-                    "date": "2023-10-12",
-                    "rating": 4,
-                    "comment": "Buena ensalada, pero un poco salada para mí."
-                }
-            ]
+          "author": "Jane Smith",
+          "date": "2023-10-02",
+          "rating": 4,
+          "comment": "Gran bebida, pero la prefiero sin la clara de huevo."
         }
-    ]
+      ]
+    },
+    {
+      "id": 1,
+      "label": "Classic Margarita",
+      "image": "./assets/img/1.jpg",
+      "people": 1,
+      "difficulty": 2,
+      "vegetarian": true,
+      "hasGluten": false,
+      "cuisineType": [
+        "mexican"
+      ],
+      "totalTime": 5,
+      "calories": 168,
+      "reviews": [
+        {
+          "author": "Alice Johnson",
+          "date": "2023-10-03",
+          "rating": 5,
+          "comment": "Margarita perfecta, con la cantidad justa de lima."
+        },
+        {
+          "author": "Bob Brown",
+          "date": "2023-10-04",
+          "rating": 4,
+          "comment": "Buena, pero un poco fuerte para mi gusto."
+        }
+      ]
+    },
+    {
+      "id": 2,
+      "label": "Mojito",
+      "image": "https://cdn.stoneline.de/media/bc/1f/3d/1724839845/mojito.png",
+      "people": 1,
+      "difficulty": 2,
+      "vegetarian": true,
+      "hasGluten": false,
+      "cuisineType": [
+        "cuban"
+      ],
+      "totalTime": 5,
+      "calories": 150,
+      "reviews": [
+        {
+          "author": "Charlie Davis",
+          "date": "2023-10-05",
+          "rating": 5,
+          "comment": "Refrescante y mentolado, perfecto para el verano."
+        },
+        {
+          "author": "Dana Evans",
+          "date": "2023-10-06",
+          "rating": 4,
+          "comment": "Buen mojito, pero podría usar un poco más de azúcar."
+        }
+      ]
+    },
+    {
+      "id": 3,
+      "label": "Piña Colada",
+      "image": "https://imag.bonviveur.com/pina-colada.jpg",
+      "people": 1,
+      "difficulty": 2,
+      "vegetarian": true,
+      "hasGluten": false,
+      "cuisineType": [
+        "caribbean"
+      ],
+      "totalTime": 5,
+      "calories": 230,
+      "reviews": [
+        {
+          "author": "Eve Foster",
+          "date": "2023-10-07",
+          "rating": 5,
+          "comment": "Deliciosa y cremosa, como en vacaciones."
+        },
+        {
+          "author": "Frank Green",
+          "date": "2023-10-08",
+          "rating": 4,
+          "comment": "Gran sabor, pero un poco dulce para mí."
+        }
+      ]
+    },
+    {
+      "id": 4,
+      "label": "Spaghetti Carbonara",
+      "image": "https://bit.ly/40QPe59",
+      "people": 2,
+      "difficulty": 3,
+      "vegetarian": false,
+      "hasGluten": true,
+      "cuisineType": [
+        "italian"
+      ],
+      "totalTime": 30,
+      "calories": 400,
+      "reviews": [
+        {
+          "author": "Grace Harris",
+          "date": "2023-10-09",
+          "rating": 5,
+          "comment": "Auténtica y deliciosa, como en Italia."
+        },
+        {
+          "author": "Henry Irving",
+          "date": "2023-10-10",
+          "rating": 4,
+          "comment": "Buena, pero un poco demasiado cremosa para mi gusto."
+        }
+      ]
+    },
+    {
+      "id": 5,
+      "label": "Caesar Salad",
+      "image": "https://bit.ly/40Qbexf",
+      "people": 1,
+      "difficulty": 2,
+      "vegetarian": false,
+      "hasGluten": false,
+      "cuisineType": [
+        "american"
+      ],
+      "totalTime": 15,
+      "calories": 150,
+      "reviews": [
+        {
+          "author": "Ivy Johnson",
+          "date": "2023-10-11",
+          "rating": 5,
+          "comment": "Fresca y crujiente, perfecta para el almuerzo."
+        },
+        {
+          "author": "Jack King",
+          "date": "2023-10-12",
+          "rating": 4,
+          "comment": "Buena ensalada, pero un poco salada para mí."
+        }
+      ]
+    }
+  ]
 }
