@@ -64,6 +64,20 @@
     padding: 10px;
 }
 
+.logout_button {
+    padding: 10px 20px;
+    background-color: #27ae60;
+    color: white;
+    border: none;
+    cursor: pointer;
+    font-size: 16px;
+    transition: background-color 0.3s;
+}
+
+.logout_button:hover {
+    background-color: #2ecc71;
+}
+
 /* Responsive styles */
 @media (max-width: 768px) {
     .navbar_container {

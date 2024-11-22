@@ -11,34 +11,13 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
     <link type="text/css" rel="stylesheet" href="../css/stylescalculator.css">
 </head>
-<nav class="navbar">
-    <div class="navbar_container">
-        <img title="recetika_image" id="navbar_logo" src="../assets/Recetika_Iconologo.svg" onclick="location.href='/'" />
-        <!-- aqui irian todas las opciones de navegacion -->
-        <div class="navbar_account">
-            <button class="login_button menuItem" style="margin-bottom: 10px" onclick="location.href='/login'">
-                <i class="fa-solid fa-arrow-right-to-bracket" style="margin-right: 5px;"></i>
-                Iniciar Sesión
-            </button>
-            <button class="register_button menuItem" onclick="location.href='./register'">
-                <i class="fa-solid fa-user-plus" style="margin-right: 5px;"></i>
-                Registrarse
-            </button>
-            <button class="calories_button" onclick="location.href='./calculator'">
-                <i class="fa-solid fa-weight-scale" style="margin-right: 5px;"></i>
-                Calcula Calorias
-            </button>
-            <button class="newrecipe_button" onclick="location.href='./newrecipe'">
-                <i class="fa-solid fa-spoon" style="margin-right: 5px;"></i>
-                Subir Receta
-            </button>
-        </div>
-    </div>
-</nav>
 
 <link href="../css/components_css/nav.css" rel="stylesheet" />
+
 <body>
-    
+
+    {{> components/nav}}
+
     <div class="container py-5">
         <h1 class="text-center mb-4">Calculadora Nutricional</h1>
 
@@ -76,7 +55,8 @@
                         </select>
                     </div>
                 </div>
-                <button class="btn btn-primary mt-3" onclick="calcularCaloriasDiarias()">Calcular Calorías Diarias</button>
+                <button class="btn btn-primary mt-3" onclick="calcularCaloriasDiarias()">Calcular Calorías
+                    Diarias</button>
             </div>
         </div>
 
@@ -85,14 +65,16 @@
             <div class="card-body">
                 <h5 class="card-title">Progreso de calorías</h5>
                 <div class="progress mb-2">
-                    <div id="progreso" class="progress-bar progress-bar-striped bg-success" role="progressbar" style="width: 0%;" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100"></div>
+                    <div id="progreso" class="progress-bar progress-bar-striped bg-success" role="progressbar"
+                        style="width: 0%;" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100"></div>
                 </div>
                 <p id="caloriasRestantes">Has consumido 0 de 0 kcal recomendadas.</p>
-                <button class="btn btn-sm btn-outline-danger mt-2" style="float: right;" onclick="reiniciarCalorias()">Reiniciar</button>
+                <button class="btn btn-sm btn-outline-danger mt-2" style="float: right;"
+                    onclick="reiniciarCalorias()">Reiniciar</button>
             </div>
         </div>
-        
-        
+
+
 
         <!-- Sección de la calculadora nutricional -->
         <div class="card">
@@ -100,88 +82,111 @@
                 <h5 class="card-title">Selecciona un alimento:</h5>
                 <div id="imagenesComidas" class="row text-center">
                     <div class="col-md-3">
-                        <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRHbATSP9pj6fw2Yror1q3QMvPjc2hllz8JYA&s" alt="Tortilla de Patatas" class="img-thumbnail food-image" onclick="seleccionarAlimento('tortilla')">
+                        <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRHbATSP9pj6fw2Yror1q3QMvPjc2hllz8JYA&s"
+                            alt="Tortilla de Patatas" class="img-thumbnail food-image"
+                            onclick="seleccionarAlimento('tortilla')">
                         <p>Tortilla de Patatas</p>
                     </div>
                     <div class="col-md-3">
-                        <img src="https://i.blogs.es/8c3360/pollo_curry/450_1000.jpg" alt="Pollo al Curry" class="img-thumbnail food-image" onclick="seleccionarAlimento('pollo')">
+                        <img src="https://i.blogs.es/8c3360/pollo_curry/450_1000.jpg" alt="Pollo al Curry"
+                            class="img-thumbnail food-image" onclick="seleccionarAlimento('pollo')">
                         <p>Pollo al Curry</p>
                     </div>
                     <div class="col-md-3">
-                        <img src="https://cdn.recetasderechupete.com/wp-content/uploads/2019/06/tarta-de-queso-mejor-Espa%C3%B1a.jpg" alt="Tarta de Queso" class="img-thumbnail food-image" onclick="seleccionarAlimento('tarta')">
+                        <img src="https://cdn.recetasderechupete.com/wp-content/uploads/2019/06/tarta-de-queso-mejor-Espa%C3%B1a.jpg"
+                            alt="Tarta de Queso" class="img-thumbnail food-image"
+                            onclick="seleccionarAlimento('tarta')">
                         <p>Tarta de Queso</p>
                     </div>
                     <div class="col-md-3">
-                        <img src="https://okdiario.com/img/recetas/2016/11/23/sopa-castellana-2.jpg" alt="Sopa Castellana" class="img-thumbnail food-image" onclick="seleccionarAlimento('sopa')">
+                        <img src="https://okdiario.com/img/recetas/2016/11/23/sopa-castellana-2.jpg"
+                            alt="Sopa Castellana" class="img-thumbnail food-image"
+                            onclick="seleccionarAlimento('sopa')">
                         <p>Sopa Castellana</p>
                     </div>
                     <div class="col-md-3">
-                        <img src="https://www.recetasnestlecam.com/sites/default/files/2022-04/tipos-de-manzana-verde.jpg" alt="Manzana" class="img-thumbnail food-image" onclick="seleccionarAlimento('manzana')">
+                        <img src="https://www.recetasnestlecam.com/sites/default/files/2022-04/tipos-de-manzana-verde.jpg"
+                            alt="Manzana" class="img-thumbnail food-image" onclick="seleccionarAlimento('manzana')">
                         <p>Manzana</p>
                     </div>
                     <div class="col-md-3">
-                        <img src="https://www.gastronomiavasca.net/uploads/image/file/3900/w700_arroz_basmati.jpg" alt="Arroz" class="img-thumbnail food-image" onclick="seleccionarAlimento('arroz')">
+                        <img src="https://www.gastronomiavasca.net/uploads/image/file/3900/w700_arroz_basmati.jpg"
+                            alt="Arroz" class="img-thumbnail food-image" onclick="seleccionarAlimento('arroz')">
                         <p>Arroz</p>
                     </div>
-                    
+
                     <div class="col-md-3">
-                        <img src="https://yosoyciclista.s3.amazonaws.com/documentos/smartweb/contenido_propio/416/aguacate_2_thumb.jpg" alt="Aguacate" class="img-thumbnail food-image" onclick="seleccionarAlimento('aguacate')">
+                        <img src="https://yosoyciclista.s3.amazonaws.com/documentos/smartweb/contenido_propio/416/aguacate_2_thumb.jpg"
+                            alt="Aguacate" class="img-thumbnail food-image" onclick="seleccionarAlimento('aguacate')">
                         <p>Aguacate</p>
                     </div>
-                 
+
                     <div class="col-md-3">
-                        <img src="https://i.blogs.es/b71794/salmon-dish-with-herbs-and-spices/840_560.jpeg" alt="Salmón" class="img-thumbnail food-image" onclick="seleccionarAlimento('salmon')">
+                        <img src="https://i.blogs.es/b71794/salmon-dish-with-herbs-and-spices/840_560.jpeg" alt="Salmón"
+                            class="img-thumbnail food-image" onclick="seleccionarAlimento('salmon')">
                         <p>Salmón</p>
                     </div>
-                    
+
                     <div class="col-md-3">
-                        <img src="https://assets.tmecosys.com/image/upload/t_web767x639/img/recipe/ras/Assets/f1ec1b78-4db1-45ac-9189-40619b7fad74/Derivates/2c238c6b-e380-486e-b9dc-39e41695a5ba.jpg" alt="Pan Integral" class="img-thumbnail food-image" onclick="seleccionarAlimento('panIntegral')">
+                        <img src="https://assets.tmecosys.com/image/upload/t_web767x639/img/recipe/ras/Assets/f1ec1b78-4db1-45ac-9189-40619b7fad74/Derivates/2c238c6b-e380-486e-b9dc-39e41695a5ba.jpg"
+                            alt="Pan Integral" class="img-thumbnail food-image"
+                            onclick="seleccionarAlimento('panIntegral')">
                         <p>Pan Integral</p>
                     </div>
-                    
+
                     <div class="col-md-3">
-                        <img src="https://www.hogarmania.com/archivos/201907/chocolate-negro-xl-1280x720x80xX.jpg" alt="Chocolate Negro" class="img-thumbnail food-image" onclick="seleccionarAlimento('chocolateNegro')">
+                        <img src="https://www.hogarmania.com/archivos/201907/chocolate-negro-xl-1280x720x80xX.jpg"
+                            alt="Chocolate Negro" class="img-thumbnail food-image"
+                            onclick="seleccionarAlimento('chocolateNegro')">
                         <p>Chocolate Negro</p>
                     </div>
-                   
+
                     <div class="col-md-3">
-                        <img src="https://images.cookforyourlife.org/wp-content/uploads/2020/06/Hard-Boiled-Eggs-shutterstock_451345444.jpg" alt="Huevo Cocido" class="img-thumbnail food-image" onclick="seleccionarAlimento('huevoCocido')">
+                        <img src="https://images.cookforyourlife.org/wp-content/uploads/2020/06/Hard-Boiled-Eggs-shutterstock_451345444.jpg"
+                            alt="Huevo Cocido" class="img-thumbnail food-image"
+                            onclick="seleccionarAlimento('huevoCocido')">
                         <p>Huevo Cocido</p>
                     </div>
-                  
+
                     <div class="col-md-3">
-                        <img src="https://dietamediterranea.com/wp-content/uploads/2019/07/20190729-Espinacas-con-pasas-y-pi%C3%B1ones.jpg" alt="Espinacas" class="img-thumbnail food-image" onclick="seleccionarAlimento('espinacas')">
+                        <img src="https://dietamediterranea.com/wp-content/uploads/2019/07/20190729-Espinacas-con-pasas-y-pi%C3%B1ones.jpg"
+                            alt="Espinacas" class="img-thumbnail food-image" onclick="seleccionarAlimento('espinacas')">
                         <p>Espinacas</p>
                     </div>
-                    
+
                     <div class="col-md-3">
-                        <img src="https://imag.bonviveur.com/yogur-natural-casero-textura.jpg" alt="Yogur Natural" class="img-thumbnail food-image" onclick="seleccionarAlimento('yogurNatural')">
+                        <img src="https://imag.bonviveur.com/yogur-natural-casero-textura.jpg" alt="Yogur Natural"
+                            class="img-thumbnail food-image" onclick="seleccionarAlimento('yogurNatural')">
                         <p>Yogur Natural</p>
                     </div>
-                   
+
                     <div class="col-md-3">
-                        <img src="https://ecosdelatierra.es/wp-content/uploads/2021/01/Platano-de-Canarias-Ecologico.jpg" alt="Plátano" class="img-thumbnail food-image" onclick="seleccionarAlimento('plátano')">
+                        <img src="https://ecosdelatierra.es/wp-content/uploads/2021/01/Platano-de-Canarias-Ecologico.jpg"
+                            alt="Plátano" class="img-thumbnail food-image" onclick="seleccionarAlimento('plátano')">
                         <p>Plátano</p>
                     </div>
-                   
+
                     <div class="col-md-3">
-                        <img src="https://www.beis.es/wp-content/uploads/2020/11/721-1.jpg" alt="Queso Cheddar" class="img-thumbnail food-image" onclick="seleccionarAlimento('quesoCheddar')">
+                        <img src="https://www.beis.es/wp-content/uploads/2020/11/721-1.jpg" alt="Queso Cheddar"
+                            class="img-thumbnail food-image" onclick="seleccionarAlimento('quesoCheddar')">
                         <p>Queso Cheddar</p>
                     </div>
 
                     <div class="col-md-3">
-                        <img src="https://graneleselmontanes.es/img/psblog/b/lg-b-b-fresa%20rede.jpg" alt="Fresas" class="img-thumbnail food-image" onclick="seleccionarAlimento('fresas')">
+                        <img src="https://graneleselmontanes.es/img/psblog/b/lg-b-b-fresa%20rede.jpg" alt="Fresas"
+                            class="img-thumbnail food-image" onclick="seleccionarAlimento('fresas')">
                         <p>Fresas</p>
                     </div>
 
-                    
-                    
+
+
                 </div>
 
                 <div id="calculadoraNutricional" class="d-none mt-4">
                     <div class="row">
                         <div class="col-md-6">
-                            <input type="number" id="gramos" class="form-control" placeholder="Gramos" oninput="calcularNutricion()">
+                            <input type="number" id="gramos" class="form-control" placeholder="Gramos"
+                                oninput="calcularNutricion()">
                         </div>
                     </div>
 
@@ -206,7 +211,8 @@
                             </tr>
                         </tbody>
                     </table>
-                    <button class="btn btn-success mt-3 d-none" id="añadirComida" onclick="añadirComida()">Añadir Comida</button>
+                    <button class="btn btn-success mt-3 d-none" id="añadirComida" onclick="añadirComida()">Añadir
+                        Comida</button>
                 </div>
             </div>
         </div>

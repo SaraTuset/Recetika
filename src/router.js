@@ -72,9 +72,11 @@ router.get('/newrecipe', (req, res) => {
 router.get('/recipe/:id', (req, res) => { // Visualizar una receta por medio de su ID
     let recipe = getRecipeById(req.params.id);
     let reviews = recipe.reviews;
+    const username = req.session.user ? req.session.user.email.split('@')[0] : null;
     res.render('view_recipe', {
         recipe,
         reviews,
+        username,
         format_calories: function () {
             return function () {
                 const form_cal = parseFloat(recipe.calories);
@@ -129,7 +131,8 @@ router.post('/newrecipe', (req, res) => {
 
 // Ruta temporal a la calculadora de calorías
 router.get('/calculator', (req, res) => {
-    res.render('caloriesCalculator');
+    const username = req.session.user ? req.session.user.email.split('@')[0] : null;
+    res.render('caloriesCalculator', { username });
 });
 
 router.get('/', (req, res) => {
