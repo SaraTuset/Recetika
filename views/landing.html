@@ -38,19 +38,18 @@
     </header>
 
     <!-- Page Content-->
-    <section class="py-5">
-        <div id="recipesDiv" class="container px-4 px-lg-5 mt-5">
-            <div id="recipesContainer" class="row gx-4 gx-lg-5 row-cols-2 row-cols-md-3 row-cols-xl-4 justify-content-center">
-                {{{recipes}}}
-            </div>
-            <div id="loadMoreRecipesDiv">
-                <button class="loadMoreRecipesBut">
-                    <i class="fas fa-arrows-rotate"></i>
-                    Cargar más
-                </button>
-            </div>
+    <div id="recipesDiv">
+        <div class="recipes_container">
+            {{> preview_recipe}}
         </div>
-    </section>
+        <div id="loadMoreRecipesDiv">
+            <button class="loadMoreRecipesBut">
+                <i class="fas fa-arrows-rotate"></i>
+                Cargar más
+            </button>
+        </div>
+    </div>
+
 
     <!-- Footer-->
     {{> components/footer}}
