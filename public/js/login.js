@@ -1,3 +1,13 @@
+// Extraer los parámetros de la URL
+const urlParams = new URLSearchParams(window.location.search);
+const email = urlParams.get('email');
+const password = urlParams.get('password');
+
+// Prellenar los campos del formulario si existen valores en la URL
+if (email) document.getElementById('login-email').value = email;
+if (password) document.getElementById('login-password').value = password;
+
+
 // Array para almacenar los usuarios registrados
 let users = [];
 
@@ -57,3 +67,8 @@ function addEventListeners() {
 
 
 addEventListeners();
+
+
+
+    
+
