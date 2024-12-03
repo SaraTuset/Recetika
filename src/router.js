@@ -85,7 +85,7 @@ router.get('/recipe/:id', (req, res) => { // Visualizar una receta por medio de 
         },
         capitalize_cuisineType: function () {
             return function () {
-                const cuisineType = recipe.cuisineType.toString();
+                const cuisineType = recipe.cuisineType;
                 const cap_cuisineType = cuisineType.charAt(0).toUpperCase() + cuisineType.slice(1);
                 return cap_cuisineType;
             }
@@ -96,7 +96,7 @@ router.get('/recipe/:id', (req, res) => { // Visualizar una receta por medio de 
 router.post('/newrecipe', (req, res) => {
     const { title, image, totalTime, cuisineType, people, difficulty, vegetarian, glutenFree, calories } = req.body;
     //validar que todos los campos estan llenos
-    if (!title || !image || !totalTime || !people || !difficulty || !vegetarian || !glutenFree || !calories) {
+    if (!title || !image || !totalTime || !cuisineType || !people || !difficulty || !vegetarian || !glutenFree || !calories) {
         return res.status(400).send(`
             <h3>Por favor complete el formulario para poder guardar.</h3>
             <button onclick="window.history.back()">seguir configurando la receta</button>
@@ -109,12 +109,23 @@ router.post('/newrecipe', (req, res) => {
         title: req.body.title,
         image: req.body.image,
         totalTime: parseInt(req.body.totalTime),
+        cuisineType: req.body.cuisineType.toString(),
         people: parseInt(req.body.people),
         difficulty: parseInt(req.body.difficulty),
         vegetarian: req.body.vegetarian === 'true',
         glutenFree: req.body.glutenFree === 'true',
         calories: parseInt(req.body.calories),
     };
+
+    //guardar receta en map
+    recipesMap.set(saveRecipe.id, saveRecipe);
+
+    //guardar receta en el json
+    const filePath = path.resolve('./public/assets/recetas.json');
+    const jsonData = JSON.parse(fs.readFileSync(filePath, 'utf8'));
+    jsonData.recipes.push(saveRecipe);
+    fs.writeFileSync(filePath, JSON.stringify(jsonData, null, 4));
+
     //mostrar por consola la informacion guardada en localStorage
     console.log('nueva receta guardada: ', saveRecipe);
 
@@ -122,11 +133,6 @@ router.post('/newrecipe', (req, res) => {
         <h3>Receta guardada correctamente.</h3>
         <button onclick="window.location.href='/'">Volver a la página principal</button>
         `);
-
-
-    res.render('view_recipe', {
-        recipe: saveRecipe,
-    });
 });
 
 // Ruta temporal a la calculadora de calorías
