@@ -85,7 +85,7 @@ router.get('/recipe/:id', (req, res) => { // Visualizar una receta por medio de 
         },
         capitalize_cuisineType: function () {
             return function () {
-                const cuisineType = recipe.cuisineType;
+                const cuisineType = recipe.cuisineType.toString();
                 const cap_cuisineType = cuisineType.charAt(0).toUpperCase() + cuisineType.slice(1);
                 return cap_cuisineType;
             }
@@ -106,10 +106,10 @@ router.post('/newrecipe', (req, res) => {
     //crear eel objeto receta
     const saveRecipe = {
         id: Date.now(),//para generar un id unico
-        title: req.body.title,
+        label: req.body.title,
         image: req.body.image,
         totalTime: parseInt(req.body.totalTime),
-        cuisineType: req.body.cuisineType.toString(),
+        cuisineType: req.body.cuisineType,
         people: parseInt(req.body.people),
         difficulty: parseInt(req.body.difficulty),
         vegetarian: req.body.vegetarian === 'true',
