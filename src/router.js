@@ -115,6 +115,7 @@ router.post('/newrecipe', (req, res) => {
         vegetarian: req.body.vegetarian === 'true',
         glutenFree: req.body.glutenFree === 'true',
         calories: parseInt(req.body.calories),
+        reviews: [],
     };
 
     //guardar receta en map
