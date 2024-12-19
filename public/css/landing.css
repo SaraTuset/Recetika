@@ -432,3 +432,26 @@ h4 {
     width: 90%;
   }
 }
+
+@media (min-width: 2000px) {
+  .maintext_header {
+    font-size: 64px;
+  }
+
+  .subtext_header {
+    font-size: 48px;
+  }
+
+  #recipesContainer {
+    grid-template-columns: repeat(6, 1fr);
+    gap: 30px;
+  }
+
+  .recipe_container {
+    width: 15%;
+  }
+
+  .loadMoreRecipesBut {
+    width: auto;
+  }
+}

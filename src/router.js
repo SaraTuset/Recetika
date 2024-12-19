@@ -419,4 +419,29 @@ router.post('/addReview', (req, res) => {
     res.redirect("/");
 });
 
+
+router.post('/password', (req, res) => {
+    const { email, newPassword, confirmPassword } = req.body;
+
+    if (newPassword !== confirmPassword) {
+        return res.status(400).send('Las contraseñas no coinciden.');
+    }
+
+    // Buscar el usuario por correo
+    const user = users.find(user => user.email === email);
+
+    if (!user) {
+        return res.status(404).send('Usuario no encontrado.');
+    }
+
+    // Actualizar la contraseña
+    user.password = newPassword;
+    console.log(`Contraseña actualizada para el usuario: ${email}`);
+
+    // Redirigir al login con los datos prellenados
+    res.redirect(`/login?email=${encodeURIComponent(email)}&password=${encodeURIComponent(newPassword)}`);
+});
+
+
+
 export default router;
