@@ -1,7 +1,6 @@
 import { formatRecipe } from "./load_recipes.js";
 
 $(() => {
-    console.log("si")
     $(".magnifier-icon-link").on("click", (e) => { // Si se le da al botón de buscar...
         let query = $(e.target).parent().parent().find(".search-bar").val();
         $.ajax({

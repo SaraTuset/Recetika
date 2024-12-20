@@ -220,7 +220,7 @@ export function filterRecipes(filters) {
         }
 
         // Diet types
-        if (filters.diet) {
+        if (filters.diet && (recipe.dietLabels)) {
             if (!Array.from(filters.diet).some(diet => recipe.dietLabels.includes(diet))) return false;
         }
 
