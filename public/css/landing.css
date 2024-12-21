@@ -102,6 +102,13 @@ header {
   background-color: #343a40;
 }
 
+#recipeActions {
+  display: flex;
+  align-content: center;
+  justify-content: center;
+  gap: 1rem;
+}
+
 .viewDetailsBut {
   padding: 10px;
   height: 50px;
@@ -114,6 +121,30 @@ header {
 
 .viewDetailsBut:hover {
   background-color: #cdcdcd;
+}
+
+.deleteBut > i {
+  margin-right: 0px;
+}
+
+.deleteBut {
+  padding: 10px;
+  height: 50px;
+  width: 50px;
+  border: 1px solid rgb(110, 0, 0);
+  border-radius: 5px;
+  cursor: pointer;
+  background-color: #ffffff;
+  color: rgb(150, 0, 0);
+}
+
+div:has(> .deleteBut) {
+  display: none; /* Invisible unless current user is owner */
+}
+
+.deleteBut:hover {
+  background-color: #d37171;
+  color: white;
 }
 
 /* Estilos generales para los iconos y los contenedores */
@@ -138,7 +169,7 @@ header {
   grid-template-columns: repeat(4, 1fr);
   flex-wrap: wrap;
   /* Ajustar a la pantalla */
-  justify-content: space-between;
+  justify-content: center;
   /* Centrar horizontalmente */
   align-items: flex-start;
   /* Alinear elementos al inicio verticalmente */

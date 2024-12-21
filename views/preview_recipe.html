@@ -3,7 +3,7 @@
 	<link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
 	<!-- Bootstrap JS and Popper.js -->
 	<script src="https://code.jquery.com/jquery-3.7.1.js"
-        integrity="sha256-eKhayi8LEQwp4NKxN+CfCh+3qOVUtJn3QNZ0TciWLP4=" crossorigin="anonymous"></script>
+		integrity="sha256-eKhayi8LEQwp4NKxN+CfCh+3qOVUtJn3QNZ0TciWLP4=" crossorigin="anonymous"></script>
 	<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
 	<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 </head>
@@ -13,6 +13,8 @@
 	<div class="card h-100">
 		<!--Product id-->
 		<label hidden class="recipeId id{{id}}">{{id}}</label>
+		<!--Product owner-->
+		<label hidden class="recipeOwner owner_{{owner}}">{{owner}}</label>
 		<!-- Product image-->
 		<img class="card-img-top" src="{{image}}" alt="..." />
 		<!-- Product details-->
@@ -23,11 +25,15 @@
 			</div>
 		</div>
 		<!-- Product actions-->
-		<div class="card-footer p-4 pt-0 border-top-0 bg-transparent">
+		<div class="card-footer p-4 pt-0 border-top-0 bg-transparent" id="recipeActions">
 			<div class="text-center"><button class="viewDetailsBut" onclick="window.location.href='/recipe/{{id}}'"
 					style="font-family: Inter">
 					<i class="fa-solid fa-circle-info" style="margin-right: 5px"></i>
 					Ver detalles</button></div>
+			<div class="text-center" id="deleteDiv"><button class="deleteBut"
+					style="font-family: Inter">
+					<i class="fa-solid fa-trash-can"></i>
+					</button></div>
 		</div>
 		<!-- Recipe details-->
 		<div class="recipeDetails">

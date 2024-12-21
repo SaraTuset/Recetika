@@ -184,6 +184,15 @@ router.get("/randomrecipes", (req, res) => {
 
 });
 
+router.delete("/deleterecipe", (req, res) => {
+    const recipeId = req.body.recipeId;
+    console.log(recipeId)
+    const recipe = recipesMap.get(parseInt(recipeId));
+    console.log(recipe)
+    recipesMap.delete(parseInt(recipeId));
+    res.send(recipe);
+});
+
 router.get("/caloriePeople", (req, res) => {
 
     const people = getPeople()

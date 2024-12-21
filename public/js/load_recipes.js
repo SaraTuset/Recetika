@@ -4,6 +4,16 @@ $(() => {
     loadRecipes(hasSearch);
 });
 
+let currentUser;
+
+$.ajax({
+    type: "GET",
+    url: "/currentuser",
+    success: (data) => {
+        currentUser = data;
+    }
+});
+
 export function formatRecipe() {
     putDifficulties();
 
@@ -14,7 +24,34 @@ export function formatRecipe() {
         $(element).find("#formattedCalories").text(calories + " KCal");
     });
 
+    $(".recipe").each((index, element) => {
+
+        let owner = $(element).find(".recipeOwner:first").get(0).innerHTML;
+
+        if (owner === currentUser) {
+            $(element).find("#deleteDiv").show();
+        }
+    });
+
+    $(".deleteBut").on("click", (e) => {
+        let owner = $(e.currentTarget).closest(".recipe").find(".recipeOwner:first").get(0).innerHTML;
+        let dec = window.confirm("¿Estás seguro de que deseas eliminar la receta?");
+        if (owner == currentUser && dec) {
+            $.ajax({
+                type: "DELETE",
+                url: "/deleterecipe",
+                data: {
+                    recipeId: $(e.currentTarget).closest(".recipe").find(".recipeId:first").get(0).innerHTML
+                },
+                success: (data) => {
+                    alert("Receta eliminada correctamente");
+                    window.location.reload();
+                }
+            });
+        }});
+
 }
+
 
 async function loadRecipes(searchOn) {
     const response = await fetch('/randomrecipes');
